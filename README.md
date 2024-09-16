@@ -55,7 +55,7 @@ All important documents, such as meeting minutes, sprint plans, and team activit
 
 - **[Meeting Minutes](./docs/meeting_minutes/)**: `/docs/meeting_minutes/`
 - **[Sprint Plans](./docs/sprint_plan.md)**: `/docs/sprint_plan.md`
-- **[Team Activity Logs](./logs/activity_logs/)**: `/logs/activity_logs/`
+- **[Team Activity Logs](./docs/activity_logs/)**: `/docs/activity_logs/`
 
 ## How to Run the Project
 To set up the development environment for the Peer Assessment System, follow the steps below:
