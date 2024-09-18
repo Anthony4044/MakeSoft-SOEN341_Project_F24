@@ -10,7 +10,7 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 | ---------- | --------------- | --------------- |
 | [ID 1]     | [Name 1]        | [GitHub 1]      |
 | [ID 2]     | [Name 2]        | [GitHub 2]      |
-| [ID 3]     | [Name 3]        | [GitHub 3]      |
+| 40277789   | Danial Kouba    | DaniK1001       |
 | 40283180   | Firas Al Haddad | Lemonada10      |
 | 40191431   | Oscar Mirontsuk | ren-cc          |
 
