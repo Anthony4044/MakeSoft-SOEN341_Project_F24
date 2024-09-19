@@ -8,7 +8,7 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 ## Team Members and Roles
 | Student ID | Name            | GitHub Username |
 | ---------- | --------------- | --------------- |
-| [ID 1]     | [Name 1]        | [GitHub 1]      |
+| 40275666    | Mark Antoun    | mark9494        |
 | 40281790   | Anthony Monaco  | Anthony4044     |
 | 40277789   | Danial Kouba    | DaniK1001       |
 | 40283180   | Firas Al Haddad | Lemonada10      |
