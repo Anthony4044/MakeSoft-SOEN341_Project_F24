@@ -14,7 +14,7 @@ public class StudentController {
     @PostMapping("/signup")
     public boolean signUpStudent(@RequestBody Student student) {
 
-        boolean success = instructorService.addStudentToInstructor(student);
+        boolean success =false;
         System.out.println(student);
         if (success) {
             System.out.println("Student signed up and assigned to instructor!");//only used for debugging
