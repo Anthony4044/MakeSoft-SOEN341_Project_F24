@@ -55,7 +55,7 @@ public class InstructorService {
             if (new File(allInstructors).length() != 0) {
                 bw2.newLine();
             }
-            bw2.write(instructor.getName() + "," + instructor.getEmail() + "," + instructor.getPassword() + "," + instructor.getSection());
+            bw2.write(instructor.getName() + "," + instructor.getEmail() + "," + instructor.getPassword() + "," + instructor.getSection() + "," + instructor.getCSVName());
 
             //creates a csv file for the instructor's students
             FileWriter fw3 = new FileWriter(instructor.getCSVName(), true);
@@ -76,6 +76,40 @@ public class InstructorService {
 
     }
 
+    public Instructor findInstructorBySection(String section) throws IOException {
+        FileReader fw;
+        BufferedReader br;
+        try {
+             fw = new FileReader(allInstructors);
+             br = new BufferedReader(fw);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String fileRow ="";
+        while ((fileRow = br.readLine()) != null) {
+
+            String instructorInfo[] =fileRow.split(",");
+            String instructorSection = instructorInfo[3];
+
+
+            if(instructorSection.equalsIgnoreCase(section)){
+                String name = instructorInfo[0];
+                String email = instructorInfo[1];
+                String password = instructorInfo[2];
+
+                Instructor instructor = new Instructor(name, email, password,instructorSection);
+
+
+
+                return instructor;
+            }
+
+        }
+
+
+        return null;
+    }
 
 
 }

@@ -79,11 +79,7 @@ const StudentSignup = () => {
       const response = await axios.post('http://localhost:8080/api/students/signup', student);
 
       // Check if the signup was successful (assuming the backend sends success message in response)
-      if (response.data === true) {
-        alert('Student signed up successfully!');
-      } else {
-        alert('Student section does not exist!');
-      }
+      alert(response.data);
     } catch (error) {
       console.error(error);
       alert('Failed to sign up.');
@@ -105,7 +101,7 @@ const StudentSignup = () => {
         <FormGroup widths='equal'>
           <FormInput fluid label='Student ID' type="text" placeholder="ID Number" value={studentId} onChange={(e) => setStudentId(e.target.value)} />
           <FormInput fluid label='Student Name' type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <FormInput fluid label='Student Name' type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
+          <FormInput fluid label='Student Section' type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
         </FormGroup>
         <FormField>
           <label>Password</label>
