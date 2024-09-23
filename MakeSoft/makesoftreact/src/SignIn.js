@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './SignIn.css'
-import { FormField, Button, Checkbox, Form } from 'semantic-ui-react'
+import { FormField, Button, ButtonContent, Icon, Checkbox, Form, FormInput, FormGroup } from 'semantic-ui-react'
 import {
      Radio, Segment, Label, Message
   } from 'semantic-ui-react'
+ 
+  import conco_library from './Conco-library.jpg';
 
 // Instructor Signup Form
 const InstructorSignin = () => {
@@ -17,7 +19,7 @@ const handleSignin = async () => {
 
   return (
     <div>
-    <Message
+    <Message className="welcome"
         attached
         header='Welcome back!'
         content='Fill out the form below to sign in for an existing account'
@@ -25,15 +27,20 @@ const handleSignin = async () => {
     <Form style={{ minWidth: '600px', padding: '20px', backgroundColor: '#f0f0f0' }}>
 
     <FormField className="email">
-      <label>Email</label>
+      <label style={{fontSize: '18px'}}>Email</label>
       <input type="text" placeholder="Email" className="textfield" value={email} onChange={(e) => setEmail(e.target.value)}/>
     </FormField>
     <FormField className="password">
-      <label>Password</label>
+      <label style={{fontSize: '18px'}}>Password</label>
       <input type="text" placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
     </FormField>
     
-    <Button type='submit'>Submit</Button>
+    <Button animated className="signup" onClick={handleSignin} style={{hover: 'green'}}>
+          <ButtonContent visible>Sign In</ButtonContent>
+          <ButtonContent hidden>
+            <Icon name='arrow right' />
+          </ButtonContent>
+        </Button>
   </Form>
   </div>     
    
@@ -49,7 +56,7 @@ const StudentSignin = () => {
     
   
       //Backend TODO
-    const handleSignup = async () => {
+    const handleSignin2 = async () => {
   
     };
   
@@ -59,7 +66,7 @@ const StudentSignin = () => {
     };
     return (
         <div>
-    <Message
+    <Message className="welcome"
         attached
         header='Welcome back!'
         content='Fill out the form below to sign in for an existing account'
@@ -67,15 +74,20 @@ const StudentSignin = () => {
     <Form style={{ minWidth: '600px', padding: '20px', backgroundColor: '#f0f0f0' }}>
 
     <FormField className="email">
-      <label>Email</label>
+      <label style={{fontSize: '18px'}}>Email</label>
       <input type="text" placeholder="Email" className="textfield" value={email} onChange={(e) => setEmail(e.target.value)}/>
     </FormField>
     <FormField className="password">
-      <label>Password</label>
+      <label style={{fontSize: '18px'}}>Password</label>
       <input type="text" placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
     </FormField>
     
-    <Button type='submit'>Submit</Button>
+    <Button animated className="signup" onClick={handleSignin2} style={{hover: 'green'}}>
+          <ButtonContent visible>Sign In</ButtonContent>
+          <ButtonContent hidden>
+            <Icon name='arrow right' />
+          </ButtonContent>
+        </Button>
   </Form>
   </div> 
     );
@@ -90,11 +102,18 @@ const SignInPage = () => {
   
     return (
       <div style={{
-        display: 'grid',
-        placeItems: 'center',
-        backgroundColor: '#f0f0f0'
+        backgroundImage: `url(${conco_library})`,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh', // Full height of viewport
+      width: '100%', // Full width of viewport
+      backgroundSize: 'cover', // Ensure image covers entire background
+      backgroundPosition: 'center', // Center the image
+      backgroundRepeat: 'no-repeat', // Prevent repetition of the image
       }}>
-        <h1>{isInstructor ? 'Instructor' : 'Student'} Sign in Page</h1>
+        <h1 className="Title2" style={{color: 'black'}}>{isInstructor ? 'Instructor' : 'Student'} Sign in Page</h1>
         <Segment compact style={{
           backgroundColor: '#f0f0f0',
           border: 'none',

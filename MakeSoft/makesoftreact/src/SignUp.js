@@ -5,6 +5,7 @@ import {
   FormGroup,
   Message, Radio, Segment, Label
 } from 'semantic-ui-react'
+import conco_library from './Conco-library.jpg';
 
 // Instructor Signup Form
 const InstructorSignup = () => {
@@ -19,31 +20,31 @@ const InstructorSignup = () => {
   };
 
   return (
-
+    
     <div>
-      <Message
+      <Message className="welcome"
         attached
         header='Welcome to our site!'
         content='Fill out the form below to sign-up for a new account'
       />
-      <Form style={{ minWidth: '600px', padding: '20px', backgroundColor: '#f0f0f0' }}>
+      <Form className="form" style={{ minWidth: '600px', padding: '20px', backgroundColor: '#f0f0f0' }}>
         <FormField>
-          <label>Name</label>
+          <label style={{fontSize: '18px'}}>Name</label>
           <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
         </FormField>
         <FormField>
-          <label>Email</label>
+          <label style={{fontSize: '18px'}}>Email</label>
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormField>
         <FormField>
-          <label>Section</label>
+          <label style={{fontSize: '18px'}}>Section</label>
           <input type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
         </FormField>
         <FormField>
-          <label>Password</label>
+          <label style={{fontSize: '18px'}}>Password</label>
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormField>
-        <Button animated onClick={handleSignup}>
+        <Button animated className="signup" onClick={handleSignup}>
           <ButtonContent visible>Sign Up</ButtonContent>
           <ButtonContent hidden>
             <Icon name='arrow right' />
@@ -51,6 +52,7 @@ const InstructorSignup = () => {
         </Button>
       </Form>
     </div>
+   
   );
 };
 
@@ -72,27 +74,28 @@ const StudentSignup = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
   return (
+    
     <div>
-      <Message
+      <Message className="welcome"
         attached
         header='Welcome to our site!'
         content='Fill out the form below to sign-up for a new account'
       />
-      <Form style={{ minWidth: '800px', padding: '20px', backgroundColor: '#f0f0f0' }}>
-        <FormGroup widths='equal'>
+      <Form className="form" style={{ minWidth: '800px', padding: '20px', backgroundColor: '#f0f0f0' }}>
+        <FormGroup style={{fontSize: '17px'}} widths='equal'>
           <FormInput fluid label='Student ID' type="text" placeholder="ID Number" value={studentId} onChange={(e) => setStudentId(e.target.value)} />
           <FormInput fluid label='Student Name' type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <FormInput fluid label='Student Name' type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
+          <FormInput fluid label='Student Section' type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
         </FormGroup>
         <FormField>
-          <label>Password</label>
+          <label style={{fontSize: '18px'}}>Password</label>
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormField>
         <FormField>
-          <label>Email</label>
+          <label style={{fontSize: '18px'}}>Email</label>
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormField>
-        <Button animated onClick={handleSignup}>
+        <Button animated className="signup" onClick={handleSignup} style={{hover: 'green'}}>
           <ButtonContent visible>Sign Up</ButtonContent>
           <ButtonContent hidden>
             <Icon name='arrow right' />
@@ -100,6 +103,7 @@ const StudentSignup = () => {
         </Button>
       </Form>
     </div>
+    
   );
 };
 
@@ -112,12 +116,20 @@ const SignupPage = () => {
   };
 
   return (
+    
     <div style={{
-      display: 'grid',
-      placeItems: 'center',
-      backgroundColor: '#f0f0f0'
+      backgroundImage: `url(${conco_library})`,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh', // Full height of viewport
+      width: '100%', // Full width of viewport
+      backgroundSize: 'cover', // Ensure image covers entire background
+      backgroundPosition: 'center', // Center the image
+      backgroundRepeat: 'no-repeat', // Prevent repetition of the image
     }}>
-      <h1>{isInstructor ? 'Instructor' : 'Student'} Signup Page</h1>
+      <h1 className="Title2" style={{color: 'black'}}>{isInstructor ? 'Instructor' : 'Student'} Signup Page</h1>
       <Segment compact style={{
         backgroundColor: '#f0f0f0',
         border: 'none',
@@ -133,6 +145,7 @@ const SignupPage = () => {
         {isInstructor ? <InstructorSignup /> : <StudentSignup />}
       </div>
     </div>
+    
   );
 };
 
