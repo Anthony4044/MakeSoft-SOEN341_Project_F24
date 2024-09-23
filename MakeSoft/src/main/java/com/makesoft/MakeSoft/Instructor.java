@@ -15,7 +15,7 @@ public class Instructor {
         this.email = email;
         this.password = password;
         this.section = section;
-        this.CSVName = name + " Students";
+        this.CSVName = "CSV-files/"+name + "-Students.csv";
 
     }
 
@@ -31,6 +31,14 @@ public class Instructor {
 
     public String getSection() { return section; }
     public void setSection(String section) { this.section = section; }
+
+    public String getCSVName() {
+        return CSVName;
+    }
+
+    public void setCSVName(String CSVName) {
+        this.CSVName = CSVName;
+    }
 
     @Override
     public String toString() {
