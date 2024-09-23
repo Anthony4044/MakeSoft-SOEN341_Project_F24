@@ -1,7 +1,14 @@
 // Import React and the Signup component
 import React, { useState } from 'react';
 import Signup from './SignUp'; // Import the Signup component from the SignUp.js file
+import Signin from './SignIn';
+
 import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
+import {
+  ButtonContent, Icon, FormField, Form, FormInput,
+  FormGroup,
+  Message, Radio, Segment, Label
+} from 'semantic-ui-react'
 
 // Main App Component
 function App() {
@@ -36,7 +43,7 @@ function App() {
       {/* Render the current component based on state */}
       {currentComponent === 'signup' && <Signup />}
       {currentComponent === 'home' && <div>Welcome to the Home Page</div>}
-      {currentComponent === 'signin' && <div>Please sign in</div>}
+      {currentComponent === 'signin' && <Signin />}
     </div>
   );
 }
