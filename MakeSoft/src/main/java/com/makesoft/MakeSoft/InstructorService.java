@@ -191,6 +191,82 @@ public class InstructorService {
         }
     }
 
+    //adding student to team
+    public boolean addStudentToTeam(String section, String teamName, String studentId) {
+        String csvFileName = "CSV-files/" + section + "-Teams.csv";
+        List<Team> teams = getTeamsBySection(section);
+        boolean teamFound = false;
+    
+        for (Team team : teams) {
+            if (team.getTeamName().equalsIgnoreCase(teamName)) {
+                teamFound = true;
+                if (!team.getStudentIds().contains(studentId)) {
+                    team.getStudentIds().add(studentId);
+                }
+                break;
+            }
+        }
+    
+        if (!teamFound) {
+            // Team not found
+            return false;
+        }
+    
+        // Write the updated teams back to the CSV file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFileName))) {
+            // Write header
+            bw.write("teamName,studentIds...");
+            bw.newLine();
+            for (Team team : teams) {
+                bw.write(team.toCSV());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    
+        return true;
+    }
+
+    //removing student from team 
+    public boolean removeStudentFromTeam(String section, String teamName, String studentId) {
+        String csvFileName = "CSV-files/" + section + "-Teams.csv";
+        List<Team> teams = getTeamsBySection(section);
+        boolean teamFound = false;
+    
+        for (Team team : teams) {
+            if (team.getTeamName().equalsIgnoreCase(teamName)) {
+                teamFound = true;
+                if (team.getStudentIds().contains(studentId)) {
+                    team.getStudentIds().remove(studentId);
+                }
+                break;
+            }
+        }
+    
+        if (!teamFound) {
+            // Team not found
+            return false;
+        }
+    
+        // Write the updated teams back to the CSV file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFileName))) {
+            // Write header
+            bw.write("teamName,studentIds...");
+            bw.newLine();
+            for (Team team : teams) {
+                bw.write(team.toCSV());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    
+        return true;
+    }
+    
 
 }
 

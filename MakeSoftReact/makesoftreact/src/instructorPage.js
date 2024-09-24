@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Form, Button, Message, Dropdown } from 'semantic-ui-react';
+import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
 import './instructorPage.css'
 
 const InstructorPage = ({ instructor }) => {
-  // Move all Hook calls to the top level
   const [students, setStudents] = useState([]);
   const [teams, setTeams] = useState([]);
-  const [selectedStudents, setSelectedStudents] = useState([]);
   const [teamName, setTeamName] = useState('');
   const [message, setMessage] = useState('');
 
-  // Update useEffect to check for instructor
   useEffect(() => {
     if (instructor) {
       fetchStudents();
@@ -41,16 +38,16 @@ const InstructorPage = ({ instructor }) => {
     }
   };
 
-  const handleAddTeam = async () => {
-    if (!teamName || selectedStudents.length === 0) {
-      setMessage('Please enter a team name and select students.');
+  const handleCreateTeam = async () => {
+    if (!teamName) {
+      setMessage('Please enter a team name.');
       return;
     }
 
     const team = {
       teamName,
       section: instructor.section,
-      studentIds: selectedStudents,
+      studentIds: [], // Start with an empty team
     };
 
     try {
@@ -60,75 +57,117 @@ const InstructorPage = ({ instructor }) => {
       );
       setMessage(response.data);
       setTeamName('');
-      setSelectedStudents([]);
       fetchTeams();
     } catch (error) {
-      console.error('Error adding team:', error);
-      setMessage('Failed to add team.');
+      console.error('Error creating team:', error);
+      setMessage('Failed to create team.');
     }
   };
 
-  // Move the conditional return AFTER the Hooks
+  const handleAssignStudent = async (studentId, teamName) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/instructors/${instructor.section}/teams/${teamName}/addStudent`,
+        { studentId }
+      );
+      setMessage(response.data);
+      fetchStudents();
+      fetchTeams();
+    } catch (error) {
+      console.error('Error assigning student:', error);
+      setMessage('Failed to assign student.');
+    }
+  };
+
+  const handleRemoveStudent = async (studentId, teamName) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/instructors/${instructor.section}/teams/${teamName}/removeStudent`,
+        { studentId }
+      );
+      setMessage(response.data);
+      fetchStudents();
+      fetchTeams();
+    } catch (error) {
+      console.error('Error removing student:', error);
+      setMessage('Failed to remove student from team.');
+    }
+  };
+
+  const unassignedStudents = students.filter(
+    (student) => !teams.some((team) => team.studentIds.includes(student.studentId))
+  );
+
+  const teamOptions = teams.map((team) => ({
+    key: team.teamName,
+    text: team.teamName,
+    value: team.teamName,
+  }));
+
   if (!instructor) {
     return <div>No instructor data available.</div>;
   }
 
-  // Prepare student options for the dropdown
-  const studentOptions = students.map((student) => ({
-    key: student.studentId,
-    text: `${student.name} (${student.studentId})`,
-    value: student.studentId,
-  }));
-
   return (
     <div>
-      <h1>Welcome, {instructor.name}!</h1>
-      <h2>Section: {instructor.section}</h2>
+      <Header className ='Inst-header' as="h1">Hello, {instructor.name}</Header>
+      <Header className ='Inst-header'as="h2">Your section: {instructor.section}</Header>
 
-      <h3>Add a Team</h3>
-      <Form>
-        <Form.Field>
-          <label>Team Name</label>
+      <Form className ='Inst-form' onSubmit={handleCreateTeam}>
+        <Form.Field className ='Inst-teamField'>
+          <label className ='Inst-teamFieldLabel'>Create team:</label>
           <input
             placeholder="Enter Team Name"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
-          <label>Select Students</label>
-          <Dropdown
-            placeholder="Select Students"
-            fluid
-            multiple
-            selection
-            options={studentOptions}
-            value={selectedStudents}
-            onChange={(e, { value }) => setSelectedStudents(value)}
-          />
-        </Form.Field>
-        <Button onClick={handleAddTeam}>Add Team</Button>
+        <Button class ='Inst-button'type="submit">Make the team</Button>
       </Form>
 
       {message && <Message content={message} />}
 
-      <h3>Teams</h3>
-      <ul>
-        {teams.map((team, index) => (
-          <li key={index}>
-            <strong>{team.teamName}</strong>: {team.studentIds.join(', ')}
-          </li>
+      <Header className ='Inst-header' as="h1">Unassigned Students:</Header>
+      <List className ='Inst-list' divided>
+        {unassignedStudents.map((student) => (
+          <List.Item key={student.studentId}>
+            <List.Content floated="right">
+              <Dropdown
+                placeholder="Assign to team"
+                selection
+                options={teamOptions}
+                onChange={(e, { value }) => handleAssignStudent(student.studentId, value)}
+              />
+            </List.Content>
+            <List.Content>
+              {student.name} ({student.studentId})
+            </List.Content>
+          </List.Item>
         ))}
-      </ul>
+      </List>
 
-      <h3>All Students in Section {instructor.section}</h3>
-      <ul>
-        {students.map((student, index) => (
-          <li key={index}>
-            {student.studentId} - {student.name} - {student.email}
-          </li>
-        ))}
-      </ul>
+      <Header className ='Inst-header' as="h1">Teams:</Header>
+      {teams.map((team) => (
+        <div key={team.teamName}>
+          <Header className ='Inst-teamHeader' as="h3">{team.teamName}:</Header>
+          <List className ='Inst-teamlist' bulleted>
+            {team.studentIds.map((studentId) => {
+              const student = students.find((s) => s.studentId === studentId);
+              return (
+                <List.Item key={studentId}>
+                  {student ? `${student.name} (${student.studentId})` : `Student ID: ${studentId}`}
+                  <Button
+                    size="small"
+                    onClick={() => handleRemoveStudent(studentId, team.teamName)}
+                  >
+                    Remove
+                  </Button>
+                </List.Item>
+              );
+            })}
+          </List>
+        </div>
+      ))}
     </div>
   );
 };

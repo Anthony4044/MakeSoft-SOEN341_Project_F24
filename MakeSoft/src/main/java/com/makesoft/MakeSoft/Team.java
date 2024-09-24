@@ -13,7 +13,7 @@ public class Team {
         this.studentIds = studentIds;
     }
 
-    // Getter and Setter methods
+    // Getters and Setters
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
 
@@ -23,12 +23,12 @@ public class Team {
     public List<String> getStudentIds() { return studentIds; }
     public void setStudentIds(List<String> studentIds) { this.studentIds = studentIds; }
 
-    // Convert team data to CSV format
+    // Convert team to CSV format
     public String toCSV() {
         StringBuilder sb = new StringBuilder();
         sb.append(teamName);
-        for (String id : studentIds) {
-            sb.append(",").append(id);
+        for (String studentId : studentIds) {
+            sb.append(",").append(studentId);
         }
         return sb.toString();
     }
