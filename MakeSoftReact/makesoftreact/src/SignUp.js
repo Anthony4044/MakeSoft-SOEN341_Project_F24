@@ -11,17 +11,22 @@ import { Label } from 'semantic-ui-react'
 
 
 // Instructor Signup Form
-const InstructorSignup = () => {
+const InstructorSignup = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [section, setSection] = useState('');
+
 
   const handleSignup = async () => {
     const instructor = { name, email, password, section };
     try {
      const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
       alert(response.data);
+      
+      if (props.onInstructorSignup) {
+        props.onInstructorSignup(response.data);
+      }
     } catch (error) {
       console.error(error);
       alert('Failed to sign up.');
@@ -123,7 +128,7 @@ const StudentSignup = () => {
 };
 
 // Main Signup Page with Toggle Button
-const SignupPage = () => {
+const SignupPage = (props) => {
   const [isInstructor, setIsInstructor] = useState(true);
 
   const toggleSignup = () => {
@@ -149,7 +154,7 @@ const SignupPage = () => {
         }} basic>Instructor</Label>
       </Segment>
       <div>
-        {isInstructor ? <InstructorSignup /> : <StudentSignup />}
+        {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}
       </div>
     </div>
   );

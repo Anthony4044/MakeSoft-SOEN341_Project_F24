@@ -107,8 +107,88 @@ public class InstructorService {
 
         }
 
-
+        br.close();
         return null;
+    }
+
+    // Method to get students from the CSV file based on the instructor section
+    public List<Student> getStudentsBySection(String section) {
+        List<Student> students = new ArrayList<>();
+        String csvFileName = "CSV-files/" + section + "-Students.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
+            String line;
+            // Skip the header
+            br.readLine();
+
+            // Read the CSV file line by line
+            while ((line = br.readLine()) != null) {
+                String[] studentData = line.split(",");
+                Student student = new Student(studentData[0], studentData[1], studentData[2], studentData[3], studentData[4]);
+                students.add(student);
+            }
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+
+        return students;
+    }
+    // Method to get teams from the CSV file based on the instructor's section
+    public List<Team> getTeamsBySection(String section) {
+        List<Team> teams = new ArrayList<>();
+        String csvFileName = "CSV-files/" + section + "-Teams.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
+            String line;
+            // Skip the header
+            br.readLine();
+
+            // Read the CSV file line by line
+            while ((line = br.readLine()) != null) {
+                String[] teamData = line.split(",");
+                String teamName = teamData[0];
+                List<String> studentIds = new ArrayList<>();
+                for (int i = 1; i < teamData.length; i++) {
+                    studentIds.add(teamData[i]);
+                }
+                Team team = new Team(teamName, section, studentIds);
+                teams.add(team);
+            }
+            br.close();
+        } catch (IOException e) {
+            // File not found or empty
+            // e.printStackTrace();
+        }
+
+        return teams;
+    }
+
+    // Method to add a team to the CSV file
+    public String addTeam(String section, Team team) {
+        String csvFileName = "CSV-files/" + section + "-Teams.csv";
+
+        try {
+            File teamsFile = new File(csvFileName);
+            if (!teamsFile.exists()) {
+                teamsFile.createNewFile();
+                // Write header to the CSV file
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(teamsFile, true))) {
+                    bw.write("teamName,studentIds...");
+                }
+            }
+
+            // Append the new team to the CSV file
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(teamsFile, true))) {
+                bw.newLine();
+                bw.write(team.toCSV());
+            }
+
+            return "Team added successfully.";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Failed to add team.";
+        }
     }
 
 
