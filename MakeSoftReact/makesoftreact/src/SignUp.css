@@ -10,14 +10,15 @@
   } */
 
   .App-header {
-    background-color: #5c73a3;
-    min-height: 50vh;
+    background-color: none;
+    
+    min-height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: black;
     
   }
   body {
@@ -25,7 +26,7 @@
   }
 
   .content {
-    color: gray;
+    color: black;
   }
   .Table {
     background: linear-gradient(white, #989696);
@@ -55,6 +56,36 @@
 
 
   }
+
+  .Title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 2px;
+  }
+
+  .Title2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 2px;
+    padding: 10px 20px; /* Padding to give space inside the box */
+    border: 2px solid grey; /* White border */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text inside the box */
+    max-width: fit-content; /* Adjust width to fit content */
+    margin: 0 auto; /* Center the box horizontally */
+}
+
+.welcome {
+  background: linear-gradient(to left,white, #989696) !important;
+}
   .App-link {
     color: #61dafb;
   }
@@ -77,7 +108,7 @@
     outline: none; /* Remove default outline */
     width: 70%;
     height: 125%;
-    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.4);
+    box-shadow: 0 4px 8px rgb(19, 15, 38) !important;
     padding: 5px;
     border-radius: 5px;
     transition: box-shadow 0.3s ease;
@@ -86,7 +117,7 @@
   }
 
    input:hover {
-    background-color: rgb(208, 208, 208);
+    background-color: rgb(208, 208, 208) !important;
    }
 
   .login-container {
@@ -104,7 +135,21 @@
 
   }
 
+  .form {
+    background: linear-gradient(to right, #cdcdcd, #5b5e62);
+    
+  }
+  .signup {
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  .signup:hover {
+    background-color: green !important;
+    
+  }
 
+  .inputfields {
+    color: black !important;
+  }
   
   @keyframes App-logo-spin {
     from {
