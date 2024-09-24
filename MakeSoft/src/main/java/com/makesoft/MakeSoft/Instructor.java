@@ -15,7 +15,7 @@ public class Instructor {
         this.email = email;
         this.password = password;
         this.section = section;
-        this.CSVName = "CSV-files/"+name + "-Students.csv";
+        this.CSVName = "CSV-files/"+section + "-Students.csv";
 
     }
 
