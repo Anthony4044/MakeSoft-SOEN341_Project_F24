@@ -1,10 +1,14 @@
 body{
-    background-color: #FFF0D1;
+    /* background-color: #FFF0D1; */
     color: #3B3030;
 }
-.form{
-    /* margin: 0% 20% 0% 20%;
-    padding: 2% 2% 2% 2%; */
+form.Inst-form{
+    margin: 0% 20% 0% 20%;
+    padding: 2% 2% 2% 2%;
+
+}
+*.Inst-teamFieldLabel{
+    font-size: x-large;
 }
 input{
 

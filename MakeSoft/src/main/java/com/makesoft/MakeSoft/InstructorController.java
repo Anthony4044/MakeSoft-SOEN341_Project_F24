@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -45,4 +46,34 @@ public class InstructorController {
         return instructorService.addTeam(section, team);
     }
 
+    //adding students to team
+    @PostMapping("/{section}/teams/{teamName}/addStudent")
+    public ResponseEntity<?> addStudentToTeam(
+        @PathVariable String section,
+        @PathVariable String teamName,
+        @RequestBody Map<String, String> payload
+    ) {
+        String studentId = payload.get("studentId");
+        boolean success = instructorService.addStudentToTeam(section, teamName, studentId);
+        if (success) {
+            return ResponseEntity.ok("Student added to team.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to add student to team.");
+        }
+    }
+    //removing students from team 
+    @PostMapping("/{section}/teams/{teamName}/removeStudent")
+    public ResponseEntity<?> removeStudentFromTeam(
+        @PathVariable String section,
+        @PathVariable String teamName,
+        @RequestBody Map<String, String> payload
+    ) {
+        String studentId = payload.get("studentId");
+        boolean success = instructorService.removeStudentFromTeam(section, teamName, studentId);
+        if (success) {
+            return ResponseEntity.ok("Student removed from team.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove student from team.");
+        }
+    }
 }
