@@ -15,6 +15,7 @@ public class InstructorController {
     // Instructor signup endpoint
     @PostMapping("/signup")
     public String signUpInstructor(@RequestBody Instructor instructor) {
+        System.out.println("kk");
         String response = instructorService.addInstructor(instructor);
         System.out.println(response);
 

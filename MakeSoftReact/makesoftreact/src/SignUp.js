@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './SignUp.css'
 import {
   ButtonContent, Button, Icon, FormField, Form, FormInput,
@@ -16,6 +17,14 @@ const InstructorSignup = () => {
 
   //Backend TODO
   const handleSignup = async () => {
+    const instructor = { name, email, password, section };
+    try {
+     const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to sign up.');
+    }
 
   };
 
@@ -66,7 +75,17 @@ const StudentSignup = () => {
 
     //Backend TODO
   const handleSignup = async () => {
+    const student = { studentId, name, email, password, section };
+    try {
+      // Send POST request to sign up student
+      const response = await axios.post('http://localhost:8080/api/students/signup', student);
 
+      // Check if the signup was successful (assuming the backend sends success message in response)
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to sign up.');
+    }
   };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
