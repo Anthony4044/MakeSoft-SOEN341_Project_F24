@@ -18,7 +18,24 @@
 **Comments/Notes:**
 - This is all can be subject to change, had time and decided to jump into it. once Our team meets again we will discus the final structure of the Github repo.
 
+
 ---
+### 2024-mon-day_hour:min:sec
+
+**Team Member:** Oscar Mirontsuk  
+**Student Id:** 40191431  
+**GitHub Name:** ren-cc  
+**Time Spent:** 8 hours 
+
+**Worked On:**
+- Instructor team page
+- Team creation functionality
+
+**Comments/Notes:**
+- ran into an issue of not being able to see if students are being assigned. i will wait for pull request
+
+---
+
 ### 2024-mon-day_hour:min:sec
 
 **Team Member:** [Name]  

@@ -36,7 +36,7 @@ function App() {
           <img src={conco} alt="Conco" />
           <div className="Title"> &nbsp;&nbsp; MakeSoft Peer Evaluation &nbsp;&nbsp; </div>
           <Button style={{fontSize: '18px', borderRadius: '20px'} }onClick={() => handleButtonClick('home')}> Home </Button> &nbsp;&nbsp;
-                   <Button onClick={() => handleButtonClick('instructor')}>Instructor</Button>
+                   {/* <Button onClick={() => handleButtonClick('instructor')}>Instructor</Button> */}
           
         </MenuItem>
         <MenuMenu position='right'>

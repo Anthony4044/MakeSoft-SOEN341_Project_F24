@@ -1,9 +1,7 @@
-
-// InstructorPage.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Message, Dropdown } from 'semantic-ui-react';
+import './instructorPage.css'
 
 const InstructorPage = ({ instructor }) => {
   // Move all Hook calls to the top level
