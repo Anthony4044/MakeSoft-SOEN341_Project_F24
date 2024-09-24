@@ -9,7 +9,7 @@ import {
 import conco_library from './Conco-library.jpg';
 
 // Instructor Signup Form
-const InstructorSignup = () => {
+const InstructorSignup = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,12 +20,15 @@ const InstructorSignup = () => {
     const instructor = { name, email, password, section };
     try {
      const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
-      alert(response.data);
+      alert('Sucess!');
+      
+      if (props.onInstructorSignup) {
+        props.onInstructorSignup(response.data);
+      }
     } catch (error) {
       console.error(error);
       alert('Failed to sign up.');
     }
-
   };
 
   return (
@@ -66,7 +69,7 @@ const InstructorSignup = () => {
 };
 
 // Student Signup Form
-const StudentSignup = () => {
+const StudentSignup = (props) => {
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -74,19 +77,20 @@ const StudentSignup = () => {
   const [section, setSection] = useState('');
 
     //Backend TODO
-  const handleSignup = async () => {
-    const student = { studentId, name, email, password, section };
-    try {
-      // Send POST request to sign up student
-      const response = await axios.post('http://localhost:8080/api/students/signup', student);
-
-      // Check if the signup was successful (assuming the backend sends success message in response)
-      alert(response.data);
-    } catch (error) {
-      console.error(error);
-      alert('Failed to sign up.');
-    }
-  };
+    const handleSignup = async () => {
+      const instructor = { name, email, password, section };
+      try {
+       const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
+        alert('Sucess!');
+        
+        if (props.onInstructorSignup) {
+          props.onInstructorSignup(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Failed to sign up.');
+      }
+    };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -127,7 +131,7 @@ const StudentSignup = () => {
 };
 
 // Main Signup Page with Toggle Button
-const SignupPage = () => {
+const SignupPage = (props) => {
   const [isInstructor, setIsInstructor] = useState(true);
 
   const toggleSignup = () => {
@@ -161,8 +165,7 @@ const SignupPage = () => {
         }} basic>Instructor</Label>
       </Segment>
       <div>
-        {isInstructor ? <InstructorSignup /> : <StudentSignup />}
-      </div>
+      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}      </div>
     </div>
     
   );
