@@ -1,15 +1,85 @@
 body{
-    /* background-color: #FFF0D1; */
-    color: #3B3030;
-}
-form.Inst-form{
-    margin: 0% 20% 0% 20%;
-    padding: 2% 2% 2% 2%;
+    /* background-color: #e61313!important;
+    background: #e61313!important; */
 
 }
-*.Inst-teamFieldLabel{
-    font-size: x-large;
-}
-input{
+/* main wrapper and header styles */
+.Inst-boxWrapper{
+    margin: 20px 20% 20px 20%;
+    padding: 0% 0%;
 
+    background: rgb(255, 255, 255);
+    border: 2px solid rgba(36,10,52,1);
+    box-shadow: inset 0px 0px 50px rgba(36, 10, 52, 0.363);
+    border-radius: 10px;
+}
+
+.Inst-elemHeader{
+
+    background: rgb(36,10,52);
+    background: linear-gradient(90deg, rgba(36,10,52,1) 0%, #891652 34%, rgba(234,190,108,1) 69%, rgba(255,237,216,1) 100%);
+    border-radius: 10px;
+    
+
+    font-size: x-large !important;
+    font-weight: bolder !important;
+    text-align: left !important;
+    color: rgba(255,237,216,1) !important;
+    padding: 2% 5% !important;
+}
+.Inst-teamField input{
+    margin: 0% 5% 0% 5% !important;
+    width: 90% !important;
+    height: 50px !important; 
+    box-shadow: 2px 2px 15px rgba(36, 10, 52, 0.363) !important;
+
+}
+
+.Inst-boxWrapper .ui.button{
+    font-size:medium !important;
+    background: white !important;
+    margin: 2% 2%;
+    box-shadow: 0px 0px 20px rgb(146, 146, 146);
+}
+
+
+/* unasigned students */
+
+.Inst-list{
+    text-align: left;
+    margin: 0% 5% 0% 5% !important;
+}
+.Inst-list .content{
+padding: 20px 0px 20px 0px;
+font-size: larger;
+
+}
+.Inst-list .right{
+    padding: 0px 0px 0px 0px !important;
+    margin: 0% !important;
+    }
+
+
+/* teams */
+.Inst-teamWrapper{
+
+    /* border: 1px solid rgba(36,10,52,1); */
+    box-shadow: 2px 2px 5px 0px rgb(156, 156, 156);
+    border-radius: 10px;
+    margin: 10px 2%;
+
+
+}
+.Inst-teamHeader{
+    text-align: left;
+    padding: 20px 2% !important;
+}
+
+.Inst-teamlist .item:before{
+    display: none !important;
+}
+
+
+.Inst-teamItem{
+    font-size: larger !important;
 }

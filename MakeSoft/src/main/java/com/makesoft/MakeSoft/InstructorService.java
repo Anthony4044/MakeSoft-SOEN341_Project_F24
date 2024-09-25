@@ -145,6 +145,12 @@ public class InstructorService {
 
             // Read the CSV file line by line
             while ((line = br.readLine()) != null) {
+                
+                // Check if the line is empty
+                if (line.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
                 String[] teamData = line.split(",");
                 String teamName = teamData[0];
                 List<String> studentIds = new ArrayList<>();
@@ -179,7 +185,7 @@ public class InstructorService {
 
             // Append the new team to the CSV file
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(teamsFile, true))) {
-                bw.newLine();
+                bw.newLine(); //this is causing issues with blank teams
                 bw.write(team.toCSV());
             }
 
