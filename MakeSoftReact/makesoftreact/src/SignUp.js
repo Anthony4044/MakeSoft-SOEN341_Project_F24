@@ -179,7 +179,8 @@ const SignupPage = (props) => {
         }} basic>Instructor</Label>
       </Segment>
       <div>
-      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}      </div>
+      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}   
+      </div>
     </div>
     
   );

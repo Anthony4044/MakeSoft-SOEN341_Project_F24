@@ -1,0 +1,6 @@
+a,a,a,a,CSV-files/a-Students.csv
+name,email,pass,section,CSV-files/section-Students.csv
+name1,email1,1,1,CSV-files/1-Students.csv
+name2,email2,2,section,CSV-files/section-Students.csv
+student1,student1,1,section,CSV-files/section-Students.csv
+instructorName,insEmail,pass,insSection,CSV-files/insSection-Students.csv
