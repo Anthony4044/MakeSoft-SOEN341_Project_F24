@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import Signup from './SignUp'; // Import the Signup component from the SignUp.js file
 import Signin from './SignIn';
+import InstructorPage from './instructorPage'; // Import InstructorPage
 import conco from './Conco.png';
-import './SignUp.css';
 import conco_library from './Conco-library.jpg';
 import conco_picture from './Conco-picture.webp';
 
@@ -13,11 +13,21 @@ import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semanti
 function App() {
   // State to track the current component to display
   const [currentComponent, setCurrentComponent] = useState('home');
+  const [instructorData, setInstructorData] = useState(null); // New state to hold instructor data
 
   // Function to handle button clicks
   const handleButtonClick = (component) => {
     setCurrentComponent(component);
+    if (component !== 'instructor') {
+      setInstructorData(null); // Reset instructor data if navigating away
+    }
   };
+    // Function to handle instructor signup
+    const handleInstructorSignup = (instructor) => {
+      console.log('Instructor data received in App:', instructor);
+      setInstructorData(instructor);
+      setCurrentComponent('instructor');
+    };
 
   return (
     <div className="App">
@@ -26,6 +36,7 @@ function App() {
           <img src={conco} alt="Conco" />
           <div className="Title"> &nbsp;&nbsp; MakeSoft Peer Evaluation &nbsp;&nbsp; </div>
           <Button style={{fontSize: '18px', borderRadius: '20px'} }onClick={() => handleButtonClick('home')}> Home </Button> &nbsp;&nbsp;
+                   {/* <Button onClick={() => handleButtonClick('instructor')}>Instructor</Button> */}
           
         </MenuItem>
         <MenuMenu position='right'>
@@ -43,9 +54,8 @@ function App() {
         <h1> </h1>
       </header>
       {/* Render the current component based on state */}
-      {currentComponent === 'signup' && <Signup />}
-      {currentComponent === 'home' && 
-      <div style={{
+      {currentComponent === 'signup' && <Signup onInstructorSignup={handleInstructorSignup}/>}
+      {currentComponent === 'home' && <div style={{
         backgroundImage: `url(${conco_library})`,
         display: 'flex',
         flexDirection: 'column',
@@ -77,11 +87,8 @@ function App() {
          Phone number: +1 514 534 6356
          </div>
         
-        
-        
-        </div>
-        
-         }
+        </div> }
+      {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} />}
       {currentComponent === 'signin' && <Signin />}
     </div>
   );
