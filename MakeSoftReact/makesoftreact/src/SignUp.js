@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './SignUp.css'
 import {
   ButtonContent, Button, Icon, FormField, Form, FormInput,
@@ -9,7 +8,7 @@ import {
 import conco_library from './Conco-library.jpg';
 
 // Instructor Signup Form
-const InstructorSignup = (props) => {
+const InstructorSignup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,18 +16,7 @@ const InstructorSignup = (props) => {
 
   //Backend TODO
   const handleSignup = async () => {
-    const instructor = { name, email, password, section };
-    try {
-     const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
-      alert('Sucess!');
-      
-      if (props.onInstructorSignup) {
-        props.onInstructorSignup(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Failed to sign up.');
-    }
+
   };
 
   return (
@@ -69,7 +57,7 @@ const InstructorSignup = (props) => {
 };
 
 // Student Signup Form
-const StudentSignup = (props) => {
+const StudentSignup = () => {
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -77,34 +65,9 @@ const StudentSignup = (props) => {
   const [section, setSection] = useState('');
 
     //Backend TODO
-    // const handleSignup = async () => {
-    //   const instructor = { name, email, password, section };
-    //   try {
-    //    const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
-    //     alert('Sucess!');
-        
-    //     if (props.onInstructorSignup) {
-    //       props.onInstructorSignup(response.data);
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     alert('Failed to sign up.');
-    //   }
-    // };
+  const handleSignup = async () => {
 
-    const handleSignup = async () => {
-      const student = { studentId, name, email, password, section };
-      try {
-        // Send POST request to sign up student
-        const response = await axios.post('http://localhost:8080/api/students/signup', student);
-  
-        // Check if the signup was successful (assuming the backend sends success message in response)
-        alert(response.data);
-      } catch (error) {
-        console.error(error);
-        alert('Failed to sign up.');
-      }
-    };
+  };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -145,7 +108,7 @@ const StudentSignup = (props) => {
 };
 
 // Main Signup Page with Toggle Button
-const SignupPage = (props) => {
+const SignupPage = () => {
   const [isInstructor, setIsInstructor] = useState(true);
 
   const toggleSignup = () => {
@@ -179,7 +142,8 @@ const SignupPage = (props) => {
         }} basic>Instructor</Label>
       </Segment>
       <div>
-      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}      </div>
+        {isInstructor ? <InstructorSignup /> : <StudentSignup />}
+      </div>
     </div>
     
   );

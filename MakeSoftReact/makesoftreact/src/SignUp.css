@@ -150,6 +150,23 @@
   .inputfields {
     color: black !important;
   }
+
+  .content2 {
+
+    border-bottom: 10px solid rgb(149, 38, 38);
+    padding: 10px;
+    background: linear-gradient(to right, #cdcdcd, rgb(171, 97, 97));
+    font-size: 22px;
+    font-family: cursive;
+    font-style: oblique;
+    width: 80%;
+    line-height: 1.3;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+    border-radius: 60px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7);
+
+  }
   
   @keyframes App-logo-spin {
     from {
