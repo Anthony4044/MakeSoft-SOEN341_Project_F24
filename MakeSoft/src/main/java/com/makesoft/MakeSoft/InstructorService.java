@@ -13,6 +13,14 @@ public class InstructorService {
 
     private String allInstructors = "CSV-files/instructors.csv";
 
+    public String getAllInstructors() {
+        return allInstructors;
+    }
+
+    public void setAllInstructors(String allInstructors) {
+        this.allInstructors = allInstructors;
+    }
+
     // Add a new instructor
     public Instructor addInstructor(Instructor instructor) {
         BufferedReader br = null;
@@ -118,8 +126,7 @@ public class InstructorService {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
             String line;
-            // Skip the header
-            br.readLine();
+
 
             // Read the CSV file line by line
             while ((line = br.readLine()) != null) {

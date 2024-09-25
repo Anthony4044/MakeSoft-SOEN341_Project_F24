@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './SignIn.css'
 import { FormField, Button, ButtonContent, Icon, Checkbox, Form, FormInput, FormGroup } from 'semantic-ui-react'
 import {
@@ -8,12 +9,31 @@ import {
   import conco_library from './Conco-library.jpg';
 
 // Instructor Signup Form
-const InstructorSignin = () => {
+const InstructorSignin = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [section, setSection] = useState('');
 
 //Backend TODO
 const handleSignin = async () => {
+  const instructor = { email, password };
+  try {
+    const response = await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+    if(response.data){
+      alert(response.data.name + ' signed in successfully!');
+      if(props.onInstructorSignin){
+        props.onInstructorSignin(response.data);
+      }
+      
+    }
+    else{
+      alert('Failed to sign in. Instructor not found.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Failed to sign in.');
+  }
 
 };
 
@@ -93,7 +113,7 @@ const StudentSignin = () => {
     );
   };
 
-const SignInPage = () => {
+const SignInPage = (props) => {
     const [isInstructor, setIsInstructor] = useState(true);
   
     const toggleSignup = () => {
@@ -126,7 +146,7 @@ const SignInPage = () => {
           }} basic>Instructor</Label>
         </Segment>
         <div>
-          {isInstructor ? <InstructorSignin /> : <StudentSignin />}
+          {isInstructor ? <InstructorSignin onInstructorSignin={props.onInstructorSignin} /> : <StudentSignin />}
         </div>
       </div>
     );
