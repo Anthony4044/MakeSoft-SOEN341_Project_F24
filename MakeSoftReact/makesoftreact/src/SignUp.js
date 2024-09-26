@@ -165,7 +165,8 @@ const SignupPage = (props) => {
       backgroundSize: 'cover', // Ensure image covers entire background
       backgroundPosition: 'center', // Center the image
       backgroundRepeat: 'no-repeat', // Prevent repetition of the image
-    }}>
+    }} className="moving-background">
+      
       <h1 className="Title2" style={{color: 'black'}}>{isInstructor ? 'Instructor' : 'Student'} Signup Page</h1>
       <Segment compact style={{
         backgroundColor: '#f0f0f0',
@@ -179,8 +180,7 @@ const SignupPage = (props) => {
         }} basic>Instructor</Label>
       </Segment>
       <div>
-      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}   
-      </div>
+      {isInstructor ? <InstructorSignup onInstructorSignup={props.onInstructorSignup} /> : <StudentSignup />}      </div>
     </div>
     
   );

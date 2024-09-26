@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
 import './instructorPage.css'
+import conco_library from './Conco-library.jpg';
+import concordia from './concordia.jpg';
+import 'animate.css';
+
 
 const InstructorPage = ({ instructor }) => {
   const [students, setStudents] = useState([]);
@@ -41,6 +45,7 @@ const InstructorPage = ({ instructor }) => {
   const handleCreateTeam = async () => {
     if (!teamName) {
       setMessage('Please enter a team name.');
+      setTimeout(() => setMessage(''), 20000);
       return;
     }
 
@@ -109,10 +114,20 @@ const InstructorPage = ({ instructor }) => {
   }
 
   return (
-    <div>
-      <Header className ='Inst-header' as="h1">Hello, {instructor.name}</Header>
-      <Header className ='Inst-header'as="h2">Your section: {instructor.section}</Header>
-
+    <div className="background2" style={{backgroundImage: `url(${concordia})`, 
+    backgroundPosition: 'center', 
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat', 
+     backgroundAttachment: 'fixed',
+    minHeight: '100vh', // Full height of viewport
+    width: '100%'  }}>
+      <div class="animate__animated animate__bounceIn" className="cube">
+      <div className="welcome2">
+      <Header className ='Inst-header' as="h1">Welcome {instructor.name}!</Header>
+      <Header className ='Inst-header'as="h2">Your section number is: {instructor.section}</Header>
+      </div>
+      </div>
+      <br></br><br></br><br></br>
       <Form className ='Inst-boxWrapper' onSubmit={handleCreateTeam}>
         <Form.Field className ='Inst-teamField'>
           <label className ='Inst-elemHeader'>Create team:</label>
@@ -122,10 +137,11 @@ const InstructorPage = ({ instructor }) => {
             onChange={(e) => setTeamName(e.target.value)}
           />
         </Form.Field>
-        <Button class ='Inst-button'type="submit">Make the team</Button>
+        <Button className ='Inst-button' type="submit">Make the team</Button>
       </Form>
 
-      {message && <Message content={message} />}
+      {message && <Message className="custom-message" content={message} />}
+
       <div class='Inst-boxWrapper'>
         <Header className ='Inst-elemHeader' as="h1">Unassigned Students:</Header>
         <List className ='Inst-list' divided>
