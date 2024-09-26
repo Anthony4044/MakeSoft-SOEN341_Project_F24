@@ -147,7 +147,7 @@ public class InstructorService {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
             String line;
-            // Skip the header
+            // Skip the header, this is needed because the header isn't a team
             br.readLine();
 
             // Read the CSV file line by line

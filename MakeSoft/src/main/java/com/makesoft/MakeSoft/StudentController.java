@@ -26,10 +26,12 @@ public class StudentController {
         System.out.println(student);
         if (studentInstructor != null) {
 
+
             try {
-                if(studentAlreadyExists(student, studentInstructor.getCSVName())){
-                    return "Student Already Exists";
-                }else{
+                String studentExists = studentAlreadyExists(student, studentInstructor.getCSVName());
+                if(studentExists.equalsIgnoreCase("validStudent")){
+                    //return "Student already exists!";
+
                     FileWriter fw = new FileWriter(studentInstructor.getCSVName(),true);
                     BufferedWriter bw = new BufferedWriter(fw);
 
@@ -46,6 +48,9 @@ public class StudentController {
 
                     return student.getName() + " signed up and assigned to instructor!";
                 }
+                else{
+                    return studentExists;
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -57,7 +62,7 @@ public class StudentController {
         }
     }
 
-    private boolean studentAlreadyExists(Student student, String instructorCSV) throws IOException {
+    private String studentAlreadyExists(Student student, String instructorCSV) throws IOException {
         FileReader fr;
         BufferedReader br = null;
 
@@ -70,22 +75,33 @@ public class StudentController {
 
             String studentInfo[] =fileRow.split(",");
             String studentEmail = studentInfo[2];
+            String studentId = studentInfo[0];
+            boolean sameEmail = student.getEmail().equalsIgnoreCase(studentEmail);
+            boolean sameId = student.getStudentId().equalsIgnoreCase(studentId);
 
 
-            if(student.getEmail().equalsIgnoreCase(studentEmail)){
+            if((sameId) || (sameEmail)){
 
-                System.out.println("student already exists");// for debugging only
+                if(sameId){
+                    fr.close();
+                    br.close();
+                    return "Student with ID: (" + student.getStudentId() + ") already exists.";
+                }else if(sameEmail){
+                    fr.close();
+                    br.close();
+                    return "Student with email: (" + student.getEmail() + ") already exists.";
+                }
+
                 fr.close();
                 br.close();
-
-                return true;
+                return "validStudent";
             }
 
         }
         fr.close();
         br.close();
 
-        return false;
+        return "invalidStudent";
     }
 }
 
