@@ -13,6 +13,7 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 | 40277789   | Danial Kouba    | DaniK1001       |
 | 40283180   | Firas Al Haddad | Lemonada10      |
 | 40191431   | Oscar Mirontsuk | ren-cc          |
+| 40282971   | Marco Patulli   | MARC0CND        |
 
 
 ## Sprint Plan
