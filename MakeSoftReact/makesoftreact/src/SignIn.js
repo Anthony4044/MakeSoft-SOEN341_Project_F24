@@ -17,13 +17,17 @@ const InstructorSignin = (props) => {
 
 //Backend TODO
 const handleSignin = async () => {
-  const instructor = { email, password };
+  const instructor = { email, password, name, section };
   try {
     const response = await axios.post('http://localhost:8080/api/instructors/signin', instructor);
     if(response.data){
+      instructor.id = response.data.id;
+      instructor.email = response.data.email;
+      instructor.name = response.data.name;
+      instructor.section = response.data.section;
       alert(response.data.name + ' signed in successfully!');
       if(props.onInstructorSignin){
-        props.onInstructorSignin(response.data);
+        props.onInstructorSignin(instructor);
       }
       
     }
@@ -69,14 +73,36 @@ const handleSignin = async () => {
   
 };
 
-const StudentSignin = () => {
+const StudentSignin = (props) => {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [section, setSection] = useState('');
+    const [studentID, setStudentID] = useState('');
     
-  
-      //Backend TODO
     const handleSignin2 = async () => {
+      const student = { email, password, name, section };
+  try {
+    const response = await axios.post('http://localhost:8080/api/students/signin', student);
+    if(response.data){
+      student.id = response.data.id;
+      student.email = response.data.email;
+      student.name = response.data.name;
+      student.section = response.data.section;
+      alert(response.data.name + ' signed in successfully!');
+      if(props.onInstructorSignin){
+        props.onInstructorSignin(student);
+      }
+      
+    }
+    else{
+      alert('Failed to sign in. Instructor not found.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Failed to sign in.');
+  }
   
     };
   

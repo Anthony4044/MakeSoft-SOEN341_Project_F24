@@ -33,7 +33,6 @@ public class InstructorService {
             bw = new BufferedWriter(fw);
             bw.flush();
             bw.close();
-            ////////////
 
             FileReader fr = new FileReader(allInstructors);
             br = new BufferedReader(fr);
