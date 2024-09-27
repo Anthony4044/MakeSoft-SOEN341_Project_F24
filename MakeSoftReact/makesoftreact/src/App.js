@@ -6,6 +6,7 @@ import InstructorPage from './instructorPage'; // Import InstructorPage
 import conco from './Conco.png';
 import conco_library from './Conco-library.jpg';
 import conco_picture from './Conco-picture.webp';
+import StudentPage from './studentPage';
 
 import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
 
@@ -14,6 +15,7 @@ function App() {
   // State to track the current component to display
   const [currentComponent, setCurrentComponent] = useState('home');
   const [instructorData, setInstructorData] = useState(null); // New state to hold instructor data
+  const [studentData, setStudentData] = useState(null);
 
   // Function to handle button clicks
   const handleButtonClick = (component) => {
@@ -27,7 +29,7 @@ function App() {
     const handleInstructorSignup = (instructor) => {
       console.log('Instructor data received in App:', instructor);
       setInstructorData(instructor); // Set the instructor data in state
-      setCurrentComponent('instructor'); // Change the current component to 'instructor'
+      setCurrentComponent('home'); // Change the current component to 'instructor'
     };
 
     const handleInstructorSignin = (instructor) => { // Function to handle instructor signin
@@ -35,6 +37,13 @@ function App() {
       setInstructorData(instructor);
       setCurrentComponent('instructor');//Navigate to instructor page after sign-in
     };
+    
+  const handleStudentSignUp = (student) => { // Function to handle student signin
+    console.log('Student data received in App:', student);
+    setStudentData(student);
+    setCurrentComponent('home'); // Navigate to home page after student sign-in
+  };
+   
 
   return (
     <div className="App">
@@ -61,7 +70,7 @@ function App() {
         <h1> </h1>
       </header>
       {/* Render the current component based on state */}
-      {currentComponent === 'signup' && <Signup onInstructorSignup={handleInstructorSignup}/>}
+      {currentComponent === 'signup' && <Signup onInstructorSignup={handleInstructorSignup} onStudentSignup={handleStudentSignUp} />}
       {currentComponent === 'signin' && <Signin onInstructorSignin={handleInstructorSignin} />}
       {currentComponent === 'home' && <div style={{
         backgroundImage: `url(${conco_library})`,
@@ -98,6 +107,9 @@ function App() {
         </div> }
       {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} />}
       {currentComponent === 'signin' && <InstructorPage instructor={instructorData}/>}
+      {currentComponent === 'studentSignUp' && <StudentPage />}
+
+      
     </div>
   );
 }

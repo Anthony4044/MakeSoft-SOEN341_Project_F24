@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a50bc87d-c59f-4934-8cc3-d65b07a54b46" name="Changes" comment="" />
+    <list default="true" id="a50bc87d-c59f-4934-8cc3-d65b07a54b46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,8 +44,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.MakeSoftApplication.executor": "Run",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ozmar/OneDrive/Desktop/All_Folder/School/Concordia_2024/Fall_2024/Comp_3xx/Github/MakeSoft-SOEN341_Project_F24/MakeSoft",
+    "last_opened_file_path": "C:/Users/antho/Desktop/MakeSoft-SOEN341_Project_F24/MakeSoft",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -55,8 +58,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -70,6 +73,8 @@
       <updated>1727149226061</updated>
       <workItem from="1727149227079" duration="2661000" />
       <workItem from="1727152266454" duration="123000" />
+      <workItem from="1727378881659" duration="891000" />
+      <workItem from="1727385102798" duration="118000" />
     </task>
     <servers />
   </component>
