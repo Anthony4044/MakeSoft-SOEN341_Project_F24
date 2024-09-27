@@ -150,10 +150,6 @@ const colors = [
   '#27ae60', // Medium green
   '#7f8c8d', // Medium gray
   '#e84393',  // Soft pink
-  '#719CCD',
-  '#A2CD71',
-  '71CD71',
-  '8371CD'
 ];
 
   return (
