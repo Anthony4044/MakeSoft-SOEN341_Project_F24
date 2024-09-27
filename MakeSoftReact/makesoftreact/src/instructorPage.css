@@ -46,7 +46,7 @@ body{
 
 .Inst-list{
     text-align: left;
-    margin: 0% 5% 0% 5% !important;
+    margin: 0% 2% 0% 2% !important;
 }
 .Inst-list .content{
 padding: 20px 0px 20px 0px;
@@ -66,12 +66,14 @@ font-size: larger;
     box-shadow: 2px 2px 5px 0px rgb(156, 156, 156);
     border-radius: 10px;
     margin: 10px 2%;
-
+    padding: 10px; /* Add padding inside the wrapper */
+    
 
 }
 .Inst-teamHeader{
     text-align: left;
     padding: 20px 2% !important;
+   
 }
 
 .Inst-teamlist .item:before{
@@ -81,6 +83,11 @@ font-size: larger;
 
 .Inst-teamItem{
     font-size: larger !important;
+    border: 2px solid rgba(0, 0, 0, 0.515);
+    width: 50%;
+    margin-left: 25%;
+    background: linear-gradient(90deg, rgb(255, 255, 255), rgb(233, 203, 147) 50%, rgb(235, 199, 115) 100%);
+    
 }
 
 .Inst-header {
@@ -125,7 +132,7 @@ font-size: larger;
     margin-left: 38%;
     text-align: center;
     line-height: 200px; /* Vertically center the text */
-    background: linear-gradient(90deg, rgb(255, 255, 255), rgba(234,190,108,1) 50%, rgb(255, 255, 255) 100%);
+    background: linear-gradient(90deg, rgb(255, 255, 255), rgb(233, 203, 147) 50%, rgb(235, 199, 115) 100%);
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.7); /* Adds a shadow for 3D depth */
     
