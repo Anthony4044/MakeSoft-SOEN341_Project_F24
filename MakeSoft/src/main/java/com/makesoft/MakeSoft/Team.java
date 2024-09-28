@@ -1,16 +1,32 @@
 package com.makesoft.MakeSoft;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
     private String teamName;
     private String section;
     private List<String> studentIds;
+    private ArrayList<Student> teamMembers;
 
     public Team(String teamName, String section, List<String> studentIds) {
         this.teamName = teamName;
         this.section = section;
         this.studentIds = studentIds;
+    }
+
+    public Team(String teamName, String section, ArrayList<Student> teamMembers) {
+        this.teamName = teamName;
+        this.section = section;
+        this.teamMembers = teamMembers;
+    }
+
+    public ArrayList<Student> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(ArrayList<Student> teamMembers) {
+        this.teamMembers = teamMembers;
     }
 
     // Getters and Setters

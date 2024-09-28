@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/students")
@@ -12,6 +13,8 @@ public class StudentController {
     @Autowired
     private InstructorService instructorService;
 
+    String allStudentsFile = "CSV-files/allStudents.csv"; // The file to store all students
+    String teamName;
     // Student signup endpoint
     @PostMapping("/signup")
     public String signUpStudent(@RequestBody Student student) {
@@ -69,8 +72,8 @@ public class StudentController {
         FileReader fr;
         BufferedReader br = null;
 
-             fr = new FileReader(instructorCSV);
-             br = new BufferedReader(fr);
+        fr = new FileReader(instructorCSV);
+        br = new BufferedReader(fr);
 
 
         String fileRow ="";
@@ -108,7 +111,7 @@ public class StudentController {
     }
 
     private void addStudentToAllStudents(Student student) {
-        String allStudentsFile = "CSV-files/allStudents.csv"; // The file to store all students
+
 
         try {
             // Create the file if it does not exist
@@ -133,10 +136,151 @@ public class StudentController {
     }
 
     @PostMapping("/signin")
-    public String signinStudent(@RequestBody Student student){
-        return null;
+    public Team signinStudent(@RequestBody Student student)  {
+        Student foundStudent = null;
+        ArrayList<Student> teamates = null;
+
+        try {
+
+
+            foundStudent =   findStudentId(student.getEmail(), student.getPassword());
+
+            if (foundStudent == null) {
+                return null;
+
+            }
+
+            teamates = retrieveTeamates(foundStudent);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(teamates.size()==0) {
+            teamates.add(foundStudent);// in case no teammates are found meaning that the student is in a team alone.
+            for(int i = 0;i<teamates.size();i++){
+                System.out.println(teamates.get(i).getName());
+            }
+            return new Team(teamName, foundStudent.getSection(), teamates);
+
+        }else{
+            for(int i = 0;i<teamates.size();i++){
+                System.out.println(teamates.get(i).getName());
+            }
+            return new Team(teamName, foundStudent.getSection(), teamates);
+        }
+
     }
 
 
-}
 
+
+
+    private Student findStudentId(String email,String password) throws IOException {
+        FileReader fr;
+        BufferedReader br = null;
+
+        fr = new FileReader(allStudentsFile);
+        br = new BufferedReader(fr);
+
+
+        String fileRow = "";
+        while ((fileRow = br.readLine()) != null) {
+
+            String studentInfo[] = fileRow.split(",");
+            String studentEmail = studentInfo[2];
+            String studentPassword = studentInfo[3];
+
+            boolean sameEmail = email.equalsIgnoreCase(studentEmail);
+            boolean samePassword = password.equalsIgnoreCase(studentPassword);
+
+            if((sameEmail) && (samePassword)){
+
+                return new Student(studentInfo[0],studentInfo[1],studentInfo[2],studentInfo[3],studentInfo[4]);
+
+
+            }
+        }
+
+
+        return null;
+    }
+
+    private ArrayList<Student> retrieveTeamates (Student student) throws IOException {
+        String Section = student.getSection();
+        String studentId = student.getStudentId();
+        ArrayList<Student> teamates = new ArrayList<>();
+        ArrayList<String> teamatesIds = new ArrayList<>();
+        String SectionFile = "CSV-files/"+Section+"-Teams.csv";
+        boolean foundTeammates = false;
+        FileReader fr;
+        BufferedReader br = null;
+
+        fr = new FileReader(SectionFile);
+        br = new BufferedReader(fr);
+
+
+        String fileRow = "";
+        while ((fileRow = br.readLine()) != null) {
+
+            String studentInfo[] = fileRow.split(",");
+            teamName = studentInfo[0];
+
+            for(int i = 1; i<studentInfo.length;i++){
+
+
+                if(studentInfo[i].equalsIgnoreCase(studentId)){
+                    for(int j = 1; j<studentInfo.length;j++){
+
+                        teamatesIds.add(studentInfo[j]);
+                    }
+                    foundTeammates = true;
+
+                    break;
+                }
+
+            }
+            if(foundTeammates){//stop going through csv if teamates are found
+                break;
+            }
+        }
+
+        teamates = findStudentsById(teamatesIds);
+
+
+        return teamates;
+
+    }
+
+
+    private ArrayList<Student> findStudentsById(ArrayList<String> teamatesId) throws IOException {
+
+        ArrayList<Student> teammates = new ArrayList<>();
+        FileReader fr;
+        BufferedReader br = null;
+
+        fr = new FileReader(allStudentsFile);
+        br = new BufferedReader(fr);
+
+
+        String fileRow = "";
+        while ((fileRow = br.readLine()) != null) {
+
+            String studentInfo[] = fileRow.split(",");
+            String studentId = studentInfo[0];
+
+            for(int i = 0; i<teamatesId.size();i++){
+
+                if(teamatesId.get(i).equalsIgnoreCase(studentId)){
+
+
+                    teammates.add(new Student(studentInfo[0],studentInfo[1],studentInfo[2],studentInfo[3],studentInfo[4]));
+                }
+
+            }
+
+        }
+        return teammates;
+    }
+
+
+
+}
