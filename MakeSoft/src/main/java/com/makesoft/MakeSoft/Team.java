@@ -9,6 +9,10 @@ public class Team {
     private List<String> studentIds;
     private ArrayList<Student> teamMembers;
 
+    public Team(){
+
+    }
+
     public Team(String teamName, String section, List<String> studentIds) {
         this.teamName = teamName;
         this.section = section;
