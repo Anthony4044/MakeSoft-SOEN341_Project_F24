@@ -35,6 +35,50 @@
 - ran into an issue of not being able to see if students are being assigned. i will wait for pull request
 
 ---
+### 2024-09-22
+
+**Team Member:** Mark Antoun 
+**Student Id:** 40275666  
+**GitHub Name:** mark9494  
+**Time Spent:** 8 hours 
+
+**Worked On:**
+- initialized springBoot project
+- Implemented backend structure (classes).
+- Implemented instructor sign up logic for backend
+- Implemented post request to receive instructor sign up info validate them and store them in - csv file and send a response to frontend.  
+
+
+
+**Comments/Notes:**
+- Please note that learning how to initialize Springboot with no previous experience took   - - time to finish
+
+---
+
+
+
+### 2024-09-23
+
+**Team Member:** Mark Antoun 
+**Student Id:** 40275666  
+**GitHub Name:** mark9494  
+**Time Spent:** 8 hours 
+
+**Worked On:**
+
+- Implemented student sign up logic for backend
+- Implemented post request to receive student sign up info validate them and store them in - - csv file and send a response to frontend.  
+- made a .gitignore file in order to fix an issue that prevented team members from pushing due to project files exceeding 100MB 
+- caused by the node_modules folder
+
+
+**Comments/Notes:**
+- Getting the .gitignore file to work took around 4 hours due to the fact that the
+- node_modules folder was already pushed before and the .gitignore did not work as expected
+
+---
+
+
 
 ### 2024-mon-day_hour:min:sec
 
