@@ -1,3 +1,7 @@
 studentId,name,email,password,section
+<<<<<<< FrontEnd
 BABA,BABA,BABA@123,BABA,FAFA
 HAHA,HAHA,HAHA@123,HAHA,FAFA
+=======
+45,45,45,45,mark
+>>>>>>> main

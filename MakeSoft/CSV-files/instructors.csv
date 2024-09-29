@@ -1,1 +1,8 @@
+<<<<<<< FrontEnd
 FAFA,FAFA@123,FAFA,FAFA,CSV-files/FAFA-Students.csv
+=======
+mark,,,,CSV-files/-Students.csv
+gg,gg,gg,gg,CSV-files/gg-Students.csv
+123,mark,mark,mark,CSV-files/mark-Students.csv
+45,45,45,mark,CSV-files/mark-Students.csv
+>>>>>>> main
