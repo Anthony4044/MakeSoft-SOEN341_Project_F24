@@ -33,6 +33,38 @@
 
 **Comments/Notes:**
 - ran into an issue of not being able to see if students are being assigned. i will wait for pull request
+---
+### 2024-09-20
+
+**Team Member:** Anthony Monaco  
+**Student Id:** 40281790  
+**GitHub Name:** anthony4044      
+**Time Spent:** 3 hours 
+
+**Worked On:**
+- Creating the React project with the required packages
+- Creation of generic to be improved home page
+
+**Comments/Notes:**
+- Project is ready to implement backend part of projet
+- Front end can also start to be worked on
+
+---
+### 2024-09-21
+
+**Team Member:** Anthony Monaco  
+**Student Id:** 40281790  
+**GitHub Name:** anthony4044      
+**Time Spent:** 7 hours 
+
+**Worked On:**
+- Creating the front-end of the student sign up page
+- Creating the front-end desgin of the instructor sign up page
+- Set-up form with names to retrieve information for both student and instructor to create their objects in the back-end 
+
+**Comments/Notes:**
+-Ready to connect to the back-end to officially have the form sign up members.
+
 
 ---
 ### 2024-09-22
@@ -54,8 +86,6 @@
 - Please note that learning how to initialize Springboot with no previous experience took   - - time to finish
 
 ---
-
-
 
 ### 2024-09-23
 
@@ -112,3 +142,19 @@
 - Ensured that the backend sends necessary data to the frontend, after authenticating the student login
 
 ---
+### 2024-09-28
+
+**Team Member:** Anthony Monaco  
+**Student Id:** 40281790  
+**GitHub Name:** anthony4044      
+**Time Spent:** 4 hours 
+
+**Worked On:**
+- Fixing bugs with sign-in not working correctly all of the time with the student sign-in
+- Linking the student sign in to the student center page where he can see his team and the members
+
+**Comments/Notes:**
+- Stlying of the page can be done
+
+
+
