@@ -15,6 +15,7 @@ const InstructorSignin = (props) => {
   const [name, setName] = useState('');
   const [section, setSection] = useState('');
 
+  
   //Backend TODO
   const handleSignin = async () => {
     const instructor = { email, password, name, section };
@@ -56,7 +57,7 @@ const InstructorSignin = (props) => {
         </FormField>
         <FormField className="password">
           <label style={{ fontSize: '18px' }}>Password</label>
-          <input type="text" placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormField>
 
         <Button animated className="signup" onClick={handleSignin} style={{ hover: 'green' }}>
@@ -111,6 +112,7 @@ const StudentSignin = (props) => {
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+  
   return (
     <div>
       <Message className="welcome"
@@ -126,7 +128,8 @@ const StudentSignin = (props) => {
         </FormField>
         <FormField className="password">
           <label style={{ fontSize: '18px' }}>Password</label>
-          <input type="text" placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type={isPasswordVisible ? 'text' : 'password'} placeholder="Password" className="textfield" value={password} onChange={(e) => setPassword(e.target.value)} />
+          
         </FormField>
 
         <Button animated className="signup" onClick={handleSignin2} style={{ hover: 'green' }}>
@@ -147,6 +150,8 @@ const SignInPage = (props) => {
     setIsInstructor(!isInstructor);
   };
 
+  
+
   return (
     <div style={{
       backgroundImage: `url(${conco_library})`,
@@ -159,7 +164,7 @@ const SignInPage = (props) => {
       backgroundSize: 'cover', // Ensure image covers entire background
       backgroundPosition: 'center', // Center the image
       backgroundRepeat: 'no-repeat', // Prevent repetition of the image
-    }}>
+    }} className="moving-background">
       <h1 className="Title2" style={{ color: 'black' }}>{isInstructor ? 'Instructor' : 'Student'} Sign in Page</h1>
       <Segment compact style={{
         backgroundColor: '#f0f0f0',

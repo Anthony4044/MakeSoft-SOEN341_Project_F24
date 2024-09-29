@@ -5,7 +5,6 @@ import Signin from './SignIn';
 import InstructorPage from './instructorPage'; // Import InstructorPage
 import conco from './Conco.png';
 import conco_library from './Conco-library.jpg';
-import conco_picture from './Conco-picture.webp';
 import StudentPage from './studentPage';
 
 import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
@@ -99,7 +98,7 @@ function App() {
         backgroundSize: 'cover', // Ensure image covers entire background
         backgroundPosition: 'center', // Center the image
         backgroundRepeat: 'no-repeat', // Prevent repetition of the image
-      }}>
+      }} >
       
       
         <div className="content2">
