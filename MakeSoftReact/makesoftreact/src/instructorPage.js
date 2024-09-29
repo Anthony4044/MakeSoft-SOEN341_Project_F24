@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
 import './instructorPage.css'
-import conco_library from './Conco-library.jpg';
 import concordia from './concordia.jpg';
 import 'animate.css';
 
@@ -123,8 +122,9 @@ const InstructorPage = ({ instructor }) => {
   }));
 
   if (!instructor) {
-    return <div>No instructor data available.</div>;
-  }
+    return null;
+    // return <div>No instructor data available.</div>;
+  } 
 
 
   function getRandomDarkColor() {

@@ -120,13 +120,14 @@ const StudentSignup = (props) => {
               <FormInput fluid label='Student Section' type="text" placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
             </FormGroup>
             <FormField>
-              <label style={{ fontSize: '18px' }}>Password</label>
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </FormField>
-            <FormField>
               <label style={{ fontSize: '18px' }}>Email</label>
               <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
+            <FormField>
+              <label style={{ fontSize: '18px' }}>Password</label>
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </FormField>
+            
             <Button animated className="signup" onClick={handleSignup} style={{ hover: 'green' }}>
               <ButtonContent visible>Sign Up</ButtonContent>
               <ButtonContent hidden>
