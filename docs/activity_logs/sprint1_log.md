@@ -80,18 +80,35 @@
 
 
 
-### 2024-mon-day_hour:min:sec
+### 2024-09-25
 
-**Team Member:** [Name]  
-**Student Id:** [Student ID]  
-**GitHub Name:** [Github name]  
-**Time Spent:** [Time Spent] 
+**Team Member:** Danial Kouba  
+**Student Id:** 40277789 
+**GitHub Name:** DaniK10001  
+**Time Spent:** 8 hours 
 
 **Worked On:**
-- [Thing 1]
-- [Thing 2]
+- Understanding all the code done prior to my part and how everything works
+- Starting the implementation of my part (backend of student and instructor login)
+- Implemented instructor signin and navigation to page, also fixed not reading first line in the Students CSV file
+- Fixed the Student signup bug where it was possible to have duplicate IDs
+- Started the implementation of student login, made a new method to store all students in one csv file for better efficiency and later validation methods for student signin, and fixed a bug in react that would better store instructor data after received from backend
+
 
 **Comments/Notes:**
-- [Note]
+- Part not fully done yet still need to finish the student signin and communicate with frontend team about updates and how to send/receive data between backend and frontend for student login.
+
+---
+
+### 2024-09-28
+
+**Team Member:** Danial Kouba  
+**Student Id:** 40277789 
+**GitHub Name:** DaniK10001  
+**Time Spent:** 8 hours 
+
+**Worked On:**
+- Finished backend part for student login
+- Ensured that the backend sends necessary data to the frontend, after authenticating the student login
 
 ---
