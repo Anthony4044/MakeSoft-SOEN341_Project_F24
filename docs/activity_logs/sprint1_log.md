@@ -156,5 +156,50 @@
 **Comments/Notes:**
 - Stlying of the page can be done
 
+---
+
+### 2024-09-23
+
+**Team Member:** Firas Al Haddad  
+**Student Id:** 40283180
+**GitHub Name:** Lemonada10     
+**Time Spent:** 6 hours 
+
+**Worked On:**
+- Design of home and sign-up page
+
+**Comments/Notes:**
+- Changed the layouts, added background image and made the password not appear visible to users unless they toggle it. Made some changes to colors, fonts, sizes, etc.
+
+---
+
+### 2024-09-25
+
+**Team Member:** Firas Al Haddad  
+**Student Id:** 40283180
+**GitHub Name:** Lemonada10     
+**Time Spent:** 4 hours 
+
+**Worked On:**
+- Design of sign in page
+- Design of instructor page
+
+**Comments/Notes:**
+- Included layouts and color for the sign in page and added some animations. Designed the instructor page that displays the students and their respective teams in a way that every team can have a random color assigned so the teams are set apart to users.
+
+---
+
+### 2024-09-29
+
+**Team Member:** Firas Al Haddad  
+**Student Id:** 40283180
+**GitHub Name:** Lemonada10     
+**Time Spent:** 3 hours 
+
+**Worked On:**
+- Design of student page
+
+**Comments/Notes:**
+- Styled the page similarly to the instructor page, added some features like text-shadows. Fixed a bug where an error message appears at the bottom of the sign in page.
 
 
