@@ -217,7 +217,7 @@
 - Creating Sprint Plan
 
 **Comments/Notes:**
-- "Worked on updating the sprint plan by organizing tasks and user stories. Prioritized high-risk tasks and ensured proper assignment to the responsible team members. This also involved estimating story points and adjusting priorities where necessary."
+- Worked on updating the sprint plan by organizing tasks and user stories. Prioritized high-risk tasks and ensured proper assignment to the responsible team members. This also involved estimating story points and adjusting priorities where necessary.
 
   ---
 
@@ -232,6 +232,6 @@
 - Design of student page
 
 **Comments/Notes:**
-- Styled the page similarly to the instructor page, added some featu
+- Styled the page similarly to the instructor page, added some features like text-shadows. Fixed a bug where an error message appears at the bottom of the sign in page.
 
 
