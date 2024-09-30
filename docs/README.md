@@ -4,7 +4,7 @@ Welcome to the documentation for this project. Below, you will find links to the
 
 ## Table of Contents
 
-- [Sprint Plan](./sprint_plan.md)
+- [Sprint Plan](./Sprint_Plan.xlsx)
 - [Meeting Minutes](./meeting_minutes/)
     - organised by sprint#_meeting#_date
 - [Activity Logs](./activity_logs/) 

@@ -20,7 +20,7 @@
 
 
 ---
-### 2024-mon-day_hour:min:sec
+### 2024-09-20_17:00:00
 
 **Team Member:** Oscar Mirontsuk  
 **Student Id:** 40191431  
@@ -33,6 +33,22 @@
 
 **Comments/Notes:**
 - ran into an issue of not being able to see if students are being assigned. i will wait for pull request
+
+---
+
+### 2024-09-27_14:40:00
+
+**Team Member:** Oscar Mirontsuk  
+**Student Id:** 40191431  
+**GitHub Name:** ren-cc  
+**Time Spent:** 1 hour 
+
+**Worked On:**
+- Finalizing README.md
+- Structuring Meeting Minutes
+
+**Comments/Notes:**
+- NA
 
 ---
 

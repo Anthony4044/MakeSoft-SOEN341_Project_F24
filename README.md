@@ -1,11 +1,11 @@
 # MakeSoft-SOEN341_Project_F24
 
-## Project Overview
+# Project Overview
 The Peer Assessment System is designed for university team projects, allowing students to evaluate their teammates based on, cooperation, conceptual contribution, practical contribution, and work ethic. The system is meant to promote accountability and provide feedback to both students and instructors about individual contributions. Instructors can manage teams, monitor performance, and export results for grading purposes.
 
 The project is developed using Agile Scrum methodology over 4 sprints, using GitHub for version control, task management, and collaboration. Our goal is to deliver a prototype that demonstrates core functionality.
 
-## Team Members and Roles
+# Team Members and Roles
 | Student ID | Name            | GitHub Username |
 | ---------- | --------------- | --------------- |
 | 40275666    | Mark Antoun    | mark9494        |
@@ -15,24 +15,104 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 | 40191431   | Oscar Mirontsuk | ren-cc          |
 | 40282971   | Marco Patulli   | MARC0CND        |
 
+# Project Documentation
+All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `/docs` directory.
 
-## Sprint Plan
-We are following a 10-week project schedule with 4 sprints.
+- **[Meeting Minutes](./docs/meeting_minutes/)**: `/docs/meeting_minutes/`
+- **[Sprint Plans](./docs/Sprint_Plan.xls)**: `/docs/sprint_plan.md`
+- **[Team Activity Logs](./docs/activity_logs/)**: `/docs/activity_logs/`
 
-### Sprint 1 - User Authentication & Team Management
-- **Goals**: 
-  - Implement user authentication for students and instructors.
-  - Allow instructors to create teams and assign students.
-  - Ensure that teams are visible to both students and instructors.
-- **Key Features**:
-  - Student/Instructor login with role-based access.
-  - Team creation and CSV file import functionality for instructors.
-  - Visibility of teams for all users.
+# How to Run the Project
 
-## User Stories
+Follow these steps to set up and run the Makesoft application, which includes both the backend (Java/Spring Boot) and the frontend (React).
+
+## Prerequisites
+
+- **Java Development Kit (JDK) 8 or higher**
+- **Node.js and npm** (Node Package Manager)
+- **An IDE for Java** (e.g., IntelliJ IDEA)
+- **An IDE or text editor for JavaScript** (e.g., Visual Studio Code)
+- **Git** (for cloning the repository)
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+Open your terminal or command prompt and run:
+
+```
+git clone https://github.com/Anthony4044/MakeSoft-SOEN341_Project_F24.git
+```
+
+
+### 2. Set Up the Backend (Java/Spring Boot)
+
+#### a. Navigate to the Backend Directory
+
+```
+cd Makesoft
+```
+
+#### b. Open the Project in Your Java IDE
+
+- Open **IntelliJ IDEA** or your preferred Java IDE.
+- Choose **Open** or **Import Project**, then select the `Makesoft` folder you just cloned.
+
+#### c. Run the Backend Application
+
+- Locate the `MakesoftApplication.java` file in the `src/main/java` directory.
+- Right-click on `MakesoftApplication.java` and select **Run**.
+- The Spring Boot application should start, and you should see logs indicating that the back end is running.
+
+### 3. Set Up the Frontend (React)
+
+#### a. Navigate to the Frontend Directory
+
+In a new terminal window, navigate to the frontend directory:
+
+```
+cd MakeSoftReact
+```
+
+#### b. Install Node.js Dependencies
+
+Make sure you have Node.js and npm installed. You can check by running:
+
+```
+node -v
+npm -v
+```
+
+If not installed, download and install Node.js from [https://nodejs.org/](https://nodejs.org/).
+
+#### c. Install Required Packages
+
+Run the following commands to install the necessary npm packages:
+
+```
+npm install
+npm install semantic-ui-css semantic-ui-react
+```
+
+#### d. Start the Frontend Application
+
+```
+npm start
+```
+
+This should open a new browser window or tab pointing to `http://localhost:3000`. If it doesn't open automatically, you can manually navigate to this URL.
+
+### 4. Interact with the Application
+
+- With both the backend and frontend running, you can now interact with the website.
+- The frontend communicates with the backend API running on `http://localhost:8080`.
+
+
+
+# User Stories
 The project is organized into user stories, each user story is broken down into smaller tasks.
 
-### Example User Stories (Prefix: US.#):
+## Example User Stories (Prefix: US.#):
 - **US.01: Student Login System**
   - As a student, I want to log in to the system using my university credentials, so that I can access my assigned team information.
   
@@ -41,28 +121,17 @@ The project is organized into user stories, each user story is broken down into 
 
 Visit the [Sprint Plan](./docs/sprint_plan.md) to see a comprehensive list of user stories and tasks, along with additional information. 
 
-## Task Breakdown
+# Task Breakdown
 Each user story has been broken down into tasks. Tasks are assigned to team members, and tracked via GitHub Issues and the project board.
 
-### Example Tasks (Prefix: Task.#):
-- **Task.01.01**: Set up authentication service.
-- **Task.01.02**: Create login page (Frontend).
+## Example Tasks (Prefix: Task.#):
+- **Task.01.01**: Create login page (Frontend).
 - **Task.02.01**: CSV file import functionality for instructors.
 
 Visit the [Sprint Plan](./docs/sprint_plan.md) to see a comprehensive list of user stories and tasks, along with additional information. 
 
-## Project Documentation
-All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `/docs` directory.
 
-- **[Meeting Minutes](./docs/meeting_minutes/)**: `/docs/meeting_minutes/`
-- **[Sprint Plans](./docs/sprint_plan.md)**: `/docs/sprint_plan.md`
-- **[Team Activity Logs](./docs/activity_logs/)**: `/docs/activity_logs/`
-
-## How to Run the Project
-To set up the development environment for the Peer Assessment System, follow the steps below:
-
-- **TBD** 
-## Project Management
+# Project Management
 
 We are using the **GitHub Projects** board to manage tasks. You can view the project board [here](#)
 
@@ -70,6 +139,6 @@ We are using the **GitHub Projects** board to manage tasks. You can view the pro
 - **In Progress**: Tasks currently being worked on.
 - **Done**: Completed tasks.
 
-## License
+# License
 
 - **TBD** 
