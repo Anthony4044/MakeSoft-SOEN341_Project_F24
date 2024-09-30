@@ -86,7 +86,7 @@ public class InstructorController {
     }
     
     // Fetch teams for the instructor
-    @GetMapping("/{section}/teams")
+    @GetMapping(    "/{section}/teams")
     public List<Team> getTeams(@PathVariable String section) {
         return instructorService.getTeamsBySection(section);
     }

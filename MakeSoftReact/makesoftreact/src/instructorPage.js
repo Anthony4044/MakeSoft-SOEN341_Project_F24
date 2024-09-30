@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
 import './instructorPage.css'
-import conco_library from './Conco-library.jpg';
 import concordia from './concordia.jpg';
 import 'animate.css';
 
@@ -31,12 +30,24 @@ const InstructorPage = ({ instructor }) => {
     }
   };
 
+  const [teamColors, setTeamColors] = useState({});
+
   const fetchTeams = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/instructors/${instructor.section}/teams`
       );
+
+      const teamsWithColor = response.data.map((team) => {
+        if (!teamColors[team.teamName]) {
+          teamColors[team.teamName] = getRandomDarkColor();
+        }
+        return { ...team, color: teamColors[team.teamName] };
+      });
+
       setTeams(response.data);
+      setTeams(teamsWithColor);
+
     } catch (error) {
       console.error('Error fetching teams:', error);
     }
@@ -53,6 +64,7 @@ const InstructorPage = ({ instructor }) => {
       teamName,
       section: instructor.section,
       studentIds: [], // Start with an empty team
+      color: getRandomDarkColor(),
     };
 
     try {
@@ -110,8 +122,35 @@ const InstructorPage = ({ instructor }) => {
   }));
 
   if (!instructor) {
-    return <div>No instructor data available.</div>;
-  }
+    return null;
+    // return <div>No instructor data available.</div>;
+  } 
+
+
+  function getRandomDarkColor() {
+    // Generate low RGB values (0-100) to keep the color dark
+    const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
+
+const colors = [
+  '#e74c3c', // Soft red
+  '#f39c12', // Warm yellow (goldenrod)
+  '#2980b9', // Medium blue
+  '#8e44ad', // Medium purple
+  '#2ecc71', // Bright green
+  '#e67e22', // Orange
+  '#3498db', // Light blue
+  '#95a5a6', // Light gray
+  '#9b59b6', // Soft violet
+  '#34495e', // Dark slate
+  '#16a085', // Teal
+  '#d35400', // Rusty orange
+  '#c0392b', // Strong red
+  '#27ae60', // Medium green
+  '#7f8c8d', // Medium gray
+  '#e84393',  // Soft pink
+];
 
   return (
     <div className="background2" style={{backgroundImage: `url(${concordia})`, 
@@ -121,6 +160,7 @@ const InstructorPage = ({ instructor }) => {
      backgroundAttachment: 'fixed',
     minHeight: '100vh', // Full height of viewport
     width: '100%'  }}>
+
       <div class="animate__animated animate__bounceIn" className="cube">
       <div className="welcome2">
       <Header className ='Inst-header' as="h1">Welcome {instructor.name}!</Header>
@@ -166,7 +206,14 @@ const InstructorPage = ({ instructor }) => {
         <Header className ='Inst-elemHeader' as="h1">Teams:</Header>
         {teams.map((team) => (
           <div class='Inst-teamWrapper' key={team.teamName}>
-            <Header className ='Inst-teamHeader' as="h3">{team.teamName}:</Header>
+            <Header style=
+            {{ backgroundColor: team.color, color: 'white' , fontStyle: 'italic', 
+              fontWeight: 'bold', borderRadius: '10px', marginLeft: '30%', width: '40%',
+              textAlign: 'center' 
+
+            }}
+            
+            className ='Inst-teamHeader' as="h3">{team.teamName}:</Header>
             <List className ='Inst-teamlist' bulleted>
               {team.studentIds.map((studentId) => {
                 const student = students.find((s) => s.studentId === studentId);

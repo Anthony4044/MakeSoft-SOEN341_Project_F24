@@ -1,0 +1,16 @@
+.Inst-teamItem-student {
+    
+        
+        border: 2px solid rgba(0, 0, 0, 0.515);
+        width: 50%;
+        margin-left: 25%;
+        background: linear-gradient(90deg, rgb(255, 255, 255), rgb(233, 203, 147) 50%, rgb(235, 199, 115) 100%);
+        padding: 16px;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+        text-shadow: 4px 4px 10px rgba(171, 59, 40, 0.5);
+        color: rgb(78, 23, 23);
+        font-weight: bold;
+        font-size: 20px !important;
+    
+}
+

@@ -1,15 +1,1 @@
-a,a,a,a,CSV-files/a-Students.csv
-name,email,pass,section,CSV-files/section-Students.csv
-name1,email1,1,1,CSV-files/1-Students.csv
-name2,email2,2,section,CSV-files/section-Students.csv
-student1,student1,1,section,CSV-files/section-Students.csv
-instructorName,insEmail,pass,insSection,CSV-files/insSection-Students.csv
-432,432,432,342,CSV-files/342-Students.csv
-43,432@,53,54,CSV-files/54-Students.csv
-3243,432@4324,432,432,CSV-files/432-Students.csv
-324,32@fs,432,432,CSV-files/432-Students.csv
-534,432@543,432,432,CSV-files/432-Students.csv
-634,432@FS,543,432,CSV-files/432-Students.csv
-543534,432!@R32,432,43,CSV-files/43-Students.csv
-4314324324,4324@GFD,542,543,CSV-files/543-Students.csv
-43242,5434@43,543,4325,CSV-files/4325-Students.csv
+

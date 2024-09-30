@@ -41,9 +41,10 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.MakeSoftApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "US06-Student-Login",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ozmar/OneDrive/Desktop/All_Folder/School/Concordia_2024/Fall_2024/Comp_3xx/Github/MakeSoft-SOEN341_Project_F24/MakeSoft",
+    "last_opened_file_path": "C:/Users/antho/Desktop/MakeSoft-SOEN341_Project_F24/MakeSoft",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,6 +71,9 @@
       <updated>1727149226061</updated>
       <workItem from="1727149227079" duration="2661000" />
       <workItem from="1727152266454" duration="123000" />
+      <workItem from="1727378881659" duration="891000" />
+      <workItem from="1727385102798" duration="118000" />
+      <workItem from="1727474576176" duration="16000" />
     </task>
     <servers />
   </component>
