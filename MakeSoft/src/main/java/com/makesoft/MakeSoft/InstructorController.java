@@ -127,4 +127,10 @@ public class InstructorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove student from team.");
         }
     }
+    //http://localhost:8080/api/instructors/hello
+    @PostMapping("/hello")
+    private void addInt(@RequestBody Instructor instructor){
+
+        this.instructorService.ins(instructor);
+    }
 }

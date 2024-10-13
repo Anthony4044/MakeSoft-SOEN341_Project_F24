@@ -1,15 +1,25 @@
 package com.makesoft.MakeSoft;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstructorService {
 
+    // Injecting the InstructorRepository using @Autowired
+    private final InstructorRepository instructorRepository;
+
+    // Constructor injection (preferred way of dependency injection)
+    @Autowired
+    public InstructorService(InstructorRepository instructorRepository) {
+        this.instructorRepository = instructorRepository;
+    }
 
     private String allInstructors = "CSV-files/instructors.csv";
 
@@ -277,6 +287,15 @@ public class InstructorService {
         }
     
         return true;
+    }
+
+    public void ins(Instructor instructor){
+        Optional<Instructor> ins = instructorRepository.findByEmailAndId("john@example.com",(long)104);
+        if (ins.isPresent()) {
+            System.out.println(ins.get().getName() + " found by email");
+        } else {
+            System.out.println("Instructor not found");
+        }
     }
     
 
