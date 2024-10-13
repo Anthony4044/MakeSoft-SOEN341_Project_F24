@@ -1,34 +1,55 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const EvaluationForm = ({ student , evaluator}) => {
+const EvaluationForm = ({ student, evaluator }) => {
   const [answers, setAnswers] = useState({
     cooperation: '',
-    contribution: '',
-    communication: '',
+    conceptualContribution: '',
+    practicalContribution: '',
     workEthic: '',
-    comments: ''
+    commentsCooperation: '',
+    commentsConceptual: '',
+    commentsPractical: '',
+    commentsWorkEthic: ''
   });
+
+  const [submitted, setSubmitted] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAnswers((prevAnswers) => ({ prevAnswers, [name]: value }));
+    setAnswers((prevAnswers) => ({ ...prevAnswers, [name]: value }));
   };
+
   const handleSubmit = (e) => {
-    //If dont want page to refresh to home page add 
-    // Here you can handle the submission, e.g., send the data to a server or display a confirmation
+    //If dont want page to refresh to home page add e.preventDefault();
     console.log('Evaluation submitted:', answers);
+    // Simulate submission to the server (or you can use axios to send the data)
+    setSubmitted(true); // Show confirmation page
     alert('Thank you for submitting the evaluation!');
   };
 
+  if (submitted) {
+    return (
+      <div>
+        <h2>Evaluation Submitted!</h2>
+        <p>Thank you for evaluating {student.name}. Your responses have been recorded.</p>
+        <p><strong>Cooperation:</strong> {answers.cooperation}</p>
+        <p><strong>Conceptual Contribution:</strong> {answers.conceptualContribution}</p>
+        <p><strong>Practical Contribution:</strong> {answers.practicalContribution}</p>
+        <p><strong>Work Ethic:</strong> {answers.workEthic}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h1>Evaluation Form</h1>
-      <h2> {student.name} is currently being evaluated by {evaluator.evaluatorName} </h2>
+      <h1>Peer Evaluation Form</h1>
+      <h2>{student.name} is being evaluated by {evaluator.evaluatorName}</h2>
       <form onSubmit={handleSubmit}>
         <br></br>
+        {/* Cooperation */}
         <label>
-          <strong>Cooperation: </strong>
-          How well did this student cooperate with the team?
+          <strong>Cooperation:</strong> How well did this student cooperate with the team?
           <select
             name="cooperation"
             value={answers.cooperation}
@@ -45,11 +66,23 @@ const EvaluationForm = ({ student , evaluator}) => {
         </label>
         <br></br>
         <label>
-          <strong>Contribution: </strong>
-          How much did this student contribute to the project?
+          Additional Comments:
+          <textarea
+            name="commentsCooperation"
+            value={answers.commentsCooperation}
+            onChange={handleChange}
+            rows="2"
+            placeholder="Optional comments"
+          />
+        </label>
+        <br></br>
+
+        {/* Conceptual Contribution */}
+        <label>
+          <strong>Conceptual Contribution:</strong> How well did this student contribute conceptually?
           <select
-            name="contribution"
-            value={answers.contribution}
+            name="conceptualContribution"
+            value={answers.conceptualContribution}
             onChange={handleChange}
             required
           >
@@ -63,11 +96,23 @@ const EvaluationForm = ({ student , evaluator}) => {
         </label>
         <br></br>
         <label>
-          <strong>Communication: </strong>
-          How well did this student communicate with the team?
+          Additional Comments:
+          <textarea
+            name="commentsConceptual"
+            value={answers.commentsConceptual}
+            onChange={handleChange}
+            rows="2"
+            placeholder="Optional comments"
+          />
+        </label>
+        <br></br>
+
+        {/* Practical Contribution */}
+        <label>
+          <strong>Practical Contribution:</strong> How well did this student contribute practically?
           <select
-            name="communication"
-            value={answers.communication}
+            name="practicalContribution"
+            value={answers.practicalContribution}
             onChange={handleChange}
             required
           >
@@ -81,8 +126,20 @@ const EvaluationForm = ({ student , evaluator}) => {
         </label>
         <br></br>
         <label>
-          <strong>Work Ethic: </strong>
-          How would you rate this student’s work ethic?
+          Additional Comments:
+          <textarea
+            name="commentsPractical"
+            value={answers.commentsPractical}
+            onChange={handleChange}
+            rows="2"
+            placeholder="Optional comments"
+          />
+        </label>
+        <br></br>
+
+        {/* Work Ethic */}
+        <label>
+          <strong>Work Ethic:</strong> How would you rate this student’s work ethic?
           <select
             name="workEthic"
             value={answers.workEthic}
@@ -99,23 +156,25 @@ const EvaluationForm = ({ student , evaluator}) => {
         </label>
         <br></br>
         <label>
-          <strong>Additional Comments: </strong>
-          Any additional comments or feedback?
+          Additional Comments:
           <textarea
-            name="comments"
-            value={answers.comments}
+            name="commentsWorkEthic"
+            value={answers.commentsWorkEthic}
             onChange={handleChange}
-            rows="4"
-            placeholder="Write your comments here"
+            rows="2"
+            placeholder="Optional comments"
           />
         </label>
         <br></br>
+
         {/* Submit Button */}
-        <button type="submit" style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px' }}>
+        <button
+          type="submit"
+          style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px' }}
+        >
           Submit Evaluation
         </button>
       </form>
-      
     </div>
   );
 };
