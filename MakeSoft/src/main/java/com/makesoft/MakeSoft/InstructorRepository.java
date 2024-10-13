@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface InstructorRepository extends JpaRepository<Instructor, Integer> {
     ArrayList<Instructor> findByEmail(String email);
-    Optional<Instructor> findByEmailAndId(String email, Long id);
-
+    ArrayList<Instructor> findByEmailAndName(String email, String name);
+    ArrayList<Instructor> findByName(String name);
+    ArrayList<Instructor> findBySection(String section);
 }

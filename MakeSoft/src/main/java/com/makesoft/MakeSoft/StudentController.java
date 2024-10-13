@@ -1,6 +1,8 @@
 package com.makesoft.MakeSoft;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -13,59 +15,47 @@ public class StudentController {
     @Autowired
     private InstructorService instructorService;
 
+    private final StudentRepository studentRepository;
+
     String allStudentsFile = "CSV-files/allStudents.csv"; // The file to store all students
     String teamName;
 
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     // Student signup endpoint
     @PostMapping("/signup")
-    public String signUpStudent(@RequestBody Student student) {
-        Instructor studentInstructor = null;
-        try {
-            studentInstructor = instructorService.findInstructorBySection(student.getSection());
+    public Student signUpStudent(@RequestBody Student student) {
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println(student);
-        if (studentInstructor != null) {
+        boolean verifiedStudent =  studentExists(student);
 
 
-            try {
-                String studentExists = studentAlreadyExists(student, studentInstructor.getCSVName());
-                if (studentExists.equalsIgnoreCase("invalidStudent")) {
-                    //return "Student already exists!";
-
-                    FileWriter fw = new FileWriter(studentInstructor.getCSVName(), true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-
-                    if (new File(studentInstructor.getCSVName()).length() != 0) {
-                        bw.newLine();
-                    }
-
-                    bw.write(student.getStudentId() + "," + student.getName() + "," + student.getEmail() + "," + student.getPassword() + "," + student.getSection());
-
-
-                    bw.flush();
-                    bw.close();
-
-                    // Call the method to add the student to allStudents.csv
-                    addStudentToAllStudents(student);
-
-                    return student.getName() + " signed up and assigned to instructor!";
-                } else {
-                    return studentExists;
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-
+        if (!verifiedStudent) {
+            studentRepository.save(student);
+            System.out.println(student);
+            return student;
         } else {
 
-            return "No instructor found for this section!";
+            return null;
         }
     }
+
+    private boolean studentExists(Student student){
+        ArrayList<Student> students = studentRepository.findByStudentId(student.getStudentId());
+        try {
+
+
+            Instructor instructor = instructorService.findInstructorBySection(student.getSection());
+            if (students.isEmpty() && instructor != null) {
+                return false;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
+
 
     private String studentAlreadyExists(Student student, String instructorCSV) throws IOException {
         FileReader fr;

@@ -14,11 +14,14 @@ public class InstructorService {
 
     // Injecting the InstructorRepository using @Autowired
     private final InstructorRepository instructorRepository;
+    private final StudentRepository studentRepository;
+
 
     // Constructor injection (preferred way of dependency injection)
     @Autowired
-    public InstructorService(InstructorRepository instructorRepository) {
+    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository) {
         this.instructorRepository = instructorRepository;
+        this.studentRepository = studentRepository;
     }
 
     private String allInstructors = "CSV-files/instructors.csv";
@@ -31,8 +34,26 @@ public class InstructorService {
         this.allInstructors = allInstructors;
     }
 
+    private boolean instructorExists(Instructor instructor){
+
+        ArrayList<Instructor> instructors = instructorRepository.findByEmail(instructor.getEmail());
+        //checks database for all instructors with the specified email amd name
+        instructors.addAll(instructorRepository.findByName(instructor.getName()));
+        if (instructors.isEmpty()) {
+            return false;
+        }
+            return true;
+    }
+
     // Add a new instructor
     public Instructor addInstructor(Instructor instructor) {
+        if(!instructorExists(instructor)){
+            //saves instructor to database
+            instructorRepository.save(instructor);
+            return instructor;
+        }
+        return null;
+        /*
         BufferedReader br = null;
         BufferedWriter bw = null;
 
@@ -91,98 +112,20 @@ public class InstructorService {
 
             return instructor;
 
+         */
+
+
     }
 
     public Instructor findInstructorBySection(String section) throws IOException {
-        FileReader fw;
-        BufferedReader br;
-        try {
-             fw = new FileReader(allInstructors);
-             br = new BufferedReader(fw);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
+        ArrayList<Instructor> instructors = instructorRepository.findBySection(section);
+
+        if (instructors.isEmpty()) {
+            return null;
+        }else{
+            return instructors.get(0);
         }
-
-        String fileRow ="";
-        while ((fileRow = br.readLine()) != null) {
-
-            String instructorInfo[] =fileRow.split(",");
-            String instructorSection = instructorInfo[3];
-
-
-            if(instructorSection.equalsIgnoreCase(section)){
-                String name = instructorInfo[0];
-                String email = instructorInfo[1];
-                String password = instructorInfo[2];
-
-                Instructor instructor = new Instructor(name, email, password,instructorSection);
-
-
-
-                return instructor;
-            }
-
-        }
-
-        br.close();
-        return null;
-    }
-
-    // Method to get students from the CSV file based on the instructor section
-    public List<Student> getStudentsBySection(String section) {
-        List<Student> students = new ArrayList<>();
-        String csvFileName = "CSV-files/" + section + "-Students.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
-            String line;
-
-
-            // Read the CSV file line by line
-            while ((line = br.readLine()) != null) {
-                String[] studentData = line.split(",");
-                Student student = new Student(studentData[0], studentData[1], studentData[2], studentData[3], studentData[4]);
-                students.add(student);
-            }
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }
-
-        return students;
-    }
-    // Method to get teams from the CSV file based on the instructor's section
-    public List<Team> getTeamsBySection(String section) {
-        List<Team> teams = new ArrayList<>();
-        String csvFileName = "CSV-files/" + section + "-Teams.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFileName))) {
-            String line;
-            // Skip the header, this is needed because the header isn't a team
-            br.readLine();
-
-            // Read the CSV file line by line
-            while ((line = br.readLine()) != null) {
-                
-                // Check if the line is empty
-                if (line.isEmpty()) {
-                    continue; // Skip empty lines
-                }
-
-                String[] teamData = line.split(",");
-                String teamName = teamData[0];
-                List<String> studentIds = new ArrayList<>();
-                for (int i = 1; i < teamData.length; i++) {
-                    studentIds.add(teamData[i]);
-                }
-                Team team = new Team(teamName, section, studentIds);
-                teams.add(team);
-            }
-            br.close();
-        } catch (IOException e) {
-            // File not found or empty
-            // e.printStackTrace();
-        }
-
-        return teams;
     }
 
     // Method to add a team to the CSV file
@@ -215,6 +158,7 @@ public class InstructorService {
 
     //adding student to team
     public boolean addStudentToTeam(String section, String teamName, String studentId) {
+        /**
         String csvFileName = "CSV-files/" + section + "-Teams.csv";
         List<Team> teams = getTeamsBySection(section);
         boolean teamFound = false;
@@ -287,12 +231,14 @@ public class InstructorService {
         }
     
         return true;
+         **/
+        return false;
     }
 
     public void ins(Instructor instructor){
-        Optional<Instructor> ins = instructorRepository.findByEmailAndId("john@example.com",(long)104);
-        if (ins.isPresent()) {
-            System.out.println(ins.get().getName() + " found by email");
+        ArrayList<Instructor> ins = instructorRepository.findByEmailAndName("john@example.com","g");
+        if (ins.size()>0) {
+            System.out.println(ins.get(0).getName() + " found by email");
         } else {
             System.out.println("Instructor not found");
         }

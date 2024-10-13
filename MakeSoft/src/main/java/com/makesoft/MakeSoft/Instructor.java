@@ -14,6 +14,8 @@ public class Instructor {
     private String email;
     private String password;
     private String section;
+
+    @Transient
     private String CSVName;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

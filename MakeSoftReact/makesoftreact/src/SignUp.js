@@ -23,14 +23,14 @@ const InstructorSignup = (props) => {
     const instructor = { name, email, password, section };
     try {
       const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
-      alert('Sucess!');
-
+      alert(instructor.name + "has signed up successfully");
+      
       if (props.onInstructorSignup) {
         props.onInstructorSignup(response.data);
       }
     } catch (error) {
       console.error(error);
-      alert('Failed to sign up.');
+      alert("Instructor already Exists!");
     }
   };
 
