@@ -243,6 +243,18 @@ public class InstructorService {
             System.out.println("Instructor not found");
         }
     }
+
+    public Instructor findInstructor(String email, String password) throws IOException {
+
+        ArrayList<Instructor> instructor = instructorRepository.findByEmailAndPassword(email, password);
+        if(instructor.isEmpty()){
+            System.out.println("Instructor not found, does not exist");
+            return null;
+        }
+        else {
+            return instructor.get(0);
+        }
+    }
     
 
 }
