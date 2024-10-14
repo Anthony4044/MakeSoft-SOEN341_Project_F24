@@ -10,4 +10,5 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
     ArrayList<Instructor> findByEmailAndName(String email, String name);
     ArrayList<Instructor> findByName(String name);
     ArrayList<Instructor> findBySection(String section);
+    ArrayList<Instructor> findByEmailAndPassword(String email, String password);
 }

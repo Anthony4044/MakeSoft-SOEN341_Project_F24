@@ -128,7 +128,7 @@ public class StudentController {
     public Student signinStudent(@RequestBody Student student) {
         Student foundStudent = null;
         try {
-            foundStudent = findStudentId(student.getEmail(), student.getPassword());
+            foundStudent = findStudent(student.getEmail(), student.getPassword());
             if (foundStudent == null) {
                 return null;
             } else {
@@ -157,6 +157,16 @@ public class StudentController {
 
     }
 
+    private Student findStudent(String email, String password) {
+        ArrayList<Student> students = studentRepository.findByEmailAndPassword(email, password);
+        if (students.isEmpty()) {
+            return null;
+        } else {
+            return students.get(0);
+        }
+    }
+
+    /**
     private Student findStudentId(String email, String password) throws IOException {
         FileReader fr;
         BufferedReader br = null;
@@ -181,6 +191,7 @@ public class StudentController {
         }
         return null;
     }
+     **/
 
     private ArrayList<Student> retrieveTeamates(Student student) throws IOException {
         String Section = student.getSection();

@@ -35,36 +35,8 @@ public class InstructorController {
 
     }
 
-    private Instructor findInstructor(String email, String password) throws IOException {
-        FileReader fw;
-        BufferedReader br;
-        try {
-            fw = new FileReader(instructorService.getAllInstructors());
-            br = new BufferedReader(fw);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String fileRow = "";
-        while ((fileRow = br.readLine()) != null) {
-
-            String instructorInfo[] = fileRow.split(",");
-            String instructorEmail = instructorInfo[1];
-            String instructorPassword = instructorInfo[2];
 
 
-            if (instructorEmail.equalsIgnoreCase(email) && instructorPassword.equals(password)) {
-                    Instructor newInstructor = new Instructor(instructorInfo[0],
-                            instructorInfo[1],
-                            instructorInfo[2],
-                            instructorInfo[3]);
-                    return newInstructor;
-
-                }
-            }
-        System.out.println("HELLOOOO");
-        return null;//todo
-        }
 
 
 
@@ -74,7 +46,7 @@ public class InstructorController {
         Instructor savedInstructor = null;
         System.out.println(instructor.getEmail()+"    "+instructor.getPassword());
         try {
-            savedInstructor = findInstructor(instructor.getEmail(), instructor.getPassword());
+            savedInstructor = instructorService.findInstructor(instructor.getEmail(), instructor.getPassword());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
