@@ -5,7 +5,7 @@ import './instructorPage.css';
 import concordia from './concordia.jpg';
 import './studentPage.css';
 
-const StudentPage = ({ student }) => {
+const StudentPage = ({ student, handleEvaluationForm }) => {
   const [teamName, setTeamName] = useState('');
   const [section, setSection] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
@@ -55,17 +55,21 @@ const StudentPage = ({ student }) => {
 
       <div className="Inst-boxWrapper">
         <Header className="Inst-elemHeader" as="h1">
-          Team Name: 
-          <span style={{ marginLeft: '30%', fontWeight: 'bold', fontSize: '27px', textDecoration: 'underline', textShadow: '4px 4px 10px rgba(0, 0, 0, 0.7)' }}> 
+          Team Name:
+          <span style={{ marginLeft: '30%', fontWeight: 'bold', fontSize: '27px', textDecoration: 'underline', textShadow: '4px 4px 10px rgba(0, 0, 0, 0.7)' }}>
             {teamName || 'No team assigned'}
           </span>
         </Header>
         <List className="Inst-teamlist" bulleted>
-          
-          <h2 style={{fontSize: '25px' , color: "rgb(78, 23, 23)" , textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)'}}>Team members</h2>
+
+          <h2 style={{ fontSize: '25px', color: "rgb(78, 23, 23)", textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)' }}>Team members</h2>
           {teamMembers.length > 0 ? (
             teamMembers.map((member, index) => (
-              <List.Item class= 'Inst-teamItem-student' key={index}>{member.name}</List.Item>
+              <List.Item class='Inst-teamItem-student' key={index}>{member.name}
+                {student.studentId != member.studentId ? (
+                  <button onClick={() => handleEvaluationForm(member, student)}> Evaluate </button>
+                ) : null}
+              </List.Item>
             ))
           ) : (
             <List.Item>No team members assigned</List.Item>
