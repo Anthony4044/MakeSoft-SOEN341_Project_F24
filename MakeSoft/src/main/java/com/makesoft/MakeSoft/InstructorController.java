@@ -22,14 +22,17 @@ public class InstructorController {
     // Instructor signup endpoint
     @PostMapping("/signup")
     public ResponseEntity<?> signUpInstructor(@RequestBody Instructor instructor) {
+
         Instructor savedInstructor = instructorService.addInstructor(instructor);
+        System.out.println(savedInstructor);
         if (savedInstructor != null) {
-            System.out.println("Instructor signed up: " + savedInstructor);
-            return ResponseEntity.ok(savedInstructor);
-        } else {
+           System.out.println("Instructor signed up: " + savedInstructor);
+           return ResponseEntity.ok(savedInstructor);
+       } else {
             System.out.println("Instructor already exists.");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Instructor already exists.");
+           return ResponseEntity.status(HttpStatus.CONFLICT).body("Instructor already exists.");
         }
+
     }
 
     private Instructor findInstructor(String email, String password) throws IOException {
@@ -78,7 +81,7 @@ public class InstructorController {
         return savedInstructor;
 
     }
-
+/**
     //allows to fetch students in thir section
     @GetMapping("/{section}/students")
     public List<Student> getStudents(@PathVariable String section) {
@@ -90,7 +93,7 @@ public class InstructorController {
     public List<Team> getTeams(@PathVariable String section) {
         return instructorService.getTeamsBySection(section);
     }
-
+**/
     // Add a new team
     @PostMapping("/{section}/teams")
     public String addTeam(@PathVariable String section, @RequestBody Team team) {
@@ -112,7 +115,8 @@ public class InstructorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to add student to team.");
         }
     }
-    //removing students from team 
+    //removing students from team
+    /**
     @PostMapping("/{section}/teams/{teamName}/removeStudent")
     public ResponseEntity<?> removeStudentFromTeam(
         @PathVariable String section,
@@ -126,5 +130,12 @@ public class InstructorController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove student from team.");
         }
+    }
+        **/
+    //http://localhost:8080/api/instructors/hello
+    @PostMapping("/hello")
+    private void addInt(@RequestBody Instructor instructor){
+
+        this.instructorService.addInstructor(instructor);
     }
 }

@@ -1,11 +1,15 @@
 package com.makesoft.MakeSoft;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-
-
+@Entity
 public class Student {
+
+    @Id
     private String studentId;
+
     private String name;
     private String email;
     private String password;
@@ -18,6 +22,10 @@ public class Student {
         this.email = email;
         this.password = password;
         this.section = section;
+    }
+
+    public Student() {
+
     }
 
     // Getter and Setter methods
