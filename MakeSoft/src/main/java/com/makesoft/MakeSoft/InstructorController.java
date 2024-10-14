@@ -82,7 +82,7 @@ public class InstructorController {
 
     }
 /**
-    //allows to fetch students in thir section
+    //allows to fetch students in their section
     @GetMapping("/{section}/students")
     public List<Student> getStudents(@PathVariable String section) {
     return instructorService.getStudentsBySection(section);
@@ -94,6 +94,8 @@ public class InstructorController {
         return instructorService.getTeamsBySection(section);
     }
 **/
+
+
     // Add a new team
     @PostMapping("/{section}/teams")
     public String addTeam(@PathVariable String section, @RequestBody Team team) {
@@ -115,8 +117,9 @@ public class InstructorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to add student to team.");
         }
     }
-    //removing students from team
+
     /**
+     * //removing students from team
     @PostMapping("/{section}/teams/{teamName}/removeStudent")
     public ResponseEntity<?> removeStudentFromTeam(
         @PathVariable String section,

@@ -1,13 +1,23 @@
 package com.makesoft.MakeSoft;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
 public class Team {
+
     private String teamName;
     private String section;
+    @ElementCollection
     private List<String> studentIds;
+    @OneToMany
     private ArrayList<Student> teamMembers;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     public Team(){
 

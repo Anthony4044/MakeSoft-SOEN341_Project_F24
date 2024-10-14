@@ -1,7 +1,7 @@
 package com.makesoft.MakeSoft;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 
 import java.util.ArrayList;
 
@@ -11,15 +11,13 @@ public class Instructor {
 
     //@Transient helps database ignore attribute
     private String name;
+    @Id
     private String email;
     private String password;
     private String section;
 
-    @Transient
+    @Transient //ignores this attribute, does not create column in database
     private String CSVName;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     // Constructor
     public Instructor(String name, String email, String password, String section) {
@@ -61,12 +59,5 @@ public class Instructor {
         return    this.name +  this.email + this.password+ this.section + this.CSVName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
 
