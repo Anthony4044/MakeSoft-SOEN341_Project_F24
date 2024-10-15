@@ -24,7 +24,6 @@ const InstructorPage = ({ instructor }) => {
       const response = await axios.get(
         `http://localhost:8080/api/instructors/${instructor.section}/students`
       );
-      alert(response.data);
       setStudents(response.data);
     } catch (error) {
       console.error('Error fetching students:', error);
@@ -47,8 +46,10 @@ const InstructorPage = ({ instructor }) => {
         return { ...team, color: teamColors[team.teamName] };
       });
       
+      //alert(response.data);
       setTeams(response.data);
       setTeams(teamsWithColor);
+      
     } catch (error) {
       console.error('Error fetching teams:', error);
     }
@@ -65,7 +66,8 @@ const InstructorPage = ({ instructor }) => {
     const team = {
       teamName,
       section: instructor.section,
-      studentIds: [], // Start with an empty team
+      studentIds: [],
+      teamMembers: [], // Start with an empty team
       color: getRandomDarkColor(),
     };
 
@@ -91,7 +93,7 @@ const InstructorPage = ({ instructor }) => {
       );
       setMessage(response.data);
       fetchStudents();
-      await fetchTeams();
+       fetchTeams();
     } catch (error) {
       console.error('Error assigning student:', error);
       setMessage('Failed to assign student.');

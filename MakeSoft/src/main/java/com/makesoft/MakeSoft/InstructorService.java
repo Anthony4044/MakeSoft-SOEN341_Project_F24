@@ -61,7 +61,7 @@ public class InstructorService {
         for(int i = 0;i<teams.size();i++) {
             long teamId =teams.get(i).getTeamId();
             ArrayList<Student> teamMembers = studentRepository.findByTeam(teams.get(i));
-            teams.get(i).setTeamMembers(teamMembers);
+           // teams.get(i).setTeamMembers(teamMembers);
             ArrayList<String> studentIds = new ArrayList<>();
             for (int j = 0;j<teamMembers.size();j++) {
 
