@@ -12,8 +12,8 @@ public class Team {
     private String section;
     @ElementCollection
     private List<String> studentIds;
-    @OneToMany
-    private ArrayList<Student> teamMembers;
+    //@OneToMany
+    //private ArrayList<Student> teamMembers;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +21,11 @@ public class Team {
 
     public Team(){
 
+    }
+
+    public Team(String teamName, String section) {
+        this.teamName = teamName;
+        this.section = section;
     }
 
     public Team(String teamName, String section, List<String> studentIds) {
@@ -32,16 +37,16 @@ public class Team {
     public Team(String teamName, String section, ArrayList<Student> teamMembers) {
         this.teamName = teamName;
         this.section = section;
-        this.teamMembers = teamMembers;
+        //this.teamMembers = teamMembers;
     }
 
-    public ArrayList<Student> getTeamMembers() {
+    /* public ArrayList<Student> getTeamMembers() {
         return teamMembers;
     }
 
     public void setTeamMembers(ArrayList<Student> teamMembers) {
         this.teamMembers = teamMembers;
-    }
+    }    */
 
     // Getters and Setters
     public String getTeamName() { return teamName; }
@@ -50,11 +55,12 @@ public class Team {
     public String getSection() { return section; }
     public void setSection(String section) { this.section = section; }
 
+
     public List<String> getStudentIds() { return studentIds; }
     public void setStudentIds(List<String> studentIds) { this.studentIds = studentIds; }
 
     // Convert team to CSV format
-    public String toCSV() {
+     public String toCSV() {
         StringBuilder sb = new StringBuilder();
         sb.append(teamName);
         for (String studentId : studentIds) {

@@ -15,13 +15,15 @@ public class InstructorService {
     // Injecting the InstructorRepository using @Autowired
     private final InstructorRepository instructorRepository;
     private final StudentRepository studentRepository;
+    private final TeamRepository teamRepository;
 
 
     // Constructor injection (preferred way of dependency injection)
     @Autowired
-    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository) {
+    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository, TeamRepository teamRepository) {
         this.instructorRepository = instructorRepository;
         this.studentRepository = studentRepository;
+        this.teamRepository = teamRepository;
     }
 
     private String allInstructors = "CSV-files/instructors.csv";
@@ -45,6 +47,18 @@ public class InstructorService {
             return true;
     }
 
+    public ArrayList<Student> findStudentBySection(String section) {
+        ArrayList<Student> students = studentRepository.findBySection(section);
+        return students;
+    }
+
+    public ArrayList<Team> findTeamBySection(String section) {
+        ArrayList<Team> teams = teamRepository.findBySection(section);
+        for(int i=0; i<teams.size(); i++) {
+            System.out.println(teams.get(i));
+        }
+        return teams;
+    }
     // Add a new instructor
     public Instructor addInstructor(Instructor instructor) {
         if(!instructorExists(instructor)){
@@ -129,6 +143,25 @@ public class InstructorService {
     }
 
     // Method to add a team to the CSV file
+
+    public String addTeam(String section, Team team) {
+        if(!teamExist(team))  {
+            teamRepository.save(team);
+            return "Team added successfully.";   }
+
+            return "Team already exists.";
+
+    }
+
+    public boolean teamExist(Team team) {
+        ArrayList<Team> teams = teamRepository.findByTeamName(team.getTeamName());
+        if(teams.isEmpty()) {
+            return false;
+
+        }
+        return true;
+    }
+    /*
     public String addTeam(String section, Team team) {
         String csvFileName = "CSV-files/" + section + "-Teams.csv";
 
@@ -155,7 +188,7 @@ public class InstructorService {
             return "Failed to add team.";
         }
     }
-
+            */
     //adding student to team
     public boolean addStudentToTeam(String section, String teamName, String studentId) {
         /**

@@ -53,19 +53,21 @@ public class InstructorController {
         return savedInstructor;
 
     }
-/**
+
     //allows to fetch students in their section
     @GetMapping("/{section}/students")
     public List<Student> getStudents(@PathVariable String section) {
-    return instructorService.getStudentsBySection(section);
+    return instructorService.findStudentBySection(section);
     }
-    
+
+
     // Fetch teams for the instructor
     @GetMapping(    "/{section}/teams")
-    public List<Team> getTeams(@PathVariable String section) {
-        return instructorService.getTeamsBySection(section);
+    public ArrayList<Team> getTeams(@PathVariable String section) {
+
+        return instructorService.findTeamBySection(section);
     }
-**/
+
 
 
     // Add a new team
