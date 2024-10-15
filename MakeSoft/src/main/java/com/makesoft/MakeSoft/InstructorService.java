@@ -1,5 +1,6 @@
 package com.makesoft.MakeSoft;
 
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,16 @@ public class InstructorService {
     private final InstructorRepository instructorRepository;
     private final StudentRepository studentRepository;
     private final TeamRepository teamRepository;
+    private final MultipartConfigElement multipartConfigElement;
 
 
     // Constructor injection (preferred way of dependency injection)
     @Autowired
-    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository, TeamRepository teamRepository) {
+    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository, TeamRepository teamRepository, MultipartConfigElement multipartConfigElement) {
         this.instructorRepository = instructorRepository;
         this.studentRepository = studentRepository;
         this.teamRepository = teamRepository;
+        this.multipartConfigElement = multipartConfigElement;
     }
 
     private String allInstructors = "CSV-files/instructors.csv";
@@ -54,9 +57,25 @@ public class InstructorService {
 
     public ArrayList<Team> findTeamBySection(String section) {
         ArrayList<Team> teams = teamRepository.findBySection(section);
-        for(int i=0; i<teams.size(); i++) {
-            System.out.println(teams.get(i));
+
+        for(int i = 0;i<teams.size();i++) {
+            long teamId =teams.get(i).getTeamId();
+            ArrayList<Student> teamMembers = studentRepository.findByTeam(teams.get(i));
+            teams.get(i).setTeamMembers(teamMembers);
+            ArrayList<String> studentIds = new ArrayList<>();
+            for (int j = 0;j<teamMembers.size();j++) {
+
+                studentIds.add(teamMembers.get(j).getStudentId());
+
+            }
+            teams.get(i).setStudentIds(studentIds);
+
         }
+
+        for(int i = 0;i<teams.size();i++) {
+            System.out.println(teams.get(i) + " teamssssssss");
+        }
+
         return teams;
     }
     // Add a new instructor
@@ -147,19 +166,17 @@ public class InstructorService {
     public String addTeam(String section, Team team) {
         if(!teamExist(team))  {
             teamRepository.save(team);
-            return "Team added successfully.";   }
+            return "Team added successfully.";
+        }
 
             return "Team already exists.";
 
     }
 
     public boolean teamExist(Team team) {
-        ArrayList<Team> teams = teamRepository.findByTeamName(team.getTeamName());
-        if(teams.isEmpty()) {
-            return false;
+        Optional<Team> team2 = teamRepository.findByTeamName(team.getTeamName());
 
-        }
-        return true;
+        return team2.isPresent();
     }
     /*
     public String addTeam(String section, Team team) {
@@ -191,7 +208,34 @@ public class InstructorService {
             */
     //adding student to team
     public boolean addStudentToTeam(String section, String teamName, String studentId) {
-        /**
+        //find team using teamName
+        //add student to team by giving the student the teamId.
+
+        Optional<Team> teamOptional = teamRepository.findByTeamName(teamName);
+
+        if(!teamOptional.isPresent()) {
+
+            return false;
+
+        }
+        Team team = teamOptional.get();
+        System.out.println();
+        Optional<Student> studentOptional = studentRepository.findByStudentId(studentId);
+
+        if(!studentOptional.isPresent()) {
+
+            return false;
+        }else{
+            Student student = studentOptional.get();
+            student.setTeam(team);
+            studentRepository.save(student);
+
+
+            return true;
+        }
+
+       /**
+
         String csvFileName = "CSV-files/" + section + "-Teams.csv";
         List<Team> teams = getTeamsBySection(section);
         boolean teamFound = false;
@@ -265,17 +309,10 @@ public class InstructorService {
     
         return true;
          **/
-        return false;
+
     }
 
-    public void ins(Instructor instructor){
-        ArrayList<Instructor> ins = instructorRepository.findByEmailAndName("john@example.com","g");
-        if (ins.size()>0) {
-            System.out.println(ins.get(0).getName() + " found by email");
-        } else {
-            System.out.println("Instructor not found");
-        }
-    }
+
 
     public Instructor findInstructor(String email, String password) throws IOException {
 

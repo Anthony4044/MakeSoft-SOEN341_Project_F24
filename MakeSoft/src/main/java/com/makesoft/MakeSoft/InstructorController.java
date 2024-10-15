@@ -62,7 +62,7 @@ public class InstructorController {
 
 
     // Fetch teams for the instructor
-    @GetMapping(    "/{section}/teams")
+    @GetMapping("/{section}/teams")
     public ArrayList<Team> getTeams(@PathVariable String section) {
 
         return instructorService.findTeamBySection(section);
@@ -109,10 +109,5 @@ public class InstructorController {
         }
     }
         **/
-    //http://localhost:8080/api/instructors/hello
-    @PostMapping("/hello")
-    private void addInt(@RequestBody Instructor instructor){
 
-        this.instructorService.addInstructor(instructor);
-    }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
@@ -42,12 +43,10 @@ public class StudentController {
     }
 
     private boolean studentExists(Student student){
-        ArrayList<Student> students = studentRepository.findByStudentId(student.getStudentId());
+        Optional<Student> students = studentRepository.findByStudentId(student.getStudentId());
         try {
-
-
             Instructor instructor = instructorService.findInstructorBySection(student.getSection());
-            if (students.isEmpty() && instructor != null) {
+            if (students != null && instructor != null) {
                 return false;
             }
         }catch (Exception e){
@@ -139,7 +138,7 @@ public class StudentController {
         }
         return null;
     }
-
+    // this is for student page
     @PostMapping("/findTeam")
     private Team findTeamates(@RequestBody Student student) {
         ArrayList<Student> teamates = null;
