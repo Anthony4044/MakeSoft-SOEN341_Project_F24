@@ -38,3 +38,20 @@
     transform: rotate(360deg);
   }
 }
+
+
+.nav{
+  margin: 0 0 0em !important;
+}
+
+.nav-elem {
+  color: rgb(255, 255, 255) !important;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+
+
+}
+.bg-wrapper{
+  height: 100vh;
+}
