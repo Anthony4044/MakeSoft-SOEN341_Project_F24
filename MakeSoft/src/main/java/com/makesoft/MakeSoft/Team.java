@@ -10,10 +10,10 @@ public class Team {
 
     private String teamName;
     private String section;
-    //@ElementCollection
+    @ElementCollection
     @Transient
     private List<String> studentIds;
-   // @OneToMany
+    @OneToMany
     @Transient
     private ArrayList<Student> teamMembers;
 

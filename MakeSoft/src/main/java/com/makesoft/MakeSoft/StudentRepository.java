@@ -12,5 +12,4 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     ArrayList<Student> findBySection(String studentSection);
     ArrayList<Student> findByEmailAndPassword(String email, String password);
     ArrayList<Student> findByTeam(Team team);
-
 }

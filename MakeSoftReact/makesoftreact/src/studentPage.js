@@ -6,20 +6,29 @@ import concordia from './concordia.jpg';
 import './studentPage.css';
 
 const StudentPage = ({ student, handleEvaluationForm }) => {
+  
   const [teamName, setTeamName] = useState('');
   const [section, setSection] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
+  const [studentIds, setStudentIds] = useState([]);
+
+ 
 
   useEffect(() => {
     const fetchTeam = async () => {
+      const team = {teamName, section};
+
       try {
-        const response = await axios.post(
-          'http://localhost:8080/api/students/findTeam',
-          student
+        const response = await axios.get(
+          `http://localhost:8080/api/students/${student.studentId}/addTeam`
         );
-        setTeamName(response.data.teamName);
-        setSection(response.data.section);
-        setTeamMembers(response.data.teamMembers); // Assume this returns an array of members
+  
+        team.teamName = response.data.teamName;
+        team.section = response.data.section;
+        //setTeamName(response.data.teamName);
+        //setSection(response.data.section);
+        alert(response.data.teamName);
+        
       } catch (error) {
         console.error('Error fetching team', error);
         alert('Error fetching team');

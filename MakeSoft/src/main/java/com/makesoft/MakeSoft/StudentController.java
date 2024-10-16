@@ -18,8 +18,9 @@ public class StudentController {
 
     private final StudentRepository studentRepository;
 
-    String allStudentsFile = "CSV-files/allStudents.csv"; // The file to store all students
     String teamName;
+    @Autowired
+    private TeamRepository teamRepository;
 
     public StudentController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -34,7 +35,7 @@ public class StudentController {
 
         if (!verifiedStudent) {
             studentRepository.save(student);
-            System.out.println(student);
+            //System.out.println(student);
             return student;
         } else {
 
@@ -68,22 +69,36 @@ public class StudentController {
         }
         return null;
     }
-    /** TODO
+
     // this is for student page
-    @PostMapping("/findTeam")
-    private Team findTeamates(@RequestBody Student student) {
-        ArrayList<Student> teamates = null;
-
-        try {
-            teamates = retrieveTeamates(student);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return new Team(teamName, student.getSection(), teamates);
-
+    @GetMapping("/{id}/addTeam")
+    private Team findTeamates(@PathVariable String id) {
+        System.out.println("ID: " +id);
+        Team team = retrieveTeam(id);
+        System.out.println(team.getTeamName());
+        //System.out.println(team.getTeamMembers().get(0));
+        return team;
     }
-    **/
 
+    private Team retrieveTeam(String id) {
+        System.out.println("hello nigga2");
+        Optional<Student> student1 = studentRepository.findByStudentId(id);
+        Optional<Team> optionalTeam = teamRepository.findByTeamId(student1.get().getTeam().getTeamId());
+        ArrayList<Student> teamates = studentRepository.findByTeam(student1.get().getTeam());
+        Team team = optionalTeam.get();
+
+        team.setTeamMembers(teamates);
+        System.out.println(team.getTeamMembers());
+        ArrayList<String> teamatesIds = new ArrayList<>();
+        for(int i=0; i<teamates.size(); i++){
+            teamatesIds.add(teamates.get(i).getStudentId());
+        }
+        team.setStudentIds(teamatesIds);
+        return team;
+    }
+
+
+    //used for when students sign in
     private Student findStudent(String email, String password) {
         ArrayList<Student> students = studentRepository.findByEmailAndPassword(email, password);
         if (students.isEmpty()) {
@@ -132,37 +147,8 @@ public class StudentController {
         return teamates;
     }
 
-
-    private ArrayList<Student> findStudentsById(ArrayList<String> teamatesId) throws IOException {
-
-        ArrayList<Student> teammates = new ArrayList<>();
-        FileReader fr;
-        BufferedReader br = null;
-
-        fr = new FileReader(allStudentsFile);
-        br = new BufferedReader(fr);
-
-
-        String fileRow = "";
-        while ((fileRow = br.readLine()) != null) {
-
-            String[] studentInfo = fileRow.split(",");
-            String studentId = studentInfo[0];
-
-            for (int i = 0; i < teamatesId.size(); i++) {
-
-                if (teamatesId.get(i).equalsIgnoreCase(studentId)) {
-
-
-                    teammates.add(new Student(studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]));
-                }
-
-            }
-
-        }
-        return teammates;
-    }
      **/
+
 
 
 }

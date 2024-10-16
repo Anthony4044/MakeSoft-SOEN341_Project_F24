@@ -64,7 +64,6 @@ public class InstructorController {
     // Fetch teams for the instructor
     @GetMapping("/{section}/teams")
     public ArrayList<Team> getTeams(@PathVariable String section) {
-
         return instructorService.findTeamBySection(section);
     }
 
