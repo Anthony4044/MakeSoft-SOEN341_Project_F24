@@ -92,8 +92,10 @@ public class InstructorController {
         }
     }
 
-    /**
-     * //removing students from team
+
+
+
+    //removing students from team
     @PostMapping("/{section}/teams/{teamName}/removeStudent")
     public ResponseEntity<?> removeStudentFromTeam(
         @PathVariable String section,
@@ -108,6 +110,6 @@ public class InstructorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove student from team.");
         }
     }
-        **/
+
 
 }

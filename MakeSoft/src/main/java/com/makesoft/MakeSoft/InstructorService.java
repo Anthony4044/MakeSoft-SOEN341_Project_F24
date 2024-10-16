@@ -178,34 +178,7 @@ public class InstructorService {
 
         return team2.isPresent();
     }
-    /*
-    public String addTeam(String section, Team team) {
-        String csvFileName = "CSV-files/" + section + "-Teams.csv";
 
-        try {
-            File teamsFile = new File(csvFileName);
-            if (!teamsFile.exists()) {
-                teamsFile.createNewFile();
-                // Write header to the CSV file
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(teamsFile, true))) {
-                    bw.write("teamName,studentIds...");
-                }
-            }
-
-            // Append the new team to the CSV file
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(teamsFile, true))) {
-                bw.newLine(); //this is causing issues with blank teams
-                bw.write(team.toCSV());
-            }
-
-            return "Team added successfully.";
-
-        } catch (IOException e) { 
-            e.printStackTrace();
-            return "Failed to add team.";
-        }
-    }
-            */
     //adding student to team
     public boolean addStudentToTeam(String section, String teamName, String studentId) {
         //find team using teamName
@@ -234,82 +207,6 @@ public class InstructorService {
             return true;
         }
 
-       /**
-
-        String csvFileName = "CSV-files/" + section + "-Teams.csv";
-        List<Team> teams = getTeamsBySection(section);
-        boolean teamFound = false;
-    
-        for (Team team : teams) {
-            if (team.getTeamName().equalsIgnoreCase(teamName)) {
-                teamFound = true;
-                if (!team.getStudentIds().contains(studentId)) {
-                    team.getStudentIds().add(studentId);
-                }
-                break;
-            }
-        }
-    
-        if (!teamFound) {
-            // Team not found
-            return false;
-        }
-    
-        // Write the updated teams back to the CSV file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFileName))) {
-            // Write header
-            bw.write("teamName,studentIds...");
-            bw.newLine();
-            for (Team team : teams) {
-                bw.write(team.toCSV());
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    
-        return true;
-    }
-
-    //removing student from team 
-    public boolean removeStudentFromTeam(String section, String teamName, String studentId) {
-        String csvFileName = "CSV-files/" + section + "-Teams.csv";
-        List<Team> teams = getTeamsBySection(section);
-        boolean teamFound = false;
-    
-        for (Team team : teams) {
-            if (team.getTeamName().equalsIgnoreCase(teamName)) {
-                teamFound = true;
-                if (team.getStudentIds().contains(studentId)) {
-                    team.getStudentIds().remove(studentId);
-                }
-                break;
-            }
-        }
-    
-        if (!teamFound) {
-            // Team not found
-            return false;
-        }
-    
-        // Write the updated teams back to the CSV file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFileName))) {
-            // Write header
-            bw.write("teamName,studentIds...");
-            bw.newLine();
-            for (Team team : teams) {
-                bw.write(team.toCSV());
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    
-        return true;
-         **/
-
     }
 
 
@@ -325,7 +222,29 @@ public class InstructorService {
             return instructor.get(0);
         }
     }
-    
 
+
+    public boolean removeStudentFromTeam(String section, String teamName, String studentId) {
+        Optional<Team> teamOptional = teamRepository.findByTeamName(teamName);
+
+        if(!teamOptional.isPresent()) {
+
+            return false;
+
+        }
+        Team team = teamOptional.get();
+        System.out.println();
+        Optional<Student> studentOptional = studentRepository.findByStudentId(studentId);
+
+        if(!studentOptional.isPresent()) {
+
+            return false;
+        }else {
+            Student student = studentOptional.get();
+            student.setTeam(null);
+            studentRepository.save(student);
+        }
+        return true;
+    }
 }
 

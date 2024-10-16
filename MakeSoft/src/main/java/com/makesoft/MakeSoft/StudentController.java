@@ -46,7 +46,7 @@ public class StudentController {
         Optional<Student> students = studentRepository.findByStudentId(student.getStudentId());
         try {
             Instructor instructor = instructorService.findInstructorBySection(student.getSection());
-            if (students != null && instructor != null) {
+            if (students != null && instructor != null) { //Don't do isPresent()
                 return false;
             }
         }catch (Exception e){
@@ -56,88 +56,19 @@ public class StudentController {
     }
 
 
-    private String studentAlreadyExists(Student student, String instructorCSV) throws IOException {
-        FileReader fr;
-        BufferedReader br = null;
-
-        fr = new FileReader(instructorCSV);
-        br = new BufferedReader(fr);
-
-
-        String fileRow = "";
-        while ((fileRow = br.readLine()) != null) {
-
-            String studentInfo[] = fileRow.split(",");
-            String studentEmail = studentInfo[2];
-            String studentId = studentInfo[0];
-            boolean sameEmail = student.getEmail().equalsIgnoreCase(studentEmail);
-            boolean sameId = student.getStudentId().equalsIgnoreCase(studentId);
-
-
-            if ((sameId) || (sameEmail)) {
-
-                if (sameId) {
-                    fr.close();
-                    br.close();
-                    return "Student with ID: (" + student.getStudentId() + ") already exists.";
-                } else if (sameEmail) {
-                    fr.close();
-                    br.close();
-                    return "Student with email: (" + student.getEmail() + ") already exists.";
-                }
-
-                fr.close();
-                br.close();
-                return "validStudent";
-            }
-
-        }
-        fr.close();
-        br.close();
-
-        return "invalidStudent";
-    }
-
-    private void addStudentToAllStudents(Student student) {
-
-
-        try {
-            // Create the file if it does not exist
-            File file = new File(allStudentsFile);
-            if (!file.exists()) {
-                file.createNewFile();
-                // Optionally write a header if necessary
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-                    bw.write("studentId,name,email,password,section");
-                    bw.newLine();
-                }
-            }
-
-            // Append the new student information
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-                bw.write(student.getStudentId() + "," + student.getName() + "," + student.getEmail() + "," + student.getPassword() + "," + student.getSection());
-                bw.newLine(); // New line for the next entry
-            }
-        } catch (IOException e) {
-            System.out.println("Error writing to allStudents.csv: " + e.getMessage());
-        }
-    }
 
     @PostMapping("/signin")
     public Student signinStudent(@RequestBody Student student) {
         Student foundStudent = null;
         try {
             foundStudent = findStudent(student.getEmail(), student.getPassword());
-            if (foundStudent == null) {
-                return null;
-            } else {
-                return foundStudent;
-            }
+            return foundStudent;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
+    /** TODO
     // this is for student page
     @PostMapping("/findTeam")
     private Team findTeamates(@RequestBody Student student) {
@@ -148,13 +79,10 @@ public class StudentController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        for (int i = 0; i < teamates.size(); i++) {
-            System.out.println(teamates.get(i).getName());
-        }
-
         return new Team(teamName, student.getSection(), teamates);
 
     }
+    **/
 
     private Student findStudent(String email, String password) {
         ArrayList<Student> students = studentRepository.findByEmailAndPassword(email, password);
@@ -165,33 +93,8 @@ public class StudentController {
         }
     }
 
+
     /**
-    private Student findStudentId(String email, String password) throws IOException {
-        FileReader fr;
-        BufferedReader br = null;
-
-        fr = new FileReader(allStudentsFile);
-        br = new BufferedReader(fr);
-
-        String fileRow = "";
-        while ((fileRow = br.readLine()) != null) {
-
-            String studentInfo[] = fileRow.split(",");
-            String studentEmail = studentInfo[2];
-            String studentPassword = studentInfo[3];
-
-            boolean sameEmail = email.equalsIgnoreCase(studentEmail);
-            boolean samePassword = password.equalsIgnoreCase(studentPassword);
-
-            if ((sameEmail) && (samePassword)) {
-                Student st = new Student(studentInfo[0], studentInfo[1], studentInfo[2], studentInfo[3], studentInfo[4]);
-                return st;
-            }
-        }
-        return null;
-    }
-     **/
-
     private ArrayList<Student> retrieveTeamates(Student student) throws IOException {
         String Section = student.getSection();
         String studentId = student.getStudentId();
@@ -209,7 +112,7 @@ public class StudentController {
 
         String fileRow = "";
         while ((fileRow = br.readLine()) != null) {
-            String studentInfo[] = fileRow.split(",");
+            String[] studentInfo = fileRow.split(",");
             teamName = studentInfo[0];
             for (int i = 1; i < studentInfo.length; i++) {
                 if (studentInfo[i].equalsIgnoreCase(studentId)) {
@@ -243,7 +146,7 @@ public class StudentController {
         String fileRow = "";
         while ((fileRow = br.readLine()) != null) {
 
-            String studentInfo[] = fileRow.split(",");
+            String[] studentInfo = fileRow.split(",");
             String studentId = studentInfo[0];
 
             for (int i = 0; i < teamatesId.size(); i++) {
@@ -259,6 +162,7 @@ public class StudentController {
         }
         return teammates;
     }
+     **/
 
 
 }
