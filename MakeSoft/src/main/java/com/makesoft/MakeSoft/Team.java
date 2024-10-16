@@ -13,13 +13,11 @@ public class Team {
     @ElementCollection
     @Transient
     private List<String> studentIds;
-    @OneToMany
-    @Transient
-    private ArrayList<Student> teamMembers;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long teamId;
+    private long teamId;
 
     public Team(){
 
@@ -39,16 +37,11 @@ public class Team {
     public Team(String teamName, String section, ArrayList<Student> teamMembers) {
         this.teamName = teamName;
         this.section = section;
-        this.teamMembers = teamMembers;
+
     }
 
-     public ArrayList<Student> getTeamMembers() {
-        return teamMembers;
-    }
 
-    public void setTeamMembers(ArrayList<Student> teamMembers) {
-        this.teamMembers = teamMembers;
-    }
+
 
     // Getters and Setters
     public String getTeamName() { return teamName; }

@@ -30,7 +30,7 @@ public class StudentController {
     @PostMapping("/signup")
     public Student signUpStudent(@RequestBody Student student) {
 
-        boolean verifiedStudent =  studentExists(student);
+        boolean verifiedStudent = studentExists(student);
 
 
         if (!verifiedStudent) {
@@ -43,19 +43,18 @@ public class StudentController {
         }
     }
 
-    private boolean studentExists(Student student){
+    private boolean studentExists(Student student) {
         Optional<Student> students = studentRepository.findByStudentId(student.getStudentId());
         try {
             Instructor instructor = instructorService.findInstructorBySection(student.getSection());
             if (students != null && instructor != null) { //Don't do isPresent()
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return true;
     }
-
 
 
     @PostMapping("/signin")
@@ -73,24 +72,35 @@ public class StudentController {
     // this is for student page
     @GetMapping("/{id}/addTeam")
     private Team findTeamates(@PathVariable String id) {
-        System.out.println("ID: " +id);
+        System.out.println("ID: " + id);
         Team team = retrieveTeam(id);
         System.out.println(team.getTeamName());
         //System.out.println(team.getTeamMembers().get(0));
         return team;
     }
 
+    @GetMapping("/{section}/teamMembers")
+    private ArrayList<Student> sendTeamMembers(@PathVariable String section) {
+        System.out.println("NIG");
+        System.out.println("section: " + section);
+        ArrayList<Student> teamMembers = new ArrayList<>();
+        for (Student student : studentRepository.findBySection(section)) {
+            teamMembers.add(student);
+        }
+        return teamMembers;
+    }
+
     private Team retrieveTeam(String id) {
-        System.out.println("hello nigga2");
+        //System.out.println("hello nigga2");
         Optional<Student> student1 = studentRepository.findByStudentId(id);
         Optional<Team> optionalTeam = teamRepository.findByTeamId(student1.get().getTeam().getTeamId());
         ArrayList<Student> teamates = studentRepository.findByTeam(student1.get().getTeam());
         Team team = optionalTeam.get();
 
-        team.setTeamMembers(teamates);
-        System.out.println(team.getTeamMembers());
+        //team.setTeamMembers(teamates);
+        //System.out.println(team.getTeamMembers());
         ArrayList<String> teamatesIds = new ArrayList<>();
-        for(int i=0; i<teamates.size(); i++){
+        for (int i = 0; i < teamates.size(); i++) {
             teamatesIds.add(teamates.get(i).getStudentId());
         }
         team.setStudentIds(teamatesIds);
@@ -110,45 +120,43 @@ public class StudentController {
 
 
     /**
-    private ArrayList<Student> retrieveTeamates(Student student) throws IOException {
-        String Section = student.getSection();
-        String studentId = student.getStudentId();
-        ArrayList<Student> teamates = new ArrayList<>();
-        ArrayList<String> teamatesIds = new ArrayList<>();
-        String SectionFile = "CSV-files/" + Section + "-Teams.csv";
-        boolean foundTeammates = false;
-        FileReader fr;
-        BufferedReader br = null;
+     private ArrayList<Student> retrieveTeamates(Student student) throws IOException {
+     String Section = student.getSection();
+     String studentId = student.getStudentId();
+     ArrayList<Student> teamates = new ArrayList<>();
+     ArrayList<String> teamatesIds = new ArrayList<>();
+     String SectionFile = "CSV-files/" + Section + "-Teams.csv";
+     boolean foundTeammates = false;
+     FileReader fr;
+     BufferedReader br = null;
 
 
-        fr = new FileReader(SectionFile);
-        br = new BufferedReader(fr);
+     fr = new FileReader(SectionFile);
+     br = new BufferedReader(fr);
 
 
-        String fileRow = "";
-        while ((fileRow = br.readLine()) != null) {
-            String[] studentInfo = fileRow.split(",");
-            teamName = studentInfo[0];
-            for (int i = 1; i < studentInfo.length; i++) {
-                if (studentInfo[i].equalsIgnoreCase(studentId)) {
-                    for (int j = 1; j < studentInfo.length; j++) {
-                        teamatesIds.add(studentInfo[j]);
-                        System.out.println(studentInfo[j]);
-                    }
-                    foundTeammates = true;
-                    break;
-                }
-            }
-            if (foundTeammates) {//stop going through csv if teamates are found
-                break;
-            }
-        }
-        teamates = findStudentsById(teamatesIds);
-        return teamates;
-    }
-
+     String fileRow = "";
+     while ((fileRow = br.readLine()) != null) {
+     String[] studentInfo = fileRow.split(",");
+     teamName = studentInfo[0];
+     for (int i = 1; i < studentInfo.length; i++) {
+     if (studentInfo[i].equalsIgnoreCase(studentId)) {
+     for (int j = 1; j < studentInfo.length; j++) {
+     teamatesIds.add(studentInfo[j]);
+     System.out.println(studentInfo[j]);
+     }
+     foundTeammates = true;
+     break;
+     }
+     }
+     if (foundTeammates) {//stop going through csv if teamates are found
+     break;
+     }
+     }
+     teamates = findStudentsById(teamatesIds);
+     return teamates;
+     }
      **/
-
 
 
 }
