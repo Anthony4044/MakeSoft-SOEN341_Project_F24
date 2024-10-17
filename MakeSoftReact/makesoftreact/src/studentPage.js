@@ -23,10 +23,12 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
 
         try {
           const response2 = await axios.get(
-            `http://localhost:8080/api/students/${student.section}/teamMembers`
+            `http://localhost:8080/api/students/${student.studentId}/teamMembers`
           );
           setTeamMembers(response2.data || []);
-        } catch (e) { alert("error finding team members"); }
+        } catch (e) {
+           alert("error finding team members"); 
+          }
         setTeamName(response.data.teamName);
         setSection(response.data.section);
         setStudentIds(response.data.studentIds || []);
