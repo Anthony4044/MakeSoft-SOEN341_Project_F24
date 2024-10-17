@@ -37,22 +37,25 @@ const InstructorPage = ({ instructor }) => {
       const response = await axios.get(
         `http://localhost:8080/api/instructors/${instructor.section}/teams`
       );
-
-      const teamsWithColor = response.data.map((team) => {
+      
+      
+      const teamsWithColor = (response.data || []).map((team) => {
         if (!teamColors[team.teamName]) {
           teamColors[team.teamName] = getRandomDarkColor();
         }
         return { ...team, color: teamColors[team.teamName] };
       });
-
+      
+      //alert(response.data);
       setTeams(response.data);
       setTeams(teamsWithColor);
-
+      
     } catch (error) {
       console.error('Error fetching teams:', error);
     }
   };
 
+  
   const handleCreateTeam = async () => {
     if (!teamName) {
       setMessage('Please enter a team name.');
@@ -63,7 +66,8 @@ const InstructorPage = ({ instructor }) => {
     const team = {
       teamName,
       section: instructor.section,
-      studentIds: [], // Start with an empty team
+      studentIds: [],
+      teamMembers: [], // Start with an empty team
       color: getRandomDarkColor(),
     };
 
@@ -80,7 +84,7 @@ const InstructorPage = ({ instructor }) => {
       setMessage('Failed to create team.');
     }
   };
-
+ 
   const handleAssignStudent = async (studentId, teamName) => {
     try {
       const response = await axios.post(
@@ -89,7 +93,7 @@ const InstructorPage = ({ instructor }) => {
       );
       setMessage(response.data);
       fetchStudents();
-      fetchTeams();
+       fetchTeams();
     } catch (error) {
       console.error('Error assigning student:', error);
       setMessage('Failed to assign student.');

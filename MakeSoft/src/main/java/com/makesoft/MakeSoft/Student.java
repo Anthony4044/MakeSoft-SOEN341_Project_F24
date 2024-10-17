@@ -1,8 +1,9 @@
 package com.makesoft.MakeSoft;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+
 
 @Entity
 public class Student {
@@ -14,6 +15,10 @@ public class Student {
     private String email;
     private String password;
     private String section;
+
+    @ManyToOne
+    @JoinColumn(name = "teamId")
+    private Team team;  // This creates a foreign key to the Team table
 
     // Constructor
     public Student(String studentId, String name, String email, String password, String section) {
@@ -43,6 +48,14 @@ public class Student {
 
     public String getSection() { return section; }
     public void setSection(String section) { this.section = section; }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public String toString() {
         return "Student ID: " + studentId + ", Name: " + name + ", Email: " + email + ", Section: " + section;

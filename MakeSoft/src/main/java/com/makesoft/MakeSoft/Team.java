@@ -11,16 +11,21 @@ public class Team {
     private String teamName;
     private String section;
     @ElementCollection
+    @Transient
     private List<String> studentIds;
-    @OneToMany
-    private ArrayList<Student> teamMembers;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long teamId;
 
     public Team(){
 
+    }
+
+    public Team(String teamName, String section) {
+        this.teamName = teamName;
+        this.section = section;
     }
 
     public Team(String teamName, String section, List<String> studentIds) {
@@ -32,16 +37,11 @@ public class Team {
     public Team(String teamName, String section, ArrayList<Student> teamMembers) {
         this.teamName = teamName;
         this.section = section;
-        this.teamMembers = teamMembers;
+
     }
 
-    public ArrayList<Student> getTeamMembers() {
-        return teamMembers;
-    }
 
-    public void setTeamMembers(ArrayList<Student> teamMembers) {
-        this.teamMembers = teamMembers;
-    }
+
 
     // Getters and Setters
     public String getTeamName() { return teamName; }
@@ -50,16 +50,19 @@ public class Team {
     public String getSection() { return section; }
     public void setSection(String section) { this.section = section; }
 
-    public List<String> getStudentIds() { return studentIds; }
-    public void setStudentIds(List<String> studentIds) { this.studentIds = studentIds; }
+    public Long getTeamId() {
+        return teamId;
+    }
 
-    // Convert team to CSV format
-    public String toCSV() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(teamName);
-        for (String studentId : studentIds) {
-            sb.append(",").append(studentId);
-        }
-        return sb.toString();
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
+
+    public List<String> getStudentIds() {
+        return studentIds;
+    }
+
+    public void setStudentIds(List<String> studentIds) {
+        this.studentIds = studentIds;
     }
 }

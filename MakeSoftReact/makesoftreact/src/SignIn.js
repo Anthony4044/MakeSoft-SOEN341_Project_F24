@@ -94,6 +94,7 @@ const StudentSignin = (props) => {
         student.section = response.data.section;
         student.studentId = response.data.studentId;
         alert(response.data.name + ' signed in successfully!');
+        alert(student.studentId);
         if (props.onStudentSignin) {
           props.onStudentSignin(student);
         }

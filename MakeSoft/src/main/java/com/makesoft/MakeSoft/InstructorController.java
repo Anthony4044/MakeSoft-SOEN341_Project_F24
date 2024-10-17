@@ -53,19 +53,20 @@ public class InstructorController {
         return savedInstructor;
 
     }
-/**
+
     //allows to fetch students in their section
     @GetMapping("/{section}/students")
     public List<Student> getStudents(@PathVariable String section) {
-    return instructorService.getStudentsBySection(section);
+    return instructorService.findStudentBySection(section);
     }
-    
+
+
     // Fetch teams for the instructor
-    @GetMapping(    "/{section}/teams")
-    public List<Team> getTeams(@PathVariable String section) {
-        return instructorService.getTeamsBySection(section);
+    @GetMapping("/{section}/teams")
+    public ArrayList<Team> getTeams(@PathVariable String section) {
+        return instructorService.findTeamBySection(section);
     }
-**/
+
 
 
     // Add a new team
@@ -90,8 +91,10 @@ public class InstructorController {
         }
     }
 
-    /**
-     * //removing students from team
+
+
+
+    //removing students from team
     @PostMapping("/{section}/teams/{teamName}/removeStudent")
     public ResponseEntity<?> removeStudentFromTeam(
         @PathVariable String section,
@@ -106,11 +109,6 @@ public class InstructorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to remove student from team.");
         }
     }
-        **/
-    //http://localhost:8080/api/instructors/hello
-    @PostMapping("/hello")
-    private void addInt(@RequestBody Instructor instructor){
 
-        this.instructorService.addInstructor(instructor);
-    }
+
 }
