@@ -233,11 +233,8 @@ function App() {
               by MakeSoft
               </p>
             </div>
-
-
-
-
           </div>}
+
       {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} />}
       {currentComponent === 'signin' && <InstructorPage instructor={instructorData} />}
       {currentComponent === 'studentSignin' && (<StudentPage student={studentData} handleEvaluationForm={handleEvaluationForm} />)}
