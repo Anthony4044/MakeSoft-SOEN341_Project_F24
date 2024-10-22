@@ -27,7 +27,8 @@ const InstructorSignin = (props) => {
 
   
   //Backend TODO
-  const handleSignin = async () => {
+  const handleSignin = async (e) => {
+    e.preventDefault();
     const instructor = { email, password, name, section };
     try {
       const response = await axios.post('http://localhost:8080/api/instructors/signin', instructor);
@@ -76,15 +77,15 @@ const InstructorSignin = (props) => {
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="password">Password</Label>
-              <Input type="password" placeholder="••••••••" value={password}  className="textfield" value={password} onChange={(e) => setPassword(e.target.value)}  />
+              <Input type="password" placeholder="••••••••" value={password}  className="textfield" onChange={(e) => setPassword(e.target.value)}  />
             </LabelInputContainer>
 
             <button
-              className="signin signup bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-              type="submit"
+              className=" signup bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+              // type="submit"
               onClick={handleSignin}
             >
-              Sign up &rarr;
+              Sign In &rarr;
               <BottomGradient />
             </button>
 
@@ -239,7 +240,7 @@ const StudentSignin = (props) => {
                 <LabelInputContainer className="mb-4">
                   <Label htmlFor="email">Email Address</Label>
                   <Input placeholder="cena.icecream@.chill.bing.cn
-                  " type="email" value={email} className="textfield" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  " type="email" value={email} className="textfield" onChange={(e) => setEmail(e.target.value)} />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
                   <Label htmlFor="password">Password</Label>
@@ -248,7 +249,7 @@ const StudentSignin = (props) => {
 
                 <button
                   className="signup bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                  type="submit"
+                  // type="submit"
                   onClick={handleSignin2}
                 >
                   Sign up &rarr;
@@ -347,7 +348,7 @@ const SignInPage = (props) => {
     <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg bg-wrapper">
       <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
 
-        <Boxes />
+        {/* <Boxes /> */}
         <div style={{
           display: 'flex',
 

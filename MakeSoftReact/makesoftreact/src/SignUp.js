@@ -33,7 +33,8 @@ const InstructorSignup = (props) => {
   const [section, setSection] = useState('');
 
   //Backend TODO
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
     const instructor = { name, email, password, section };
     try {
       const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
@@ -112,7 +113,7 @@ const InstructorSignup = (props) => {
 
           <button
             className="signup bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
+            // type="submit"
             onClick={handleSignup}
           >
             Sign up &rarr;
@@ -277,7 +278,7 @@ const StudentSignup = (props) => {
 
                 <button
                   className="signup bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                  type="submit"
+                  // type="submit"
                   onClick={handleSignup}
                 >
                   Sign up &rarr;
@@ -343,7 +344,7 @@ const SignupPage = (props) => {
       <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg bg-wrapper">
       <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
 
-        <Boxes />
+        {/* <Boxes /> */}
         <div style={{
           display: 'flex',
 
