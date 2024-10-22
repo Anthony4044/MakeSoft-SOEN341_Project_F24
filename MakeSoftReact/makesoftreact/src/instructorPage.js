@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
 import './instructorPage.css'
 import concordia from './concordia.jpg';
-import 'animate.css';
+//import 'animate.css';
 
 
 const InstructorPage = ({ instructor }) => {
