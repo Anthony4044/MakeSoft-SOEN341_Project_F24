@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Header, List } from 'semantic-ui-react';
-import './instructorPage.css';
-import concordia from './concordia.jpg';
-import './studentPage.css';
+import { Vortex } from './components/ui/vortex';
+import { Label } from "./components/ui/label";
+import { Input } from "./components/ui/input";
+import { cn } from './utils/cn';
+import "./studentPage.css"
 
+// Reusable BottomGradient Component 
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition-opacity duration-500 opacity-0 absolute h-px w-full -bottom-px left-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition-opacity duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px left-1/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
+
+// Student Page Component
 const StudentPage = ({ student, handleEvaluationForm }) => {
-
   const [teamName, setTeamName] = useState('');
   const [section, setSection] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
@@ -27,13 +38,12 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
           );
           setTeamMembers(response2.data || []);
         } catch (e) {
-           alert("error finding team members"); 
-          }
+          console.error('Error fetching team members', e);
+          alert('Error finding team members');
+        }
         setTeamName(response.data.teamName);
         setSection(response.data.section);
         setStudentIds(response.data.studentIds || []);
-        alert(studentIds);
-
       } catch (error) {
         console.error('Error fetching team', error);
         alert('Error fetching team');
@@ -45,52 +55,83 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
     }
   }, [student]); // The useEffect depends on student prop
 
+  if (!student) {
+    return (
+      <div className="w-full flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <p className="text-red-500">No student data available.</p>
+      </div>
+    );
+  }
+
   return (
-    <div
-      className="background2"
-      style={{
-        backgroundImage: `url(${concordia})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        minHeight: '100vh',
-        width: '100%',
-      }}
-    >
-      <div className="welcome2">
-        <Header className="Inst-header" as="h1">
-          Welcome {student.name}!
-        </Header>
-        <Header className="Inst-header" as="h2">
-          Your section number is: {student.section}
-        </Header>
+    <div className="dark">
+      {/* Vortex Background */}
+      <div className="fixed inset-0 z-0">
+        <Vortex backgroundColor="black" className="w-full h-full" />
       </div>
 
-      <div className="Inst-boxWrapper">
-        <Header className="Inst-elemHeader" as="h1">
-          Team Name:
-          <span style={{ marginLeft: '30%', fontWeight: 'bold', fontSize: '27px', textDecoration: 'underline', textShadow: '4px 4px 10px rgba(0, 0, 0, 0.7)' }}>
-            {teamName || 'No team assigned'}
-          </span>
-        </Header>
-        <List className="Inst-teamlist" bulleted>
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl w-full mx-auto p-6 pt-32">
+        {/* Increase pt-32 to add more top padding to avoid navbar covering content */}
+        {/* Welcome Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+            Welcome {student.name}!
+          </h1>
+          <h2 className="text-xl sm:text-2xl font-semibold text-white">
+            Your section number is: {student.section}
+          </h2>
+        </div>
 
-          <h2 style={{ fontSize: '25px', color: "rgb(78, 23, 23)", textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)' }}>Team members</h2>
+        {/* Team Name */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
+            Team Name:
+            <span
+              className="ml-4 font-bold text-2xl text-indigo-500 dark:text-indigo-300"
+              style={{
+                // textDecoration: 'underline',
+                textShadow: '4px 4px 10px rgba(0, 0, 0, 0.7)',
+              }}
+            >
+              {teamName || 'No team assigned'}
+            </span>
+          </h2>
+        </div>
+
+        {/* Team Members */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 outer-wr">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4 ">
+            Team Members:
+          </h2>
           {teamMembers.length > 0 ? (
-            teamMembers.map((member, index) => (
-              <List.Item class='Inst-teamItem-student' key={index}>{member.name}
-                {student.studentId != member.studentId ? (
-                  <button onClick={() => handleEvaluationForm(member, student)}> Evaluate </button>
-                ) : null}
-              </List.Item>
-            ))
+            <ul className="space-y-4">
+              {teamMembers.map((member, index) => (
+                <li
+                  key={index}
+                  className="flex items-center justify-between bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 p-4 rounded-md"
+                >
+                  <span className="text-neutral-700 dark:text-neutral-300 text-xl">
+                    {member.name}
+                  </span>
+                  {student.studentId !== member.studentId && (
+                    <button
+                      className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
+                      onClick={() => handleEvaluationForm(member, student)}
+                    >
+                      Evaluate
+                      <BottomGradient />
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
           ) : (
-            <List.Item>No team members assigned</List.Item>
+            <p className="text-neutral-600 dark:text-neutral-300">
+              No team members assigned.
+            </p>
           )}
-
-        </List>
-        <br></br>
+        </div>
       </div>
     </div>
   );
