@@ -54,4 +54,12 @@
 }
 .bg-wrapper{
   height: 100vh;
+  width: auto;
+  margin: 0%;
+
+}
+
+.App{
+  background-color: #808080;
+  
 }

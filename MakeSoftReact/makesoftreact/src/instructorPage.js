@@ -1,22 +1,40 @@
+// InstructorPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Form, Button, Message, Dropdown, Header, List } from 'semantic-ui-react';
-import './instructorPage.css'
-import concordia from './concordia.jpg';
-//import 'animate.css';
+import { Vortex } from './components/ui/vortex';
+import { Label } from "./components/ui/label";
+import { Input } from "./components/ui/input";
+import { cn } from "./utils/cn";
 
+// Reusable BottomGradient Component (Declared Once)
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition-opacity duration-500 opacity-0 absolute h-px w-full -bottom-px left-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition-opacity duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px left-1/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
 
+// Reusable LabelInputContainer Component
+const LabelInputContainer = ({ children, className }) => {
+  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
+};
+
+// Instructor Page Component
 const InstructorPage = ({ instructor }) => {
   const [students, setStudents] = useState([]);
   const [teams, setTeams] = useState([]);
   const [teamName, setTeamName] = useState('');
   const [message, setMessage] = useState('');
+  const [teamColors, setTeamColors] = useState({});
 
   useEffect(() => {
     if (instructor) {
       fetchStudents();
       fetchTeams();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instructor]);
 
   const fetchStudents = async () => {
@@ -27,39 +45,57 @@ const InstructorPage = ({ instructor }) => {
       setStudents(response.data);
     } catch (error) {
       console.error('Error fetching students:', error);
+      setMessage('Error fetching students.');
     }
   };
-
-  const [teamColors, setTeamColors] = useState({});
 
   const fetchTeams = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/instructors/${instructor.section}/teams`
       );
-      
-      
+
       const teamsWithColor = (response.data || []).map((team) => {
         if (!teamColors[team.teamName]) {
           teamColors[team.teamName] = getRandomDarkColor();
         }
         return { ...team, color: teamColors[team.teamName] };
       });
-      
-      //alert(response.data);
-      setTeams(response.data);
+
       setTeams(teamsWithColor);
-      
     } catch (error) {
       console.error('Error fetching teams:', error);
+      setMessage('Error fetching teams.');
     }
   };
 
-  
-  const handleCreateTeam = async () => {
+  const getRandomDarkColor = () => {
+    const colors = [
+      '#e74c3c', // Soft red
+      '#f39c12', // Warm yellow
+      '#2980b9', // Medium blue
+      '#8e44ad', // Medium purple
+      '#2ecc71', // Bright green
+      '#e67e22', // Orange
+      '#3498db', // Light blue
+      '#95a5a6', // Light gray
+      '#9b59b6', // Soft violet
+      '#34495e', // Dark slate
+      '#16a085', // Teal
+      '#d35400', // Rusty orange
+      '#c0392b', // Strong red
+      '#27ae60', // Medium green
+      '#7f8c8d', // Medium gray
+      '#e84393', // Soft pink
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const handleCreateTeam = async (e) => {
+    e.preventDefault();
     if (!teamName) {
       setMessage('Please enter a team name.');
-      setTimeout(() => setMessage(''), 20000);
+      setTimeout(() => setMessage(''), 5000);
       return;
     }
 
@@ -72,11 +108,11 @@ const InstructorPage = ({ instructor }) => {
     };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:8080/api/instructors/${instructor.section}/teams`,
         team
       );
-      setMessage(response.data);
+      setMessage(`${team.teamName} has been created successfully!`);
       setTeamName('');
       fetchTeams();
     } catch (error) {
@@ -84,16 +120,16 @@ const InstructorPage = ({ instructor }) => {
       setMessage('Failed to create team.');
     }
   };
- 
+
   const handleAssignStudent = async (studentId, teamName) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:8080/api/instructors/${instructor.section}/teams/${teamName}/addStudent`,
         { studentId }
       );
-      setMessage(response.data);
+      setMessage(`${studentId} has been assigned to ${teamName}.`);
       fetchStudents();
-       fetchTeams();
+      fetchTeams();
     } catch (error) {
       console.error('Error assigning student:', error);
       setMessage('Failed to assign student.');
@@ -102,11 +138,11 @@ const InstructorPage = ({ instructor }) => {
 
   const handleRemoveStudent = async (studentId, teamName) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:8080/api/instructors/${instructor.section}/teams/${teamName}/removeStudent`,
         { studentId }
       );
-      setMessage(response.data);
+      setMessage(`Removed ${studentId} from ${teamName}.`);
       fetchStudents();
       fetchTeams();
     } catch (error) {
@@ -126,117 +162,158 @@ const InstructorPage = ({ instructor }) => {
   }));
 
   if (!instructor) {
-    return null;
-    // return <div>No instructor data available.</div>;
-  } 
-
-
-  function getRandomDarkColor() {
-    // Generate low RGB values (0-100) to keep the color dark
-    const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
-}
-
-const colors = [
-  '#e74c3c', // Soft red
-  '#f39c12', // Warm yellow (goldenrod)
-  '#2980b9', // Medium blue
-  '#8e44ad', // Medium purple
-  '#2ecc71', // Bright green
-  '#e67e22', // Orange
-  '#3498db', // Light blue
-  '#95a5a6', // Light gray
-  '#9b59b6', // Soft violet
-  '#34495e', // Dark slate
-  '#16a085', // Teal
-  '#d35400', // Rusty orange
-  '#c0392b', // Strong red
-  '#27ae60', // Medium green
-  '#7f8c8d', // Medium gray
-  '#e84393',  // Soft pink
-];
+    return (
+      <div className="w-full flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <p className="text-red-500">No instructor data available.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="background2" style={{backgroundImage: `url(${concordia})`, 
-    backgroundPosition: 'center', 
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat', 
-     backgroundAttachment: 'fixed',
-    minHeight: '100vh', // Full height of viewport
-    width: '100%'  }}>
-
-      <div class="animate__animated animate__bounceIn" className="cube">
-      <div className="welcome2">
-      <Header className ='Inst-header' as="h1">Welcome {instructor.name}!</Header>
-      <Header className ='Inst-header'as="h2">Your section number is: {instructor.section}</Header>
+    <div className="dark">
+      {/* Vortex Background */}
+      <div className="fixed inset-0 z-0">
+        <Vortex backgroundColor="black" className="w-full h-full" />
       </div>
-      </div>
-      <br></br><br></br><br></br>
-      <Form className ='Inst-boxWrapper' onSubmit={handleCreateTeam}>
-        <Form.Field className ='Inst-teamField'>
-          <label className ='Inst-elemHeader'>Create team:</label>
-          <input
-            placeholder="Enter Team Name"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-          />
-        </Form.Field>
-        <Button className ='Inst-button' type="submit">Make the team</Button>
-      </Form>
 
-      {message && <Message className="custom-message" content={message} />}
-
-      <div class='Inst-boxWrapper'>
-        <Header className ='Inst-elemHeader' as="h1">Unassigned Students:</Header>
-        <List className ='Inst-list' divided>
-          {unassignedStudents.map((student) => (
-            <List.Item key={student.studentId}>
-              <List.Content floated="right">
-                <Dropdown
-                  placeholder="Assign to team"
-                  selection
-                  options={teamOptions}
-                  onChange={(e, { value }) => handleAssignStudent(student.studentId, value)}
-                />
-              </List.Content>
-              <List.Content>
-                {student.name} ({student.studentId})
-              </List.Content>
-            </List.Item>
-          ))}
-        </List>
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl w-full mx-auto p-6 pt-32">
+        {/* Increase pt-32 to add more top padding to avoid navbar covering content */}
+        {/* Welcome Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+            Welcome {instructor.name}!
+          </h1>
+          <h2 className="text-xl sm:text-2xl font-semibold text-white">
+            Your section number is: {instructor.section}
+          </h2>
         </div>
-      <div class='Inst-boxWrapper'>
-        <Header className ='Inst-elemHeader' as="h1">Teams:</Header>
-        {teams.map((team) => (
-          <div class='Inst-teamWrapper' key={team.teamName}>
-            <Header style=
-            {{ backgroundColor: team.color, color: 'white' , fontStyle: 'italic', 
-              fontWeight: 'bold', borderRadius: '10px', marginLeft: '30%', width: '40%',
-              textAlign: 'center' 
 
-            }}
-            
-            className ='Inst-teamHeader' as="h3">{team.teamName}:</Header>
-            <List className ='Inst-teamlist' bulleted>
-              {team.studentIds.map((studentId) => {
-                const student = students.find((s) => s.studentId === studentId);
-                return (
-                  <List.Item class= 'Inst-teamItem' key={studentId}>
-                    {student ? `${student.name} (${student.studentId})` : `Student ID: ${studentId}`}
-                    <Button
-                      size="small"
-                      class='Inst-remove' 
-                      onClick={() => handleRemoveStudent(studentId, team.teamName)}
-                    >
-                      Remove
-                    </Button>
-                  </List.Item>
-                );
-              })}
-            </List>
-          </div>
-        ))}
+        {/* Create Team Form */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr" >
+          <form className="space-y-4" onSubmit={handleCreateTeam}>
+            <LabelInputContainer>
+              <Label htmlFor="team-name">Create Team:</Label>
+              <Input
+                id="team-name"
+                type="text"
+                placeholder="Enter Team Name"
+                value={teamName}
+                onChange={(e) => setTeamName(e.target.value)}
+                required
+              />
+            </LabelInputContainer>
+            <button
+              className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
+              type="submit"
+            >
+              Make the Team &rarr;
+              <BottomGradient />
+            </button>
+          </form>
+          {message && (
+            <div className="mt-4 text-center text-green-500 dark:text-green-300">
+              {message}
+            </div>
+          )}
+        </div>
+
+        {/* Unassigned Students */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
+            Unassigned Students:
+          </h2>
+          {unassignedStudents.length > 0 ? (
+            <ul className="space-y-4">
+              {unassignedStudents.map((student) => (
+                <li
+                  key={student.studentId}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 p-4 rounded-md inner-wr"
+                >
+                  <span className="text-neutral-700 dark:text-neutral-300 mb-2 sm:mb-0">
+                    {student.name} ({student.studentId})
+                  </span>
+                  <select
+                    className="mt-2 sm:mt-0 sm:ml-4 block w-full sm:w-1/3 pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white dark:bg-zinc-800 text-neutral-800 dark:text-neutral-300 sel-wr"
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        handleAssignStudent(student.studentId, e.target.value);
+                        e.target.value = ''; // Reset the select
+                      }
+                    }}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Assign to team
+                    </option>
+                    {teamOptions.map((option) => (
+                      <option key={option.key} value={option.value}>
+                        {option.text}
+                      </option>
+                    ))}
+                  </select>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-neutral-600 dark:text-neutral-300">
+              All students are assigned to teams.
+            </p>
+          )}
+        </div>
+
+        {/* Teams List */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 outer-wr">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
+            Teams:
+          </h2>
+          {teams.length > 0 ? (
+            <div className="space-y-6">
+              {teams.map((team) => (
+                <div key={team.teamName} className="bg-gray-100 bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 p-4 rounded-md shadow">
+                  <h3
+                    className="text-lg sm:text-xl font-bold text-white rounded-md text-center mb-2"
+                    style={{ backgroundColor: team.color }}
+                  >
+                    {team.teamName}
+                  </h3>
+                  {team.studentIds.length > 0 ? (
+                    <ul className="space-y-2">
+                      {team.studentIds.map((studentId) => {
+                        const student = students.find((s) => s.studentId === studentId);
+                        return (
+                          <li
+                            key={studentId}
+                            className="flex items-center justify-between bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 p-2 rounded-md"
+                          >
+                            <span className="text-neutral-700 dark:text-neutral-300 inner-wr">
+                              {student ? `${student.name} (${student.studentId})` : `Student ID: ${studentId}`}
+                            </span>
+                            <button
+                              className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
+                              onClick={() => handleRemoveStudent(studentId, team.teamName)}
+                            >
+                              Remove
+                              <BottomGradient />
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : (
+                    <p className="text-neutral-600 dark:text-neutral-300">
+                      No students assigned.
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-neutral-600 dark:text-neutral-300">
+              No teams created yet.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
