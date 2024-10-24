@@ -92,6 +92,7 @@ Run the following commands to install the necessary npm packages:
 ```
 npm install
 npm install semantic-ui-css semantic-ui-react
+npm install @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise
 ```
 
 #### d. Start the Frontend Application
