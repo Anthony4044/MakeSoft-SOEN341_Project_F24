@@ -5,6 +5,7 @@ import { Vortex } from './components/ui/vortex';
 import { Label } from "./components/ui/label";
 import { Input } from "./components/ui/input";
 import { cn } from "./utils/cn";
+import "./instructorPage.css"
 
 // Reusable BottomGradient Component (Declared Once)
 const BottomGradient = () => {

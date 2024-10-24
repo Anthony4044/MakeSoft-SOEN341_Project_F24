@@ -1,4 +1,4 @@
-.Inst-teamItem-student {
+/* .Inst-teamItem-student {
     
         
         border: 2px solid rgba(0, 0, 0, 0.515);
@@ -12,5 +12,9 @@
         font-weight: bold;
         font-size: 20px !important;
     
-}
+} */
 
+.outer-wr{
+        background-color: rgb(8, 8, 8)!important;
+        box-shadow: 1px 1px 5px 0px rgba(255, 255, 255, 0.164);
+}
