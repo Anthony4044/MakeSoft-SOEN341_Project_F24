@@ -20,6 +20,15 @@ import './App.css';
 import { Boxes } from './components/ui/background-boxes';
 import { Vortex } from './components/ui/vortex';
 
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition-opacity duration-500 opacity-0 absolute h-px w-full -bottom-px left-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition-opacity duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px left-1/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
+
 // Main App Component
 function App() {
   // State to track the current component to display
@@ -41,6 +50,9 @@ function App() {
   const [evaluatorSection, setSection2] = useState('');
   const [evaluatorStudentId, setStudentId2] = useState('');
   const evaluatorData = { evaluatorEmail, evaluatorPassword, evaluatorName, evaluatorSection, evaluatorStudentId };
+
+  
+
 
   // Function to handle button clicks and navigate to different components
   const handleButtonClick = (component) => {
@@ -98,6 +110,7 @@ function App() {
     setCurrentComponent('evaluationForm'); // Navigate to evaluation form
   };
 
+
   // Function to handle navbar display
   function Navbar({ className }) {
     const [active, setActive] = useState(null);
@@ -112,17 +125,31 @@ function App() {
           <MenuItem
             setActive={setActive}
             item="Home"
-            active={active}
             onClick={() => handleButtonClick('home')}
             style={{ padding: '110px!important'}}
           >
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="About">
+          <HoveredLink onClick={() => handleButtonClick('home')}>                <button
+              className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
+                About
+              <BottomGradient />
+              </button></HoveredLink>
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="Account">
             <div className="flex flex-col space-y-4 text-sm " style={{ fontSize: '20px', padding:'10px'}}>
-              <HoveredLink onClick={() => handleButtonClick('signin')}>Sign In</HoveredLink>
-              <HoveredLink onClick={() => handleButtonClick('signup')}>Sign Up</HoveredLink>
+              <HoveredLink onClick={() => handleButtonClick('signin')}>                <button
+              className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
+                Sign In
+              <BottomGradient />
+              </button></HoveredLink>
+              <HoveredLink onClick={() => handleButtonClick('signup')} >
+                <button
+              className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
+                Sign Up
+              <BottomGradient />
+              </button>
+            </HoveredLink>
             </div>
           </MenuItem>
         </Menu>

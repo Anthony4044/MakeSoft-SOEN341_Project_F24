@@ -1,4 +1,4 @@
-// InstructorPage.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
@@ -72,21 +72,9 @@ const InstructorPage = ({ instructor }) => {
 
   const getRandomDarkColor = () => {
     const colors = [
-      '#e74c3c', // Soft red
-      '#f39c12', // Warm yellow
       '#2980b9', // Medium blue
       '#8e44ad', // Medium purple
-      '#2ecc71', // Bright green
-      '#e67e22', // Orange
-      '#3498db', // Light blue
-      '#95a5a6', // Light gray
       '#9b59b6', // Soft violet
-      '#34495e', // Dark slate
-      '#16a085', // Teal
-      '#d35400', // Rusty orange
-      '#c0392b', // Strong red
-      '#27ae60', // Medium green
-      '#7f8c8d', // Medium gray
       '#e84393', // Soft pink
     ];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -189,12 +177,14 @@ const InstructorPage = ({ instructor }) => {
             Your section number is: {instructor.section}
           </h2>
         </div>
+        <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
         {/* Create Team Form */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr" >
           <form className="space-y-4" onSubmit={handleCreateTeam}>
             <LabelInputContainer>
-              <Label htmlFor="team-name">Create Team:</Label>
+              <Label className="text-xl" htmlFor="team-name">Create Team:</Label>
+              <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
               <Input
                 id="team-name"
                 type="text"
@@ -224,6 +214,7 @@ const InstructorPage = ({ instructor }) => {
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
             Unassigned Students:
           </h2>
+          <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
           {unassignedStudents.length > 0 ? (
             <ul className="space-y-4">
               {unassignedStudents.map((student) => (
@@ -268,6 +259,7 @@ const InstructorPage = ({ instructor }) => {
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
             Teams:
           </h2>
+          <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
           {teams.length > 0 ? (
             <div className="space-y-6">
               {teams.map((team) => (
