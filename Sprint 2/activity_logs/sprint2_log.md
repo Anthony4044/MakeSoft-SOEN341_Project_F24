@@ -60,12 +60,13 @@ fetching teams still didn't work because of some problem in the react app, teams
 **Comments/Notes:**
 
 ---
+
 ### 2024-10-15
 
 **Team Member:** Anthony Monaco  
 **Student Id:** 40281790  
 **GitHub Name:** Anthony4044  
-**Time Spent:** 6 hours 
+**Time Spent:** 6.5 hours 
 
 **Worked On:**
 - US07, adding an evaluate button next to teammembers who are available for evaluation
@@ -76,6 +77,21 @@ fetching teams still didn't work because of some problem in the react app, teams
 - Improvements to the overall style and look of the UI can be done
 - Answer object stores all evaluation information for backend request
 
+---
+
+### 2024-10-15
+
+**Team Member:** Anthony Monaco  
+**Student Id:** 40281790  
+**GitHub Name:** Anthony4044  
+**Time Spent:** 4.5 hours 
+
+**Worked On:**
+-Creating a sign in unit test to evaluate API connections and database functionality
+-Created a new workflow to test out this unit test during pull requests and pushes to the main
+
+**Comments/Notes:**
+- Make sure to have the test case in the database so that the testcase can work properly
 
 ---
 
