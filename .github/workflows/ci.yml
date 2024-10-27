@@ -20,10 +20,14 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-        distribution: 'temurin'
+        distribution: 'temurin'  # You can specify other distributions if needed
 
     - name: Build with Maven
-      run: mvn clean install
+      run: |
+        cd MakeSoft  # Change to the MakeSoft directory
+        mvn clean install  # Clean and install the project dependencies
 
     - name: Run tests
-      run: mvn test
+      run: |
+        cd MakeSoft  # Change to the MakeSoft directory again
+        mvn test  # Execute the tests defined in the project
