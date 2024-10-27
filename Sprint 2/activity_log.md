@@ -35,8 +35,6 @@
 - Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
 
 
----
-
 
 ### 2024-10-15
 
@@ -70,6 +68,10 @@
 **Comments/Notes:**
 - Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
 
+
+---
+
+
 ### 2024-10-18
 
 **Team Member:** Firas Al Haddad  
@@ -83,7 +85,6 @@
 **Comments/Notes:**
 - Created database tables, mapping attributes to corresponding columns and ensuring the permissions were well set up
 
----
 
 ### 2024-10-23
 
@@ -112,3 +113,79 @@
 
 **Comments/Notes:**
 - Create unit tests for user sign-in functionality, ensuring security, data accuracy and Configure CI/CD pipeline to automatically run back-end unit tests upon code integration.
+
+
+---
+
+
+### 2024-10-14
+**Team Member:** Danial Kouba 
+**Student Id:** 40277789  
+**GitHub Name:** DaniK1001
+**Time Spent:**
+
+**Worked On:** 
+-begining of team implementation for database
+-Implemented instructor signin with database
+-Implemented student signin with databse instead of csv
+
+**Comments/Notes:**
+Part not fully done, decided to stop, cuz I was really tired
+
+
+### 2024-10-15
+**Team Member:** Danial Kouba 
+**Student Id:** 40277789  
+**GitHub Name:** DaniK1001
+**Time Spent:** 3 hours
+
+**Worked On:**
+-implemented removing student to team using the database
+-Tried to implement fetching teams
+
+**Comments/Notes:**
+fetching teams still didn't work because of some problem in the react app, teams weren't being displayed and the info wasn't being saved in the backend or even sent properly? I asked for help from my teammates.
+
+
+### 2024-10-16
+**Team Member:** Danial Kouba 
+**Student Id:** 40277789  
+**GitHub Name:** DaniK1001
+**Time Spent:** 2 hours
+
+**Worked On:**
+- Implemented fetching team members and ensured end-to-end functionality
+
+**Comments/Notes:**
+It finally worked.
+
+
+### 2024-10-25
+**Team Member:** Danial Kouba 
+**Student Id:** 40277789  
+**GitHub Name:** DaniK1001
+**Time Spent:** 2 hours
+
+**Worked On:** 
+- Implemented storing review (Evaluation form) in the database
+
+**Comments/Notes:**
+This is useful for future features, like fetching the reviews from database. Before that, the reviews were only being stored in the frontend.
+
+
+### 2024-10-26
+**Team Member:** Danial Kouba 
+**Student Id:** 40277789  
+**GitHub Name:** DaniK1001
+**Time Spent:** 30 minutes
+
+**Worked On:**
+- Created minimal unit tests to test the functionality of instructor sign in.
+- Updated ci.yml, worked on the yaml file for the CI pipeline.
+
+**Comments/Notes:**
+tried to help saving the pipeline and getting it to work for sprint 2
+
+
+
+
