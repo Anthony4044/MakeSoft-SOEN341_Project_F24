@@ -10,6 +10,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
+
 class InstructorControllerTest {
 
     @Mock
@@ -46,5 +48,41 @@ class InstructorControllerTest {
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertEquals("Instructor already exists.", response.getBody());
+    }
+
+    @Test
+    void signInInstructor_Success() {
+        Instructor instructor = new Instructor();
+        instructor.setName("John Doe");
+        instructor.setEmail("1");
+        instructor.setPassword("1");
+
+        try {
+            when(instructorService.findInstructor(instructor.getEmail(), instructor.getPassword())).thenReturn(instructor);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Instructor response = instructorController.signInInstructor(instructor);
+
+        assertEquals(instructor, response);
+    }
+
+    @Test
+    void signInInstructor_Conflict() {
+        Instructor instructor = new Instructor();
+        instructor.setName("John Doe");
+        instructor.setEmail("1");
+        instructor.setPassword("1");
+
+        try {
+            when(instructorService.findInstructor(instructor.getEmail(), instructor.getPassword())).thenReturn(null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Instructor response = instructorController.signInInstructor(instructor);
+
+        assertNull(response);
     }
 }
