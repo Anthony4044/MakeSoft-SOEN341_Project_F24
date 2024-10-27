@@ -103,7 +103,7 @@ const EvaluationForm = ({ student, evaluator }) => {
             <p className="text-neutral-700 dark:text-neutral-300 mb-4">
               Thank you for evaluating {student.name}. Your responses have been recorded.
             </p>
-            <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />s
+            <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
             <ul className="space-y-2 text-neutral-700 dark:text-neutral-300 mb-4">
               <li><strong>Cooperation:</strong> {answers.cooperation}</li>
               <li><strong>Conceptual Contribution:</strong> {answers.conceptualContribution}</li>

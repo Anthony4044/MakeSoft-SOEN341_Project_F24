@@ -5,6 +5,7 @@ import Signin from './SignIn';
 import InstructorPage from './instructorPage'; // Import InstructorPage
 import StudentPage from './studentPage';
 import EvaluationForm from './evaluationForm';
+import InfoPage from './about'; 
 
 
 // import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
@@ -12,12 +13,9 @@ import EvaluationForm from './evaluationForm';
 
 
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./components/ui/navbar-menu";
-import './components/elements/bg-beams'; // Import the CSS file
-import { BackgroundBeams } from './components/ui/background-beams-with-collision';
-import { FloatingDockDemo, NavbarDemo } from './components/elements/menu';
+import './components/ui/light_border'; // Import the CSS file
 import { cn } from "./utils/cn";
 import './App.css';
-import { Boxes } from './components/ui/background-boxes';
 import { Vortex } from './components/ui/vortex';
 
 const BottomGradient = () => {
@@ -130,7 +128,7 @@ function App() {
           >
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="About">
-          <HoveredLink onClick={() => handleButtonClick('home')}>                <button
+          <HoveredLink onClick={() => handleButtonClick('infoPage')}>                <button
               className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
                 About
               <BottomGradient />
@@ -205,6 +203,7 @@ function App() {
       {currentComponent === 'evaluationForm' && (
         <EvaluationForm student={studentData} evaluator={evaluatorData} />
       )}
+      {currentComponent === 'infoPage' && <InfoPage />}
     </div>
   );
 }
