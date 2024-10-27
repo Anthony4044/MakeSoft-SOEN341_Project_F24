@@ -16,11 +16,15 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 | 40282971   | Marco Patulli   | MARC0CND        |
 
 # Project Documentation
-All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `/docs` directory.
-
-- **[Meeting Minutes](./docs/meeting_minutes/)**: `/docs/meeting_minutes/`
-- **[Sprint Plans](./docs/Sprint_Plan.xls)**: `/docs/sprint_plan.md`
-- **[Team Activity Logs](./docs/activity_logs/)**: `/docs/activity_logs/`
+All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `Sprint#` directory in accordance to each sprint.
+## Sprint 2 **(Current)**
+- **[Meeting Minutes](./Sprint%202/meeting_minutes/)**: `./Sprint 2/meeting_minutes/`
+- **[Sprint Plans](./Sprint%202/Sprint_Plan.xls)**: `./Sprint 2/sprint_plan.md`
+- **[Team Activity Logs](./Sprint%202/activity_logs/)**: `./Sprint 2/activity_logs/`
+## Sprint 1
+- **[Meeting Minutes](./Sprint%201/meeting_minutes/)**: `./Sprint 1/meeting_minutes/`
+- **[Sprint Plans](./Sprint%201/Sprint_Plan.xls)**: `./Sprint 1/sprint_plan.md`
+- **[Team Activity Logs](./Sprint%201/activity_logs/)**: `./Sprint 1/activity_logs/`
 
 # How to Run the Project
 
@@ -91,7 +95,7 @@ Run the following commands to install the necessary npm packages:
 
 ```
 npm install
-npm install semantic-ui-css semantic-ui-react
+npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise
 ```
 
 #### d. Start the Frontend Application

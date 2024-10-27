@@ -1,4 +1,4 @@
-# Meeting Minutes -> Sprint-1 Meeting-2
+# Meeting Minutes -> Sprint-2 Meeting-2
 **Meeting Number:** Sprint1_Meeting2  
 **Date:** 2024-09-19  
 **Time:** 16:30 - 20:10 
