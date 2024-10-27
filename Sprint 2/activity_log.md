@@ -49,7 +49,7 @@
 
 
 **Comments/Notes:**
-- Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
+
 
 
 
@@ -66,7 +66,7 @@
 
 
 **Comments/Notes:**
-- Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
+- The unite tests added are meant to test the CI pipline implemetation. therefore, there will be more rigorous testing implemeted later on.
 
 
 ---
@@ -130,7 +130,7 @@
 -Implemented student signin with databse instead of csv
 
 **Comments/Notes:**
-Part not fully done, decided to stop, cuz I was really tired
+Part not fully done, decided to stop, because I was really tired
 
 
 ### 2024-10-15
