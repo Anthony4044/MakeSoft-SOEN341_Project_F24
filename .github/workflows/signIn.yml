@@ -55,12 +55,12 @@ jobs:
 
       - name: Install JavaScript dependencies
         run: |
-          cd MakeSoft  
+          cd MakeSoftReact/makesoftreact
           npm install  
 
       - name: Run Jest tests
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/PeerReview
         run: |
-          cd MakeSoftReact/makesoftreact/src/signin.test.js  
+          cd MakeSoftReact/makesoftreact/src  
           npx jest signin.test.js
