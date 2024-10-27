@@ -51,18 +51,40 @@ git clone https://github.com/Anthony4044/MakeSoft-SOEN341_Project_F24.git
 
 ### 2. Set Up the Backend (Java/Spring Boot)
 
-#### a. Navigate to the Backend Directory
+#### a. Install PostgreSQL
+
+- **Download PostgreSQL:**
+  - Visit the [PostgreSQL Downloads](https://www.postgresql.org/download/) page.
+  - Download the installer for your operating system and follow the installation instructions.
+
+#### b. Launch pgAdmin 4
+
+- **Open pgAdmin 4:**
+  - After installing PostgreSQL, launch pgAdmin 4 from your applications menu.
+  - You might be prompted to set a master password if it's your first time using pgAdmin.
+
+#### c. Create a New Database
+
+
+-  **Create Database:**
+   - Expand **Servers** > **Local PostgreSQL** > **Databases**.
+   - Right-click on **Databases** and select **Create** > **Database...**.
+   - **General Tab:**
+     - **Database:** `PeerReview`
+   - Click **Save**.
+
+#### d. Navigate to the Backend Directory
 
 ```
 cd Makesoft
 ```
 
-#### b. Open the Project in Your Java IDE
+#### e. Open the Project in Your Java IDE
 
 - Open **IntelliJ IDEA** or your preferred Java IDE.
 - Choose **Open** or **Import Project**, then select the `Makesoft` folder you just cloned.
 
-#### c. Run the Backend Application
+#### f. Run the Backend Application
 
 - Locate the `MakesoftApplication.java` file in the `src/main/java` directory.
 - Right-click on `MakesoftApplication.java` and select **Run**.
@@ -122,7 +144,7 @@ The project is organized into user stories, each user story is broken down into 
 - **US.02: Instructor Creates Teams**
   - As an instructor, I want to create teams and assign students by importing a CSV file, so that I can manage student groups efficiently.
 
-Visit the [Sprint Plan](./docs/sprint_plan.md) to see a comprehensive list of user stories and tasks, along with additional information. 
+Visit the [Sprint Plan](./docs/sprint_plan.Xlsx) to see a comprehensive list of user stories and tasks, along with additional information. 
 
 # Task Breakdown
 Each user story has been broken down into tasks. Tasks are assigned to team members, and tracked via GitHub Issues and the project board.
@@ -131,7 +153,7 @@ Each user story has been broken down into tasks. Tasks are assigned to team memb
 - **Task.01.01**: Create login page (Frontend).
 - **Task.02.01**: CSV file import functionality for instructors.
 
-Visit the [Sprint Plan](./docs/sprint_plan.md) to see a comprehensive list of user stories and tasks, along with additional information. 
+Visit the [Sprint Plan](./docs/sprint_plan.xlsx) to see a comprehensive list of user stories and tasks, along with additional information. 
 
 
 # Project Management
