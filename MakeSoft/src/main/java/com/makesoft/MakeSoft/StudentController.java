@@ -31,7 +31,7 @@ public class StudentController {
     public Student signUpStudent(@RequestBody Student student) {
 
         boolean verifiedStudent = studentExists(student);
-
+        System.out.println(verifiedStudent);
 
         if (!verifiedStudent) {
             studentRepository.save(student);
