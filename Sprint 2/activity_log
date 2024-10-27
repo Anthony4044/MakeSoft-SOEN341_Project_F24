@@ -1,4 +1,4 @@
-# Team Activity Log - Sprint 1
+# Team Activity Log - Sprint 2
 
 ### 2024-10-15
 
@@ -18,3 +18,56 @@
 
 
 ---
+
+
+### 2024-10-13
+
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** Mark9494 
+**Time Spent:** 8 hours 
+
+**Worked On:**
+- US09, added database dependencies, tested database connection to backend using postman, added student and instructor table, refactored student sign up and instructor sign up to work with databse
+
+
+**Comments/Notes:**
+- Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
+
+
+---
+
+
+### 2024-10-15
+
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** Mark9494 
+**Time Spent:** 4 hours 
+
+**Worked On:**
+- Debugging, fixed issue that prevented teams and students from being fetched, added a foreign key of team to the student table in database.
+- Debugging, fixed issue that preveneted students from getting added to a team.
+
+
+**Comments/Notes:**
+- Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
+
+
+
+### 2024-10-26
+
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** Mark9494 
+**Time Spent:** 20 minutes 
+
+**Worked On:**
+- US11, added dependencies for unit testing, added 2 unit tests for instructor sign up in order to test pipline implementation
+- Debugging, fixed issue that preveneted students from getting added to a team.
+
+
+**Comments/Notes:**
+- Refactored backend to stop using csv files and use databse which eliminated a lot of lines of code to make the code cleaner
+
+
