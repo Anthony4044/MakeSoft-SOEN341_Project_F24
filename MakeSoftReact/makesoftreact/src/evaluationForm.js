@@ -30,8 +30,10 @@ const EvaluationForm = ({ student, evaluator }) => {
     commentsCooperation: '',
     commentsConceptual: '',
     commentsPractical: '',
-    commentsWorkEthic: ''
+    commentsWorkEthic: '',
+    
   });
+
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -39,12 +41,51 @@ const EvaluationForm = ({ student, evaluator }) => {
     const { name, value } = e.target;
     setAnswers((prevAnswers) => ({ ...prevAnswers, [name]: value }));
   };
+  
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Evaluation submitted:', answers);
-    setSubmitted(true);
-    alert('Thank you for submitting the evaluation!');
+    
+    const review = {
+      reviewer: {
+        email: evaluator.evaluatorEmail,
+        name: evaluator.evaluatorName,
+        section: evaluator.evaluatorSection,
+        studentId: evaluator.evaluatorStudentId,
+
+      },
+      reviewee: {
+        email: student.email,
+        name: student.name,
+        section: student.section,
+        studentId: student.studentId,
+        password: student.password,
+        
+      },
+      cooperation: parseInt(answers.cooperation),
+      cooperationComment: answers.commentsCooperation,
+      conceptualContribution: parseInt(answers.conceptualContribution),
+      conceptualContributionComment: answers.commentsConceptual,
+      practicalContribution: parseInt(answers.practicalContribution),
+      practicalContributionComment: answers.commentsPractical,
+      workEthic: parseInt(answers.workEthic),
+      workEthicComment: answers.commentsWorkEthic,
+    };
+
+    
+    
+    try {
+      const response = await axios.post('http://localhost:8080/api/reviews', review);
+      alert("Evaluation submitted successfully!");
+
+      // Optionally, you could call a callback or update state with response data
+      // if you need to trigger any further actions after submission
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      alert("There was an issue submitting the evaluation. Please try again.");
+    }
   };
 
   if (submitted) {

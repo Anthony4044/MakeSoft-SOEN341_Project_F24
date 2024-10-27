@@ -41,10 +41,10 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.MakeSoftApplication.executor": "Run",
-    "git-widget-placeholder": "US06-Student-Login",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/antho/Desktop/MakeSoft-SOEN341_Project_F24/MakeSoft",
+    "last_opened_file_path": "C:/Users/Daniel/Desktop/MakeSoft-SOEN341_Project_F24/MakeSoft",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,8 +56,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -74,6 +74,7 @@
       <workItem from="1727378881659" duration="891000" />
       <workItem from="1727385102798" duration="118000" />
       <workItem from="1727474576176" duration="16000" />
+      <workItem from="1729904843333" duration="22000" />
     </task>
     <servers />
   </component>
