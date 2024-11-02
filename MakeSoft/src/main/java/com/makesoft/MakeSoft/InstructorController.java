@@ -5,19 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/instructors")
 public class InstructorController {
-@Autowired
+
+    @Autowired
     private InstructorService instructorService;
+
 
     // Instructor signup endpoint
     @PostMapping("/signup")
@@ -110,5 +109,26 @@ public class InstructorController {
         }
     }
 
+
+    @GetMapping("/reviewMembers")
+    public List<Review> retrieveReviews() {
+        getTeam("a");
+        return instructorService.getReviews();
+    }
+
+    @PostMapping("/getTeam")
+    public Team getTeam(@RequestBody String studentId) {
+       Student student = instructorService.getStudentByStudentId(studentId);
+        Team team = student.getTeam();
+        ArrayList<Student> teamates = instructorService.findTeammates(team);
+        team.setStudentIds(new ArrayList<String>());
+
+        for(int i = 0; i<teamates.size(); i++) {
+
+            team.getStudentIds().add(teamates.get(i).getStudentId());
+
+        }
+        return team;
+    }
 
 }

@@ -45,9 +45,10 @@ public class StudentController {
 
     private boolean studentExists(Student student) {
         Optional<Student> students = studentRepository.findByStudentId(student.getStudentId());
+        ArrayList<Student> studentsEmail = studentRepository.findByEmail(student.getEmail());
         try {
             Instructor instructor = instructorService.findInstructorBySection(student.getSection());
-            if (students != null && instructor != null) { //Don't do isPresent()
+            if (students != null && instructor != null && studentsEmail.isEmpty()) { //Don't do isPresent()
                 return false;
             }
         } catch (Exception e) {

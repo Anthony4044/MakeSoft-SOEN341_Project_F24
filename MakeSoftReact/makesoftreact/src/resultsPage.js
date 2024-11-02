@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
 import { Label } from './components/ui/label';
@@ -19,11 +21,14 @@ const ResultsPage = ({ }) => {
                 `http://localhost:8080/api/instructors/reviewMembers`
             );
             setReviewMembers(response.data);
+
             //alert(reviewMembers[1].reviewee.name);
+
         } catch (e) {
             console.error("Error fetching review members:", e);
         }
     };
+
 
     // Process the review members data when `reviewMembers` is updated
     useEffect(() => {
@@ -96,6 +101,7 @@ const ResultsPage = ({ }) => {
     useEffect(() => {
         findReviewMembers();
     }, []);
+
 
 
     return (

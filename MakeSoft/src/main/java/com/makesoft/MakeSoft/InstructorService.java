@@ -17,15 +17,17 @@ public class InstructorService {
     private final InstructorRepository instructorRepository;
     private final StudentRepository studentRepository;
     private final TeamRepository teamRepository;
+    private final ReviewRepository reviewRepository;
     private final MultipartConfigElement multipartConfigElement;
 
 
     // Constructor injection (preferred way of dependency injection)
     @Autowired
-    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository, TeamRepository teamRepository, MultipartConfigElement multipartConfigElement) {
+    public InstructorService(InstructorRepository instructorRepository, StudentRepository studentRepository, TeamRepository teamRepository, ReviewRepository reviewRepository, MultipartConfigElement multipartConfigElement) {
         this.instructorRepository = instructorRepository;
         this.studentRepository = studentRepository;
         this.teamRepository = teamRepository;
+        this.reviewRepository = reviewRepository;
         this.multipartConfigElement = multipartConfigElement;
     }
 
@@ -177,6 +179,23 @@ public class InstructorService {
             studentRepository.save(student);
         }
         return true;
+    }
+
+    public List<Review> getReviews() {
+
+        return reviewRepository.findAll();
+    }
+
+
+    public Student getStudentByStudentId(String studentId) {
+        Optional<Student> optionalStudent = studentRepository.findByStudentId(studentId);
+        Student actualStudent = optionalStudent.get();
+        return actualStudent;
+
+    }
+    public ArrayList<Student> findTeammates(Team team) {
+        ArrayList<Student> teammates = studentRepository.findByTeam(team);
+        return teammates;
     }
 }
 
