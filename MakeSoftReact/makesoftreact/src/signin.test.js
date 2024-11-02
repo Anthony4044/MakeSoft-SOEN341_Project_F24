@@ -1,13 +1,11 @@
 const axios = require('axios');
 
-// Mock the axios module
 jest.mock('axios');
 
 describe('Instructor Sign-in Integration Test', () => {
   it('should sign in an instructor successfully', async () => {
     const instructor = { email: 'testInstructor@testInstructor', password: 'testPassword' };
-    
-    // Mock the response from the API
+
     axios.post.mockResolvedValue({
       status: 200,
       data: { email: instructor.email, password: instructor.password }
@@ -22,7 +20,6 @@ describe('Instructor Sign-in Integration Test', () => {
   it('should fail if the instructor credentials are incorrect', async () => {
     const instructor = { email: 'wrongUser', password: 'wrongPassword' };
 
-    // Mock the error response from the API
     axios.post.mockRejectedValue({
       response: {
         status: 401,
@@ -44,7 +41,6 @@ describe('Student Sign-in Integration Test', () => {
   it('should sign in a student successfully', async () => {
     const student = { email: 'testStudent@testStudent', password: 'testPassword' };
     
-    // Mock the response from the API
     axios.post.mockResolvedValue({
       status: 200,
       data: { email: student.email, password: student.password }
@@ -59,7 +55,7 @@ describe('Student Sign-in Integration Test', () => {
   it('should fail if the student credentials are incorrect', async () => {
     const student = { email: 'wrongStudent', password: 'wrongPassword' };
 
-    // Mock the error response from the API
+
     axios.post.mockRejectedValue({
       response: {
         status: 401,
