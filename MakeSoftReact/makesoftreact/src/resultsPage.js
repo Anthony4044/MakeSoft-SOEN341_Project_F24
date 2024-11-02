@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";  // Add useEffect to the import
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
 import { Label } from './components/ui/label';
@@ -17,12 +17,14 @@ const ResultsPage = ({ }) => {
                 `http://localhost:8080/api/instructors/reviewMembers`
             );
             setReviewMembers(response.data);
-            alert(response.data);
+            alert(reviewMembers+"hello");
         } catch (e) {
         }
     };
 
-    findReviewMembers();
+    useEffect(() => {
+        findReviewMembers();
+    },[]);
 
     return (
         <div className="dark">
