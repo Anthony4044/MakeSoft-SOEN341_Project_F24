@@ -1,12 +1,10 @@
 const axios = require('axios');
 
-
 jest.mock('axios');
 
 describe('Instructor Sign-in Integration Test', () => {
   it('should sign in an instructor successfully', async () => {
     const instructor = { email: 'testInstructor@testInstructor', password: 'testPassword' };
-    
 
     axios.post.mockResolvedValue({
       status: 200,
@@ -21,7 +19,6 @@ describe('Instructor Sign-in Integration Test', () => {
 
   it('should fail if the instructor credentials are incorrect', async () => {
     const instructor = { email: 'wrongUser', password: 'wrongPassword' };
-
 
     axios.post.mockRejectedValue({
       response: {
@@ -44,7 +41,6 @@ describe('Student Sign-in Integration Test', () => {
   it('should sign in a student successfully', async () => {
     const student = { email: 'testStudent@testStudent', password: 'testPassword' };
     
-
     axios.post.mockResolvedValue({
       status: 200,
       data: { email: student.email, password: student.password }

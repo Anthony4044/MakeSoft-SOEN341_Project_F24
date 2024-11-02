@@ -6,6 +6,7 @@ import InstructorPage from './instructorPage'; // Import InstructorPage
 import StudentPage from './studentPage';
 import EvaluationForm from './evaluationForm';
 import InfoPage from './about'; 
+import ResultsPage from './resultsPage';
 
 
 // import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
@@ -40,6 +41,11 @@ function App() {
   const [section, setSection] = useState('');
   const [studentId, setStudentId] = useState('');
   const studentData = { email, password, name, section, studentId };
+
+  const [teamName, setTeamName] = useState('');
+  const [Tsection, setTSection] = useState('');
+  const [teamMembers, setTeamMembers] = useState([]);
+  const teamData = { teamName, Tsection, teamMembers };
 
   // States to hold evaluator data
   const [evaluatorEmail, setEmail2] = useState('');
@@ -104,9 +110,15 @@ function App() {
     setSection2(evaluator.section);
     setStudentId2(evaluator.studentId);
     setPassword2(evaluator.password);
-
     setCurrentComponent('evaluationForm'); // Navigate to evaluation form
   };
+
+  const handleSummarizedResults = (student, team) => {
+   
+    setCurrentComponent('resultsPage'); 
+  };
+
+
 
 
   // Function to handle navbar display
@@ -195,14 +207,16 @@ function App() {
 
 
       )}
-      {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} />}
-      {currentComponent === 'signin' && <InstructorPage instructor={instructorData} />}
+      {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults} />}
+      {currentComponent === 'signin' && <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults}/>}
       {currentComponent === 'studentSignin' && (
         <StudentPage student={studentData} handleEvaluationForm={handleEvaluationForm} />
       )}
       {currentComponent === 'evaluationForm' && (
         <EvaluationForm student={studentData} evaluator={evaluatorData} />
       )}
+      {currentComponent === 'resultsPage' && (
+        <ResultsPage /> )}
       {currentComponent === 'infoPage' && <InfoPage />}
     </div>
   );

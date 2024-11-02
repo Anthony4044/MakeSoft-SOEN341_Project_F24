@@ -23,7 +23,7 @@ const LabelInputContainer = ({ children, className }) => {
 };
 
 // Instructor Page Component
-const InstructorPage = ({ instructor }) => {
+const InstructorPage = ({ instructor, handleSummarizedResults }) => {
   const [students, setStudents] = useState([]);
   const [teams, setTeams] = useState([]);
   const [teamName, setTeamName] = useState('');
@@ -124,6 +124,8 @@ const InstructorPage = ({ instructor }) => {
       setMessage('Failed to assign student.');
     }
   };
+
+
 
   const handleRemoveStudent = async (studentId, teamName) => {
     try {
@@ -257,7 +259,13 @@ const InstructorPage = ({ instructor }) => {
         {/* Teams List */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 outer-wr">
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
-            Teams:
+            <button
+              className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
+              onClick={() => handleSummarizedResults()}
+            >
+              Summarized Results
+              <BottomGradient />
+            </button>Teams:
           </h2>
           <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
           {teams.length > 0 ? (
