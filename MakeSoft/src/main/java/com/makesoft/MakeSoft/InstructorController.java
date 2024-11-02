@@ -112,7 +112,6 @@ public class InstructorController {
 
     @GetMapping("/reviewMembers")
     public List<Review> retrieveReviews() {
-        getTeam("a");
         return instructorService.getReviews();
     }
 

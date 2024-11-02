@@ -113,8 +113,8 @@ function App() {
     setCurrentComponent('evaluationForm'); // Navigate to evaluation form
   };
 
-  const handleSummarizedResults = (student, team) => {
-   
+  const handleSummarizedResults = (instructor) => {
+    setInstructorData(instructor);
     setCurrentComponent('resultsPage'); 
   };
 
@@ -216,7 +216,7 @@ function App() {
         <EvaluationForm student={studentData} evaluator={evaluatorData} />
       )}
       {currentComponent === 'resultsPage' && (
-        <ResultsPage /> )}
+        <ResultsPage instructor = {instructorData}/> )}
       {currentComponent === 'infoPage' && <InfoPage />}
     </div>
   );

@@ -46,14 +46,12 @@ const EvaluationForm = ({ student, evaluator }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     const review = {
       reviewer: {
         email: evaluator.evaluatorEmail,
         name: evaluator.evaluatorName,
         section: evaluator.evaluatorSection,
         studentId: evaluator.evaluatorStudentId,
-
       },
       reviewee: {
         email: student.email,
@@ -61,7 +59,6 @@ const EvaluationForm = ({ student, evaluator }) => {
         section: student.section,
         studentId: student.studentId,
         password: student.password,
-        
       },
       cooperation: parseInt(answers.cooperation),
       cooperationComment: answers.commentsCooperation,
@@ -72,8 +69,6 @@ const EvaluationForm = ({ student, evaluator }) => {
       workEthic: parseInt(answers.workEthic),
       workEthicComment: answers.commentsWorkEthic,
     };
-
-    
     
     try {
       const response = await axios.post('http://localhost:8080/api/reviews', review);

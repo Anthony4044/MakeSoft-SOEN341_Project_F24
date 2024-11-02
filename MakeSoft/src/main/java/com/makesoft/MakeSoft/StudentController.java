@@ -35,7 +35,6 @@ public class StudentController {
 
         if (!verifiedStudent) {
             studentRepository.save(student);
-            //System.out.println(student);
             return student;
         } else {
 

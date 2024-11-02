@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
 import { Label } from './components/ui/label';
@@ -9,28 +7,24 @@ import { cn } from './utils/cn';
 import "./resultPage.css"
 
 
-const ResultsPage = ({ }) => {
-    //Arraylist of review objects
+const ResultsPage = ({ instructor }) => {
     const [reviewMembers, setReviewMembers] = useState([]);
     const [processedReviewMembers, setProcessedReviewMembers] = useState([]);
 
-    // Fetch review members from the API
     const findReviewMembers = async () => {
         try {
+            alert(instructor.section);
+            //POST FOR MARK 
             const response = await axios.get(
                 `http://localhost:8080/api/instructors/reviewMembers`
             );
             setReviewMembers(response.data);
-
-            //alert(reviewMembers[1].reviewee.name);
-
         } catch (e) {
             console.error("Error fetching review members:", e);
         }
     };
 
 
-    // Process the review members data when `reviewMembers` is updated
     useEffect(() => {
         if (reviewMembers.length > 0) {
             const processedData = processReviews(reviewMembers);
@@ -38,21 +32,16 @@ const ResultsPage = ({ }) => {
         }
     }, [reviewMembers]);
 
-    // Process reviews to calculate averages and total reviewers
     function processReviews(reviews) {
-        // Create a map to store review data grouped by reviewee name
         const reviewMap = new Map();
-    
-        // Iterate over each review to populate the reviewMap
+
         reviews.forEach(review => {
-            const revieweeName = review.reviewee.name; // Use reviewee name for grouping
-            const revieweeObject = review.reviewee; // Keep a reference to the full reviewee object
-    
-            // Check if the reviewee name already exists in the map
+            const revieweeName = review.reviewee.name; 
+            const revieweeObject = review.reviewee; 
+
             if (!reviewMap.has(revieweeName)) {
-                // Initialize an entry in the map for this reviewee name
                 reviewMap.set(revieweeName, {
-                    reviewee: revieweeObject, // Store the full reviewee object
+                    reviewee: revieweeObject, 
                     cooperation: 0,
                     conceptualContribution: 0,
                     practicalContribution: 0,
@@ -60,49 +49,43 @@ const ResultsPage = ({ }) => {
                     count: 0
                 });
             }
-    
-            // Get the current totals for this reviewee name
             const reviewData = reviewMap.get(revieweeName);
-    
-            // Update the totals and count
             reviewData.cooperation += review.cooperation;
             reviewData.conceptualContribution += review.conceptualContribution;
             reviewData.practicalContribution += review.practicalContribution;
             reviewData.workEthic += review.workEthic;
-            reviewData.count += 1;  // Increment the count of reviews
+            reviewData.count += 1; 
         });
-    
-        // Create a new array from the reviewMap
+
+
         const processedReviews = Array.from(reviewMap.entries()).map(([name, data]) => {
-            // Calculate averages for each aspect
-            const avgCooperation = data.cooperation / data.count;
-            const avgConceptualContribution = data.conceptualContribution / data.count;
-            const avgPracticalContribution = data.practicalContribution / data.count;
-            const avgWorkEthic = data.workEthic / data.count;
-    
-            // Calculate the overall average
-            const overallAverage = (avgCooperation + avgConceptualContribution + avgPracticalContribution + avgWorkEthic) / 4;
-    
+
+            const avgCooperation = (data.cooperation / data.count).toFixed(2);
+            const avgConceptualContribution = (data.conceptualContribution / data.count).toFixed(2);
+            const avgPracticalContribution = (data.practicalContribution / data.count).toFixed(2);
+            const avgWorkEthic = (data.workEthic / data.count).toFixed(2);
+
+            const overallAverage = ((parseFloat(avgCooperation) + parseFloat(avgConceptualContribution) + parseFloat(avgPracticalContribution) + parseFloat(avgWorkEthic)) / 4).toFixed(2);
+
+
             return {
-                reviewee: data.reviewee, // Return the full reviewee object
+                reviewee: data.reviewee,
                 cooperation: avgCooperation,
                 conceptualContribution: avgConceptualContribution,
                 practicalContribution: avgPracticalContribution,
                 workEthic: avgWorkEthic,
-                count: data.count,  // Total number of same names
-                overallAverage: overallAverage // New field for overall average
+                count: data.count,
+                overallAverage: overallAverage
             };
         });
-    
+
         return processedReviews;
     }
 
-    // Fetch review members on component mount
+
     useEffect(() => {
         findReviewMembers();
     }, []);
-
-
 
     return (
         <div className="dark">

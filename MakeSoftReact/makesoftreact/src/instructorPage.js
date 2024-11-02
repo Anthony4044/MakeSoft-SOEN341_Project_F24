@@ -261,7 +261,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
             <button
               className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
-              onClick={() => handleSummarizedResults()}
+              onClick={() => handleSummarizedResults(instructor)}
             >
               Summarized Results
               <BottomGradient />
