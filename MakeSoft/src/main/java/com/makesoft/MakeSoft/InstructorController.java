@@ -110,9 +110,22 @@ public class InstructorController {
     }
 
 
-    @GetMapping("/reviewMembers")
-    public List<Review> retrieveReviews() {
-        return instructorService.getReviews();
+    @GetMapping("/{section}/reviewMembers")
+    public List<Review> retrieveReviews(@PathVariable String section) {
+        ArrayList<Review> allReviews = (ArrayList<Review>) instructorService.getReviews();
+        ArrayList<Review> filteredReviews = new ArrayList<>();
+        for (Review review : allReviews) {
+            if((review.getReviewer().getSection().equalsIgnoreCase(section))){
+                filteredReviews.add(review);
+            }
+
+        }
+        for (Review review : filteredReviews) {
+
+            System.out.println(review.getReviewer().getSection());
+        }
+
+        return filteredReviews;
     }
 
     @PostMapping("/getTeam")
