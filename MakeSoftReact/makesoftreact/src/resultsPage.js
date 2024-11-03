@@ -16,7 +16,7 @@ const ResultsPage = ({ instructor }) => {
             alert(instructor.section);
             //POST FOR MARK 
             const response = await axios.get(
-                `http://localhost:8080/api/instructors/reviewMembers`
+                `http://localhost:8080/api/instructors/${instructor.section}/reviewMembers`
             );
             setReviewMembers(response.data);
         } catch (e) {
