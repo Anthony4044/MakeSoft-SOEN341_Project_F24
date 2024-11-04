@@ -1,8 +1,11 @@
+import React from 'react'; // Add this line
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import '@testing-library/jest-dom';
 
-test('renders learn react link', () => {
+test('renders Peer Evaluation heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Replace 'Your text here' with actual text you expect from App.js
+  const element = screen.getByText(/peer evaluation/i);
+  expect(element).toBeInTheDocument();
 });

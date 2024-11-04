@@ -2,42 +2,41 @@ const axios = require('axios');
 
 jest.mock('axios');
 
-describe('Instructor Sign-in Integration Test', () => {
-  it('should sign in an instructor successfully', async () => {
-    const instructor = { email: 'testInstructor@testInstructor.com', password: 'testPassword' };
+describe('Instructor Sign-up Integration Test', () => {
+  it('should sign up an instructor successfully', async () => {
+    const instructor = { email: 'newInstructor@testInstructor.com', password: 'newPassword' };
 
     axios.post.mockResolvedValue({
-      status: 200,
-      data: { email: instructor.email, password: instructor.password }
+      status: 201,
+      data: { email: instructor.email }
     });
 
-    const response = await axios.post('http://localhost:8080/api/instructors/signin', instructor);
-    expect(response.status).toBe(200);
+    const response = await axios.post('http://localhost:8080/api/instructors/signup', instructor);
+    expect(response.status).toBe(201);
     expect(response.data).toHaveProperty('email', instructor.email);
-    expect(response.data).toHaveProperty('password', instructor.password);
   });
 
-  it('should fail if the instructor credentials are incorrect', async () => {
-    const instructor = { email: 'wrongUser', password: 'wrongPassword' };
+  it('should fail if the instructor email is already taken', async () => {
+    const instructor = { email: 'existingInstructor@testInstructor.com', password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
-        status: 401,
-        data: { success: false, message: 'Invalid credentials' }
+        status: 400,
+        data: { success: false, message: 'Email already exists' }
       }
     });
 
     try {
-      await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
     } catch (error) {
-      expect(error.response.status).toBe(401);
+      expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
-      expect(error.response.data).toHaveProperty('message', 'Invalid credentials');
+      expect(error.response.data).toHaveProperty('message', 'Email already exists');
     }
   });
 
   it('should fail if email is missing', async () => {
-    const instructor = { password: 'testPassword' };
+    const instructor = { password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -47,7 +46,7 @@ describe('Instructor Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -56,7 +55,7 @@ describe('Instructor Sign-in Integration Test', () => {
   });
 
   it('should fail if password is missing', async () => {
-    const instructor = { email: 'testInstructor@testInstructor.com' };
+    const instructor = { email: 'newInstructor@testInstructor.com' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -66,7 +65,7 @@ describe('Instructor Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -75,7 +74,7 @@ describe('Instructor Sign-in Integration Test', () => {
   });
 
   it('should fail if email is empty', async () => {
-    const instructor = { email: '', password: 'testPassword' };
+    const instructor = { email: '', password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -85,7 +84,7 @@ describe('Instructor Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -94,7 +93,7 @@ describe('Instructor Sign-in Integration Test', () => {
   });
 
   it('should fail if password is empty', async () => {
-    const instructor = { email: 'testInstructor@testInstructor.com', password: '' };
+    const instructor = { email: 'newInstructor@testInstructor.com', password: '' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -104,50 +103,68 @@ describe('Instructor Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/instructors/signin', instructor);
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
       expect(error.response.data).toHaveProperty('message', 'Password cannot be empty');
+    }
+  });
+
+  it('should fail if email is invalid', async () => {
+    const instructor = { email: 'invalidEmail', password: 'newPassword' };
+
+    axios.post.mockRejectedValue({
+      response: {
+        status: 400,
+        data: { success: false, message: 'Email is invalid' }
+      }
+    });
+
+    try {
+      await axios.post('http://localhost:8080/api/instructors/signup', instructor);
+    } catch (error) {
+      expect(error.response.status).toBe(400);
+      expect(error.response.data).toHaveProperty('success', false);
+      expect(error.response.data).toHaveProperty('message', 'Email is invalid');
     }
   });
 });
 
-describe('Student Sign-in Integration Test', () => {
-  it('should sign in a student successfully', async () => {
-    const student = { email: 'testStudent@testStudent.com', password: 'testPassword' };
+describe('Student Sign-up Integration Test', () => {
+  it('should sign up a student successfully', async () => {
+    const student = { email: 'newStudent@testStudent.com', password: 'newPassword' };
 
     axios.post.mockResolvedValue({
-      status: 200,
-      data: { email: student.email, password: student.password }
+      status: 201,
+      data: { email: student.email }
     });
 
-    const response = await axios.post('http://localhost:8080/api/students/signin', student);
-    expect(response.status).toBe(200);
+    const response = await axios.post('http://localhost:8080/api/students/signup', student);
+    expect(response.status).toBe(201);
     expect(response.data).toHaveProperty('email', student.email);
-    expect(response.data).toHaveProperty('password', student.password);
   });
 
-  it('should fail if the student credentials are incorrect', async () => {
-    const student = { email: 'wrongStudent', password: 'wrongPassword' };
+  it('should fail if the student email is already taken', async () => {
+    const student = { email: 'existingStudent@testStudent.com', password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
-        status: 401,
-        data: { message: 'Invalid credentials' }
+        status: 400,
+        data: { message: 'Email already exists' }
       }
     });
 
     try {
-      await axios.post('http://localhost:8080/api/students/signin', student);
+      await axios.post('http://localhost:8080/api/students/signup', student);
     } catch (error) {
-      expect(error.response.status).toBe(401);
-      expect(error.response.data).toHaveProperty('message', 'Invalid credentials');
+      expect(error.response.status).toBe(400);
+      expect(error.response.data).toHaveProperty('message', 'Email already exists');
     }
   });
 
   it('should fail if email is missing', async () => {
-    const student = { password: 'testPassword' };
+    const student = { password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -157,7 +174,7 @@ describe('Student Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/students/signin', student);
+      await axios.post('http://localhost:8080/api/students/signup', student);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -166,7 +183,7 @@ describe('Student Sign-in Integration Test', () => {
   });
 
   it('should fail if password is missing', async () => {
-    const student = { email: 'testStudent@testStudent.com' };
+    const student = { email: 'newStudent@testStudent.com' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -176,7 +193,7 @@ describe('Student Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/students/signin', student);
+      await axios.post('http://localhost:8080/api/students/signup', student);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -185,7 +202,7 @@ describe('Student Sign-in Integration Test', () => {
   });
 
   it('should fail if email is empty', async () => {
-    const student = { email: '', password: 'testPassword' };
+    const student = { email: '', password: 'newPassword' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -195,7 +212,7 @@ describe('Student Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/students/signin', student);
+      await axios.post('http://localhost:8080/api/students/signup', student);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
@@ -204,7 +221,7 @@ describe('Student Sign-in Integration Test', () => {
   });
 
   it('should fail if password is empty', async () => {
-    const student = { email: 'testStudent@testStudent.com', password: '' };
+    const student = { email: 'newStudent@testStudent.com', password: '' };
 
     axios.post.mockRejectedValue({
       response: {
@@ -214,11 +231,30 @@ describe('Student Sign-in Integration Test', () => {
     });
 
     try {
-      await axios.post('http://localhost:8080/api/students/signin', student);
+      await axios.post('http://localhost:8080/api/students/signup', student);
     } catch (error) {
       expect(error.response.status).toBe(400);
       expect(error.response.data).toHaveProperty('success', false);
       expect(error.response.data).toHaveProperty('message', 'Password cannot be empty');
+    }
+  });
+
+  it('should fail if email is invalid', async () => {
+    const student = { email: 'invalidEmail', password: 'newPassword' };
+
+    axios.post.mockRejectedValue({
+      response: {
+        status: 400,
+        data: { success: false, message: 'Email is invalid' }
+      }
+    });
+
+    try {
+      await axios.post('http://localhost:8080/api/students/signup', student);
+    } catch (error) {
+      expect(error.response.status).toBe(400);
+      expect(error.response.data).toHaveProperty('success', false);
+      expect(error.response.data).toHaveProperty('message', 'Email is invalid');
     }
   });
 });
