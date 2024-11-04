@@ -1,0 +1,42 @@
+.sortable-table .sortable-column {
+    position: relative;
+    cursor: pointer;
+}
+
+.sortable-table .sortable-column .header-content {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    transition: color 0.2s ease-in-out;
+}
+
+.sortable-table .sortable-column .sort-icon {
+    margin-left: 5px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.sortable-table .sortable-column:hover .header-content {
+    color: #555; /* Dim the text color */
+}
+
+.sortable-table .sortable-column:hover .sort-icon {
+    opacity: 1; /* Show the dropdown arrow */
+}
+
+/* Optional: Indicate sorted column */
+.sortable-table .sortable-column.sorted-ascending .sort-icon {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+.sortable-table .sortable-column.sorted-descending .sort-icon {
+    opacity: 1;
+}
+.table-wrapper{
+    color: rgb(212 212 212)!important;
+}
+.ahh{
+    background-color: aqua!important;
+
+}

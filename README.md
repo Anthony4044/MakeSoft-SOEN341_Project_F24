@@ -116,7 +116,7 @@ If not installed, download and install Node.js from [https://nodejs.org/](https:
 Run the following commands to install the necessary npm packages:
 
 ```
-npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise
+npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise @react-stately/data
 ```
 
 #### d. Start the Frontend Application
