@@ -21,6 +21,7 @@ class InstructorControllerTest {
     private InstructorController instructorController;
 
     public InstructorControllerTest() {
+
         MockitoAnnotations.openMocks(this);
     }
 
