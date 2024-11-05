@@ -5,9 +5,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configuration class for setting up web-related configurations.
+ * We never modify this file. We just run it.
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /**
+     * Configures CORS mappings.
+     *
+     * @param registry the CORS registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow all routes
@@ -16,4 +25,3 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*"); // Allow all headers
     }
 }
-
