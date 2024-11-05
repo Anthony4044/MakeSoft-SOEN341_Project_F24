@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Unit tests for the StudentController class.
+ */
 class StudentControllerTest {
 
     @Mock
@@ -23,19 +26,24 @@ class StudentControllerTest {
     @InjectMocks
     private StudentController studentController;
 
+    /**
+     * Initializes mocks for the test class.
+     */
     public StudentControllerTest() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Tests the signUpStudent method for a successful signup.
+     */
     @Test
     void signUpStudent_Success() {
-
         Student student = new Student();
         student.setStudentId("123");
         student.setEmail("test@example.com");
         student.setSection("A");
 
-        try{
+        try {
             when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
             when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<Student>());
             when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
@@ -43,9 +51,11 @@ class StudentControllerTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 
+    /**
+     * Tests the signUpStudent method for a conflict scenario.
+     */
     @Test
     void signUpStudent_Conflict() {
         Student student = new Student();
@@ -68,6 +78,9 @@ class StudentControllerTest {
         }
     }
 
+    /**
+     * Tests the signInStudent method for a successful signin.
+     */
     @Test
     void signInStudent_Success() {
         Student student = new Student();
@@ -83,13 +96,16 @@ class StudentControllerTest {
             Student result = studentController.signinStudent(student);
 
             assertNotNull(result);
-            System.out.println(result+"\n "+student);
+            System.out.println(result + "\n " + student);
             assertEquals(student.getEmail(), result.getEmail());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Tests the signInStudent method for a conflict scenario.
+     */
     @Test
     void signInStudent_Conflict() {
         Student student = new Student();
@@ -103,10 +119,9 @@ class StudentControllerTest {
             Student result = studentController.signinStudent(student);
 
             assertNull(result);
-            System.out.println(result+"\n "+student);
+            System.out.println(result + "\n " + student);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
 }

@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 
+/**
+ * Unit tests for the InstructorController class.
+ */
 class InstructorControllerTest {
 
     @Mock
@@ -20,11 +23,16 @@ class InstructorControllerTest {
     @InjectMocks
     private InstructorController instructorController;
 
+    /**
+     * Initializes mocks for the test class.
+     */
     public InstructorControllerTest() {
-
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Tests the signUpInstructor method for a successful signup.
+     */
     @Test
     void signUpInstructor_Success() {
         Instructor instructor = new Instructor();
@@ -38,6 +46,9 @@ class InstructorControllerTest {
         assertEquals(instructor, response.getBody());
     }
 
+    /**
+     * Tests the signUpInstructor method for a conflict scenario.
+     */
     @Test
     void signUpInstructor_Conflict() {
         Instructor instructor = new Instructor();
@@ -51,6 +62,9 @@ class InstructorControllerTest {
         assertEquals("Instructor already exists.", response.getBody());
     }
 
+    /**
+     * Tests the signInInstructor method for a successful signin.
+     */
     @Test
     void signInInstructor_Success() {
         Instructor instructor = new Instructor();
@@ -69,6 +83,9 @@ class InstructorControllerTest {
         assertEquals(instructor, response);
     }
 
+    /**
+     * Tests the signInInstructor method for a conflict scenario.
+     */
     @Test
     void signInInstructor_Conflict() {
         Instructor instructor = new Instructor();
