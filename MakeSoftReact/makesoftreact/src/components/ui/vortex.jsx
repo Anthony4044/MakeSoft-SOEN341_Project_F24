@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { cn } from "../../utils/cn"; // Adjust the relative path
 import { createNoise3D } from "simplex-noise";
 import { motion } from "framer-motion";
+import staticVortexBg from '../../static_Vortex_bg.png'; // Adjust the relative path
 
 export const Vortex = (props) => {
   const canvasRef = useRef(null);
@@ -209,15 +210,17 @@ export const Vortex = (props) => {
   }, []);
 
   return (
-    <div className={cn("relative h-full w-full", props.containerClassName)}>
-      <motion.div
+  <div className={cn("relative h-full w-full bg-cover xxxxxxxxx bg-center fixed top-0 left-0 h-screen w-screen bg-cover bg-center overflow-hidden", props.containerClassName)}
+    style={{ backgroundImage: `url(${staticVortexBg})` }}>
+
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         ref={containerRef}
         className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center"
       >
         <canvas ref={canvasRef}></canvas>
-      </motion.div>
+      </motion.div> */}
       <div className={cn("relative z-10", props.className)}>
         {props.children}
       </div>

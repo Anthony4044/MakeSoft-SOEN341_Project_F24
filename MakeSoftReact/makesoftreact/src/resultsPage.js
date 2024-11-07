@@ -114,8 +114,6 @@ const ResultsPage = ({ instructor }) => {
             return { items: sortedItems };
         }
     });
-
-    // Define the columns with their labels and keys
     // Define the columns with their labels and keys
     const columns = [
         { key: 'studentId', label: 'Student ID' },
@@ -171,20 +169,31 @@ const ResultsPage = ({ instructor }) => {
 
                     <div className="relative z-10 max-w-7xl w-full mx-auto p-6 pt-32">
                         <div className="">
-                            <h1 className="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
-                                {isDetailedView ? "Detailed Results" : "Summarized Results"} <br></br><br></br>
-                                <button
-                                    className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
+                            <div className="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-200 mb-4 ">
+                                {isDetailedView ? "Detailed Results" : "Summarized Results"} <br/><br/>
+
+                                <div className='flex justify-start text-xl px-10'>
+                                    <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
+                                    onClick={toggleDetailedResults}>
+                                        <span className=" absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                        <span className=" flex justify-start text-xlinline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                                        {isDetailedView ? "← Back to Summary" : "View Detailed Results →"}
+                                        </span>
+                                        </button>
+                                </div>
+                                {/* <button
+                                    className="relative groupbtn bg-zinc-800 text-white rounded-md h-10 font-medium px-4 py-1 flex justify-start text-xl"
                                     onClick={toggleDetailedResults}
                                 >
-                                    {isDetailedView ? "Back to Summary" : "View Detailed Results"}
-                                </button>
+                                    {isDetailedView ? "← Back to Summary" : "View Detailed Results"}
+                                </button> */}
 
-                            </h1>
+                            </div>
                             <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
                         </div>
-            {!isDetailedView ? (
 
+
+            {!isDetailedView ? (
                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-0 mb-8 outer-wr table-wrapper">
                             <Table
                                 aria-label="Results Table"
@@ -244,64 +253,113 @@ const ResultsPage = ({ instructor }) => {
                                     )}
                                 </TableBody>
                             </Table>
-                        </div>):(<div>
-                        {groupedArray.map(([teamName, processedReviewMembers], index) => (
-                            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr">
-                                <h1 className="text-white">Team Name: {teamName}</h1>
-                                <h2 className="text-white">Reviewees:</h2>
-                                {/* Create a Set to hold unique reviewee names */}
-                                {Array.from(new Set(processedReviewMembers.map(review => review.reviewee.name))).map((revieweeName, revieweeIndex) => {
-                                    // Filter reviews for this specific reviewee
-                                    const revieweeReviews = processedReviewMembers.filter(
-                                        (review) => review.reviewee.name === revieweeName
-                                    );
+                        </div>):(
 
-                                    return (
-                                        <div key={revieweeIndex} className="mb-4">
-                                            <h3 className="text-white">{revieweeName}</h3>
-                                            <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
-                                                <thead>
-                                                    <tr>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Reviewer</th>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Cooperation</th>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Conceptual Contribution</th>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Practical Contribution</th>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Work Ethic</th>
-                                                        <th className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-200">Average</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {revieweeReviews.map((review, reviewIndex) => (
-                                                        <tr key={reviewIndex} className="even:bg-gray-100 dark:even:bg-gray-700">
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{review.reviewer.name}</td>
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{review.cooperation}</td>
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{review.conceptualContribution}</td>
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{review.practicalContribution}</td>
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{review.workEthic}</td>
-                                                            <td className="border-b border-gray-300 dark:border-gray-700 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">{((review.cooperation + review.conceptualContribution + review.practicalContribution + review.workEthic) / 4).toFixed(2)}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    );
-                                })}
-                                {/* Now display comments for all reviewees at the bottom */}
-                                {processedReviewMembers.map((review, reviewIndex) => {
-                                    const hasComments = review.cooperationComment || review.conceptualContributionComment || review.practicalContributionComment || review.workEthicComment;
-                                    return hasComments ? (
-                                        <p key={reviewIndex} className="text-white">
-                                            {review.reviewer.name} commented:
-                                            {review.cooperationComment} ,
-                                            {review.conceptualContributionComment} ,
-                                            {review.practicalContributionComment} ,
-                                            {review.workEthicComment}.
-                                        </p>
-                                    ) : null;
-                                })}
+
+// Detailed Results View ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          <div>
+            {groupedArray.map(([teamName, teamReviews], index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr pt-0"
+              >
+                <h1 className="text-2xl font-bold text-neutral-800 dark:text-neutral-800  bg-neutral-200 w-full h-full rounded-lg" >
+                  Team Name: {teamName}
+                </h1>
+                {Array.from(
+                  new Set(teamReviews.map((review) => review.reviewee.name))
+                ).map((revieweeName, revieweeIndex) => {
+                  // Filter reviews for this specific reviewee
+                  const revieweeReviews = teamReviews.filter(
+                    (review) => review.reviewee.name === revieweeName
+                  );
+
+                  return (
+                    
+                    <div key={revieweeIndex} className="mb-6">
+                        
+                      <h2 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2 text-left  pt-6">
+                        <div className='text-left'>
+                            <span className='text-neutral-500'>Student Name:</span> {revieweeName}
+                        </div>
+                      </h2>
+                      <div className="table-wrapper">
+                        <Table
+                          aria-label={`Detailed Results for ${revieweeName}`}
+                          className="sortable-table"
+                        >
+                          <TableHeader>
+                            <TableColumn>Member</TableColumn>
+                            <TableColumn>Cooperation</TableColumn>
+                            <TableColumn>Conceptual</TableColumn>
+                            <TableColumn>Practical</TableColumn>
+                            <TableColumn>Work Ethic</TableColumn>
+                            <TableColumn>Average Across All</TableColumn>
+                          </TableHeader>
+                          <TableBody>
+                            {revieweeReviews.map((review, reviewIndex) => {
+                              const average = (
+                                (review.cooperation +
+                                  review.conceptualContribution +
+                                  review.practicalContribution +
+                                  review.workEthic) /
+                                4
+                              ).toFixed(2);
+
+                              return (
+                                <TableRow key={reviewIndex}>
+                                  <TableCell>{review.reviewer.name}</TableCell>
+                                  <TableCell>{review.cooperation}</TableCell>
+                                  <TableCell>{review.conceptualContribution}</TableCell>
+                                  <TableCell>{review.practicalContribution}</TableCell>
+                                  <TableCell>{review.workEthic}</TableCell>
+                                  <TableCell>{average}</TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
+                      </div>
+                      {/* Comments Section */}
+                      <div className="text-lg font-medium text-neutral-800 dark:text-neutral-200 mt-4 text-xl">
+                        Comments:
+                      </div>
+                      {revieweeReviews.map((review, reviewIndex) => {
+                        const hasComments =
+                          review.cooperationComment ||
+                          review.conceptualContributionComment ||
+                          review.practicalContributionComment ||
+                          review.workEthicComment;
+                          const comments = [
+                            review.cooperationComment && { label: '- Cooperation:', text: review.cooperationComment },
+                            review.conceptualContributionComment && { label: '- Conceptual:', text: review.conceptualContributionComment },
+                            review.practicalContributionComment && { label: '- Practical:', text: review.practicalContributionComment },
+                            review.workEthicComment && { label: '- Work Ethic:', text: review.workEthicComment },
+                          ].filter(Boolean);
+                          
+                          return (
+                            <div key={reviewIndex} className="text-neutral-800 dark:text-neutral-200 text-left px-16">
+                              <div className="py-2 font-bold text-l">
+                              <span className="text-violet-300 pr-2">●</span> {review.reviewer.name} <span className="text-neutral-300">commented:</span>
+                              </div>
+                              <div className="px-20">
+                                {comments.map((comment, i) => (
+                                  <React.Fragment key={i}>
+                                    <span className="font-semibold text-neutral-400">{comment.label}</span> {comment.text}
+                                    <br />
+                                  </React.Fragment>
+                                ))}
+                              </div>
                             </div>
-                        ))}
+                          );
+                      })}
+                      <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[1px] w-full" />
                     </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
                 )
 }
                     </div>
