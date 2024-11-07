@@ -1,4 +1,4 @@
-# Team Activity Log - Sprint 2
+# Team Activity Log - Sprint 3
 
 ### 2024-11-02
 
