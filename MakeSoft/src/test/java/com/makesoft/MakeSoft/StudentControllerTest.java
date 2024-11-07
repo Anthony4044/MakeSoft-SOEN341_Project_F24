@@ -3,6 +3,7 @@ package com.makesoft.MakeSoft;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,29 +30,148 @@ class StudentControllerTest {
     /**
      * Initializes mocks for the test class.
      */
-    public StudentControllerTest() {
-        MockitoAnnotations.openMocks(this);
+
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);  // Initializes mocks and injects them
+        // Log or assert to verify that instructorService is initialized
+
+    }
+
+    @Test
+    void studentExists_StudentDoesNotExistAndInstructorExists_ReturnsFalse() throws IOException {
+        // Arrange
+        Student student = new Student();
+        student.setStudentId("123");
+        student.setEmail("test@example.com");
+        student.setSection("A");
+
+        Instructor instructor = new Instructor();
+        instructor.setName("name");
+
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<>());
+        when(instructorService.findInstructorBySection(student.getSection())).thenReturn(instructor);
+
+        // Act
+        boolean result = studentController.studentExists(student);
+
+        // Assert
+        assertFalse(result, "Expected studentExists to return false when student does not exist and instructor exists");
+    }
+
+    @Test
+    void studentExists_StudentByIdExists_ReturnsTrue() throws IOException {
+        // Arrange
+        Student student = new Student();
+        student.setStudentId("123");
+        student.setEmail("test@example.com");
+        student.setSection("A");
+
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.of(student));
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<>());
+        when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
+
+        // Act
+        boolean result = studentController.studentExists(student);
+
+        // Assert
+        assertTrue(result, "Expected studentExists to return true when student with the same ID exists");
+    }
+
+    @Test
+    void studentExists_StudentByEmailExists_ReturnsTrue() throws IOException {
+        // Arrange
+        Student student = new Student();
+        student.setStudentId("123");
+        student.setEmail("test@example.com");
+        student.setSection("A");
+
+        ArrayList<Student> studentsWithEmail = new ArrayList<>();
+        studentsWithEmail.add(student);
+
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(studentsWithEmail);
+        when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
+
+        // Act
+        boolean result = studentController.studentExists(student);
+
+        // Assert
+        assertTrue(result, "Expected studentExists to return true when student with the same email exists");
+    }
+
+    @Test
+    void studentExists_InstructorDoesNotExist_ReturnsTrue() throws IOException {
+        // Arrange
+        Student student = new Student();
+        student.setStudentId("123");
+        student.setEmail("test@example.com");
+        student.setSection("A");
+
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<>());
+        when(instructorService.findInstructorBySection(student.getSection())).thenReturn(null);
+
+        // Act
+        boolean result = studentController.studentExists(student);
+
+        // Assert
+        assertTrue(result, "Expected studentExists to return true when no instructor for the section exists");
+    }
+
+    @Test
+    void studentExists_ExceptionThrownInInstructorService_ReturnsTrue() throws IOException {
+        // Arrange
+        Student student = new Student();
+        student.setStudentId("123");
+        student.setEmail("test@example.com");
+        student.setSection("A");
+
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<>());
+        when(instructorService.findInstructorBySection(student.getSection())).thenThrow(new RuntimeException("Service error"));
+
+        // Act
+        boolean result = studentController.studentExists(student);
+
+        // Assert
+        assertTrue(result, "Expected studentExists to return true when exception is thrown in instructor service");
     }
 
     /**
      * Tests the signUpStudent method for a successful signup.
      */
     @Test
-    void signUpStudent_Success() {
+    void signUpStudent_Success() throws IOException {
+        // Arrange
         Student student = new Student();
         student.setStudentId("123");
         student.setEmail("test@example.com");
         student.setSection("A");
 
+        // Mock the repository and service methods that studentExists depends on
+        when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
+        when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<>());
+        when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
+
+        // Act
         try {
-            when(studentRepository.findByStudentId(student.getStudentId())).thenReturn(Optional.empty());
-            when(studentRepository.findByEmail(student.getEmail())).thenReturn(new ArrayList<Student>());
-            when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
-            when(studentRepository.save(student)).thenReturn(student);
+            // Call signUpStudent directly, which will invoke studentExists with the above mocks
+            Student savedStudent = studentController.signUpStudent(student);
+
+            // Assert
+            assertNotNull(savedStudent);  // Verify that the student was saved successfully
+            assertEquals(student.getStudentId(), savedStudent.getStudentId());  // Confirm specific values
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            fail("Exception thrown during test: " + e.getMessage());  // Fail test if exception occurs
         }
     }
+
+
+
 
     /**
      * Tests the signUpStudent method for a conflict scenario.

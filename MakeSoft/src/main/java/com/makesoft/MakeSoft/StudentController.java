@@ -30,10 +30,11 @@ public class StudentController {
      *
      * @param studentRepository the repository for managing students
      */
-    public StudentController(StudentRepository studentRepository) {
+    @Autowired
+    public StudentController(StudentRepository studentRepository, InstructorService instructorService) {
         this.studentRepository = studentRepository;
+        this.instructorService = instructorService;
     }
-
     /**
      * Endpoint for student signup.
      *
@@ -59,16 +60,17 @@ public class StudentController {
      * @param student the student to check
      * @return true if the student exists, false otherwise
      */
-    private boolean studentExists(Student student) {
+    public boolean studentExists(Student student) {
         Optional<Student> students = studentRepository.findByStudentId(student.getStudentId());
         ArrayList<Student> studentsEmail = studentRepository.findByEmail(student.getEmail());
         try {
             Instructor instructor = instructorService.findInstructorBySection(student.getSection());
-            if (students != null && instructor != null && studentsEmail.isEmpty()) {
+            if ((!students.isPresent())&& instructor != null && studentsEmail.isEmpty()) {
                 return false;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+
         }
         return true;
     }
