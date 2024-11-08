@@ -21,6 +21,9 @@ public class StudentController {
 
     private final StudentRepository studentRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     String teamName;
     @Autowired
     private TeamRepository teamRepository;
@@ -48,6 +51,7 @@ public class StudentController {
 
         if (!verifiedStudent) {
             studentRepository.save(student);
+            emailService.sendMail(student.getEmail(), "Confirmation Email",student.getName(),student.getSection(),true );
             return student;
         } else {
             return null;
