@@ -28,6 +28,7 @@ class InstructorControllerTest {
 
     @Mock
     EmailService emailService;
+
     /**
      * Initializes mocks for the test class.
      */
@@ -109,12 +110,9 @@ class InstructorControllerTest {
         assertNull(response);
     }
 
-
-
-    ///NEWWWWW!!!!!!!!!!
-    ///
-    ///
-
+    /**
+     * Tests the getStudents method for a valid section.
+     */
     @Test
     void getStudents_ValidSection_ReturnsStudentsList() {
         String section = "A";
@@ -129,6 +127,9 @@ class InstructorControllerTest {
         assertEquals(1, result.size());
     }
 
+    /**
+     * Tests the getStudents method for an empty section.
+     */
     @Test
     void getStudents_EmptySection_ReturnsEmptyList() {
         String section = "";
@@ -142,6 +143,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests the getStudents method for a null section.
+     */
     @Test
     void getStudents_NullSection_ReturnsEmptyList() {
         String section = null;
@@ -155,6 +159,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests the getStudents method for a section with no students.
+     */
     @Test
     void getStudents_SectionWithNoStudents_ReturnsEmptyList() {
         String section = "B";
@@ -168,8 +175,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
-
-
+    /**
+     * Tests the getTeams method for a valid section.
+     */
     @Test
     void getTeams_ValidSection_ReturnsTeamsList() {
         String section = "A";
@@ -184,6 +192,9 @@ class InstructorControllerTest {
         assertEquals(1, result.size());
     }
 
+    /**
+     * Tests the getTeams method for an empty section.
+     */
     @Test
     void getTeams_EmptySection_ReturnsEmptyList() {
         String section = "";
@@ -197,6 +208,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests the getTeams method for a null section.
+     */
     @Test
     void getTeams_NullSection_ReturnsEmptyList() {
         String section = null;
@@ -210,6 +224,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests the getTeams method for a section with no teams.
+     */
     @Test
     void getTeams_SectionWithNoTeams_ReturnsEmptyList() {
         String section = "B";
@@ -223,7 +240,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
-
+    /**
+     * Tests the addTeam method for a valid section and team.
+     */
     @Test
     void addTeam_ValidSectionAndTeam_ReturnsSuccessMessage() {
         String section = "A";
@@ -235,7 +254,9 @@ class InstructorControllerTest {
         assertEquals("Team added successfully.", result);
     }
 
-
+    /**
+     * Tests the addStudentToTeam method for a valid section and team name.
+     */
     @Test
     void addStudentToTeam_ValidSectionAndTeamName_ReturnsSuccessMessage() {
         String section = "A";
@@ -249,6 +270,9 @@ class InstructorControllerTest {
         assertEquals("Student added to team.", response.getBody());
     }
 
+    /**
+     * Tests the addStudentToTeam method for an invalid team name.
+     */
     @Test
     void addStudentToTeam_InvalidTeamName_ReturnsErrorMessage() {
         String section = "A";
@@ -262,7 +286,9 @@ class InstructorControllerTest {
         assertEquals("Failed to add student to team.", response.getBody());
     }
 
-
+    /**
+     * Tests the addStudentToTeam method for an invalid section.
+     */
     @Test
     void addStudentToTeam_InvalidSection_ReturnsErrorMessage() {
         String section = "";
@@ -276,7 +302,9 @@ class InstructorControllerTest {
         assertEquals("Failed to add student to team.", response.getBody());
     }
 
-
+    /**
+     * Tests the removeStudentFromTeam method for a valid section and team name.
+     */
     @Test
     void removeStudentFromTeam_ValidSectionAndTeamName_ReturnsSuccessMessage() {
         String section = "A";
@@ -290,6 +318,9 @@ class InstructorControllerTest {
         assertEquals("Student removed from team.", response.getBody());
     }
 
+    /**
+     * Tests the removeStudentFromTeam method for an invalid section.
+     */
     @Test
     void removeStudentFromTeam_InvalidSection_ReturnsErrorMessage() {
         String section = "";
@@ -303,7 +334,9 @@ class InstructorControllerTest {
         assertEquals("Failed to remove student from team.", response.getBody());
     }
 
-
+    /**
+     * Tests the removeStudentFromTeam method for an invalid team name.
+     */
     @Test
     void removeStudentFromTeam_InvalidTeamName_ReturnsErrorMessage() {
         String section = "A";
@@ -317,7 +350,9 @@ class InstructorControllerTest {
         assertEquals("Failed to remove student from team.", response.getBody());
     }
 
-
+    /**
+     * Tests the retrieveReviews method for a valid section.
+     */
     @Test
     void retrieveReviews_ValidSection_ReturnsFilteredReviews() {
         String section = "A";
@@ -336,6 +371,9 @@ class InstructorControllerTest {
         assertEquals(1, result.size());
     }
 
+    /**
+     * Tests the retrieveReviews method for a section with no matching reviews.
+     */
     @Test
     void retrieveReviews_SectionWithNoMatchingReviews_ReturnsEmptyList() {
         String section = "B";
@@ -354,6 +392,9 @@ class InstructorControllerTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests the getTeam method for a valid student ID.
+     */
     @Test
     void getTeam_ValidStudentId_ReturnsTeamWithTeammates() {
         String studentId = "123";
@@ -375,6 +416,9 @@ class InstructorControllerTest {
         assertEquals("456", result.getStudentIds().get(0));
     }
 
+    /**
+     * Tests the getTeam method for a student with a team but no teammates.
+     */
     @Test
     void getTeam_StudentWithTeamNoTeammates_ReturnsTeamWithEmptyStudentIds() {
         String studentId = "123";
@@ -391,5 +435,4 @@ class InstructorControllerTest {
         assertNotNull(result);
         assertTrue(result.getStudentIds().isEmpty());
     }
-    
 }

@@ -10,6 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataIntegrityViolationException;
 
+/**
+ * Unit tests for the ReviewController class.
+ */
 class ReviewControllerTest {
 
     @Mock
@@ -18,14 +21,21 @@ class ReviewControllerTest {
     @InjectMocks
     private ReviewController reviewController;
 
+    /**
+     * Sets up the test environment before each test.
+     * Initialize mocks and injects them into the controller.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Tests the createReview method with valid reviewer and reviewee.
+     * Verifies that the method returns null and the review is saved.
+     */
     @Test
     public void testCreateReview() {
-
         Student reviewer = new Student();
         reviewer.setName("Alice");
         Student reviewee = new Student();
@@ -43,6 +53,10 @@ class ReviewControllerTest {
         verify(reviewRepository, times(1)).save(review);
     }
 
+    /**
+     * Tests the createReview method to ensure the review is successfully saved.
+     * Verifies that the method returns null and the review is saved.
+     */
     @Test
     public void testCreateReviewSuccessfullySavesReview() {
         // Arrange
@@ -62,8 +76,4 @@ class ReviewControllerTest {
         assertNull(result, "The createReview method should return null.");
         verify(reviewRepository, times(1)).save(review);
     }
-
-
-
-
 }
