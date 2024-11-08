@@ -20,6 +20,9 @@ public class InstructorController {
     @Autowired
     private InstructorService instructorService;
 
+    @Autowired
+    private EmailService emailService;
+
     /**
      * Endpoint for instructor signup.
      *
@@ -30,6 +33,10 @@ public class InstructorController {
     public ResponseEntity<?> signUpInstructor(@RequestBody Instructor instructor) {
         Instructor savedInstructor = instructorService.addInstructor(instructor);
         if (savedInstructor != null) {
+            emailService.sendMail(savedInstructor.getEmail(), "Confirmation Email", savedInstructor.getName(), savedInstructor.getSection(),false);
+
+
+
             return ResponseEntity.ok(savedInstructor);
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Instructor already exists.");

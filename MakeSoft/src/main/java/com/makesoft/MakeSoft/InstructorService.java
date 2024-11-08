@@ -70,6 +70,10 @@ public class InstructorService {
         ArrayList<Instructor> instructors = instructorRepository.findByEmail(instructor.getEmail());
         // Checks database for all instructors with the specified email and name
         instructors.addAll(instructorRepository.findByName(instructor.getName()));
+
+        for (Instructor instructor1 : instructors) {
+            System.out.println(instructor1);
+        }
         return !instructors.isEmpty();
     }
 
