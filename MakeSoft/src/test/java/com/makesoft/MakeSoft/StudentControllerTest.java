@@ -33,16 +33,11 @@ class StudentControllerTest {
     @Mock
     private TeamRepository teamRepository;
 
-    /**
-     * Initializes mocks for the test class.
-     */
-
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);  // Initializes mocks and injects them
-        // Log or assert to verify that instructorService is initialized
-
+        assertNotNull(teamRepository, "teamRepository should be initialized");
     }
 
     @Test
@@ -257,5 +252,117 @@ class StudentControllerTest {
             System.out.println(e.getMessage());
         }
     }
+
+
+
+    ///NEW!!!!!!!!
+
+    @Test
+    void sendTeamMembers_ValidStudentId_ReturnsTeamMembers() {
+        String studentId = "123";
+        Student student = new Student();
+        student.setStudentId(studentId);
+        Team team = new Team();
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+        teammates.add(student);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(studentRepository.findByTeam(team)).thenReturn(teammates);
+
+        ArrayList<Student> result = studentController.sendTeamMembers(studentId);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(studentId, result.get(0).getStudentId());
+    }
+
+    @Test
+    void sendTeamMembers_StudentWithoutTeam_ReturnsEmptyList() {
+        String studentId = "123";
+        Student student = new Student();
+        student.setStudentId(studentId);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+
+        ArrayList<Student> result = studentController.sendTeamMembers(studentId);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void retrieveTeam_ValidStudentId_ReturnsTeamWithMembers() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+        teammates.add(student);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+        when(studentRepository.findByTeam(team)).thenReturn(teammates);
+
+        Team result = studentController.retrieveTeam(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
+        assertEquals(1, result.getStudentIds().size());
+        assertEquals(studentId, result.getStudentIds().get(0));
+    }
+
+    @Test
+    void findTeamates_ValidStudentId_ReturnsTeam() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+
+        Team result = studentController.findTeamates(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
+    }
+
+    @Test
+    void findTeamates_StudentInTeamWithoutTeammates_ReturnsTeam() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+        when(studentRepository.findByTeam(team)).thenReturn(new ArrayList<>());
+
+        Team result = studentController.findTeamates(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
+    }
+
+    
+
+
+
+
+
+
 
 }

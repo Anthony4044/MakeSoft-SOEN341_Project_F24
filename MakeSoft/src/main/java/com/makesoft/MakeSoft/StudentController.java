@@ -34,10 +34,12 @@ public class StudentController {
      * @param studentRepository the repository for managing students
      */
     @Autowired
-    public StudentController(StudentRepository studentRepository, InstructorService instructorService, EmailService emailService ) {
+    public StudentController(StudentRepository studentRepository, InstructorService instructorService,
+                             EmailService emailService, TeamRepository teamRepository) {
         this.studentRepository = studentRepository;
         this.instructorService = instructorService;
         this.emailService = emailService;
+        this.teamRepository = teamRepository;
     }
     /**
      * Endpoint for student signup.
@@ -119,7 +121,7 @@ public class StudentController {
      * @return the list of team members
      */
     @GetMapping("/{id}/teamMembers")
-    private ArrayList<Student> sendTeamMembers(@PathVariable String id) {
+    public ArrayList<Student> sendTeamMembers(@PathVariable String id) {
         System.out.println("s-id: " + id);
         Optional<Student> optionalStudent = studentRepository.findByStudentId(id);
         Student student = null;
