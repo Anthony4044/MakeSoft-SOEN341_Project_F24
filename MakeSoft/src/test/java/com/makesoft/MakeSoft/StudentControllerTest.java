@@ -357,7 +357,7 @@ class StudentControllerTest {
         assertEquals(1L, result.getTeamId());
     }
 
-    
+
 
 
 

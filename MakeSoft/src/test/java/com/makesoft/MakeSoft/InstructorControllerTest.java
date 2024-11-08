@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Unit tests for the InstructorController class.
@@ -105,4 +108,288 @@ class InstructorControllerTest {
 
         assertNull(response);
     }
+
+
+
+    ///NEWWWWW!!!!!!!!!!
+    ///
+    ///
+
+    @Test
+    void getStudents_ValidSection_ReturnsStudentsList() {
+        String section = "A";
+        List<Student> students = new ArrayList<>();
+        students.add(new Student());
+
+        when(instructorService.findStudentBySection(section)).thenReturn((ArrayList<Student>) students);
+
+        List<Student> result = instructorController.getStudents(section);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getStudents_EmptySection_ReturnsEmptyList() {
+        String section = "";
+        List<Student> students = new ArrayList<>();
+
+        when(instructorService.findStudentBySection(section)).thenReturn((ArrayList<Student>) students);
+
+        List<Student> result = instructorController.getStudents(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getStudents_NullSection_ReturnsEmptyList() {
+        String section = null;
+        List<Student> students = new ArrayList<>();
+
+        when(instructorService.findStudentBySection(section)).thenReturn((ArrayList<Student>) students);
+
+        List<Student> result = instructorController.getStudents(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getStudents_SectionWithNoStudents_ReturnsEmptyList() {
+        String section = "B";
+        List<Student> students = new ArrayList<>();
+
+        when(instructorService.findStudentBySection(section)).thenReturn((ArrayList<Student>) students);
+
+        List<Student> result = instructorController.getStudents(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+
+
+    @Test
+    void getTeams_ValidSection_ReturnsTeamsList() {
+        String section = "A";
+        ArrayList<Team> teams = new ArrayList<>();
+        teams.add(new Team());
+
+        when(instructorService.findTeamBySection(section)).thenReturn(teams);
+
+        ArrayList<Team> result = instructorController.getTeams(section);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getTeams_EmptySection_ReturnsEmptyList() {
+        String section = "";
+        ArrayList<Team> teams = new ArrayList<>();
+
+        when(instructorService.findTeamBySection(section)).thenReturn(teams);
+
+        ArrayList<Team> result = instructorController.getTeams(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getTeams_NullSection_ReturnsEmptyList() {
+        String section = null;
+        ArrayList<Team> teams = new ArrayList<>();
+
+        when(instructorService.findTeamBySection(section)).thenReturn(teams);
+
+        ArrayList<Team> result = instructorController.getTeams(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getTeams_SectionWithNoTeams_ReturnsEmptyList() {
+        String section = "B";
+        ArrayList<Team> teams = new ArrayList<>();
+
+        when(instructorService.findTeamBySection(section)).thenReturn(teams);
+
+        ArrayList<Team> result = instructorController.getTeams(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+
+    @Test
+    void addTeam_ValidSectionAndTeam_ReturnsSuccessMessage() {
+        String section = "A";
+        Team team = new Team();
+        when(instructorService.addTeam(section, team)).thenReturn("Team added successfully.");
+
+        String result = instructorController.addTeam(section, team);
+
+        assertEquals("Team added successfully.", result);
+    }
+
+
+    @Test
+    void addStudentToTeam_ValidSectionAndTeamName_ReturnsSuccessMessage() {
+        String section = "A";
+        String teamName = "Team1";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.addStudentToTeam(section, teamName, "123")).thenReturn(true);
+
+        ResponseEntity<?> response = instructorController.addStudentToTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Student added to team.", response.getBody());
+    }
+
+    @Test
+    void addStudentToTeam_InvalidTeamName_ReturnsErrorMessage() {
+        String section = "A";
+        String teamName = "";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.addStudentToTeam(section, teamName, "123")).thenReturn(false);
+
+        ResponseEntity<?> response = instructorController.addStudentToTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Failed to add student to team.", response.getBody());
+    }
+
+
+    @Test
+    void addStudentToTeam_InvalidSection_ReturnsErrorMessage() {
+        String section = "";
+        String teamName = "Team1";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.addStudentToTeam(section, teamName, "123")).thenReturn(false);
+
+        ResponseEntity<?> response = instructorController.addStudentToTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Failed to add student to team.", response.getBody());
+    }
+
+
+    @Test
+    void removeStudentFromTeam_ValidSectionAndTeamName_ReturnsSuccessMessage() {
+        String section = "A";
+        String teamName = "Team1";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.removeStudentFromTeam(section, teamName, "123")).thenReturn(true);
+
+        ResponseEntity<?> response = instructorController.removeStudentFromTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Student removed from team.", response.getBody());
+    }
+
+    @Test
+    void removeStudentFromTeam_InvalidSection_ReturnsErrorMessage() {
+        String section = "";
+        String teamName = "Team1";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.removeStudentFromTeam(section, teamName, "123")).thenReturn(false);
+
+        ResponseEntity<?> response = instructorController.removeStudentFromTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Failed to remove student from team.", response.getBody());
+    }
+
+
+    @Test
+    void removeStudentFromTeam_InvalidTeamName_ReturnsErrorMessage() {
+        String section = "A";
+        String teamName = "";
+        Map<String, String> payload = Map.of("studentId", "123");
+        when(instructorService.removeStudentFromTeam(section, teamName, "123")).thenReturn(false);
+
+        ResponseEntity<?> response = instructorController.removeStudentFromTeam(section, teamName, payload);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Failed to remove student from team.", response.getBody());
+    }
+
+
+    @Test
+    void retrieveReviews_ValidSection_ReturnsFilteredReviews() {
+        String section = "A";
+        ArrayList<Review> allReviews = new ArrayList<>();
+        Review review = new Review();
+        Student student = new Student();
+        student.setSection("A");
+        review.setReviewer(student);
+        allReviews.add(review);
+
+        when(instructorService.getReviews()).thenReturn(allReviews);
+
+        List<Review> result = instructorController.retrieveReviews(section);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void retrieveReviews_SectionWithNoMatchingReviews_ReturnsEmptyList() {
+        String section = "B";
+        ArrayList<Review> allReviews = new ArrayList<>();
+        Review review = new Review();
+        Student student = new Student();
+        student.setSection("A");
+        review.setReviewer(student);
+        allReviews.add(review);
+
+        when(instructorService.getReviews()).thenReturn(allReviews);
+
+        List<Review> result = instructorController.retrieveReviews(section);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getTeam_ValidStudentId_ReturnsTeamWithTeammates() {
+        String studentId = "123";
+        Student student = new Student();
+        Team team = new Team();
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+        Student teammate = new Student();
+        teammate.setStudentId("456");
+        teammates.add(teammate);
+
+        when(instructorService.getStudentByStudentId(studentId)).thenReturn(student);
+        when(instructorService.findTeammates(team)).thenReturn(teammates);
+
+        Team result = instructorController.getTeam(studentId);
+
+        assertNotNull(result);
+        assertEquals(1, result.getStudentIds().size());
+        assertEquals("456", result.getStudentIds().get(0));
+    }
+
+    @Test
+    void getTeam_StudentWithTeamNoTeammates_ReturnsTeamWithEmptyStudentIds() {
+        String studentId = "123";
+        Student student = new Student();
+        Team team = new Team();
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+
+        when(instructorService.getStudentByStudentId(studentId)).thenReturn(student);
+        when(instructorService.findTeammates(team)).thenReturn(teammates);
+
+        Team result = instructorController.getTeam(studentId);
+
+        assertNotNull(result);
+        assertTrue(result.getStudentIds().isEmpty());
+    }
+    
 }
