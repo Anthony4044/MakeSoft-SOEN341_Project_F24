@@ -105,7 +105,7 @@ public class StudentController {
      * @return the team of the student
      */
     @GetMapping("/{id}/addTeam")
-    private Team findTeamates(@PathVariable String id) {
+    public Team findTeamates(@PathVariable String id) {
         System.out.println("ID: " + id);
         Team team = retrieveTeam(id);
         System.out.println(team.getTeamName());
@@ -139,7 +139,7 @@ public class StudentController {
      * @param id the student ID
      * @return the team of the student
      */
-    private Team retrieveTeam(String id) {
+    public Team retrieveTeam(String id) {
         Optional<Student> student1 = studentRepository.findByStudentId(id);
         Optional<Team> optionalTeam = teamRepository.findByTeamId(student1.get().getTeam().getTeamId());
         ArrayList<Student> teamates = studentRepository.findByTeam(student1.get().getTeam());

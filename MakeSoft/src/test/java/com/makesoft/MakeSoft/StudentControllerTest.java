@@ -30,6 +30,9 @@ class StudentControllerTest {
     @Mock
     EmailService emailService;
 
+    @Mock
+    private TeamRepository teamRepository;
+
     /**
      * Initializes mocks for the test class.
      */
@@ -254,4 +257,5 @@ class StudentControllerTest {
             System.out.println(e.getMessage());
         }
     }
+
 }
