@@ -34,10 +34,12 @@ public class StudentController {
      * @param studentRepository the repository for managing students
      */
     @Autowired
-    public StudentController(StudentRepository studentRepository, InstructorService instructorService, EmailService emailService ) {
+    public StudentController(StudentRepository studentRepository, InstructorService instructorService,
+                             EmailService emailService, TeamRepository teamRepository) {
         this.studentRepository = studentRepository;
         this.instructorService = instructorService;
         this.emailService = emailService;
+        this.teamRepository = teamRepository;
     }
     /**
      * Endpoint for student signup.
@@ -105,7 +107,7 @@ public class StudentController {
      * @return the team of the student
      */
     @GetMapping("/{id}/addTeam")
-    private Team findTeamates(@PathVariable String id) {
+    public Team findTeamates(@PathVariable String id) {
         System.out.println("ID: " + id);
         Team team = retrieveTeam(id);
         System.out.println(team.getTeamName());
@@ -119,7 +121,7 @@ public class StudentController {
      * @return the list of team members
      */
     @GetMapping("/{id}/teamMembers")
-    private ArrayList<Student> sendTeamMembers(@PathVariable String id) {
+    public ArrayList<Student> sendTeamMembers(@PathVariable String id) {
         System.out.println("s-id: " + id);
         Optional<Student> optionalStudent = studentRepository.findByStudentId(id);
         Student student = null;
@@ -139,7 +141,7 @@ public class StudentController {
      * @param id the student ID
      * @return the team of the student
      */
-    private Team retrieveTeam(String id) {
+    public Team retrieveTeam(String id) {
         Optional<Student> student1 = studentRepository.findByStudentId(id);
         Optional<Team> optionalTeam = teamRepository.findByTeamId(student1.get().getTeam().getTeamId());
         ArrayList<Student> teamates = studentRepository.findByTeam(student1.get().getTeam());
