@@ -27,6 +27,9 @@ class StudentControllerTest {
     @InjectMocks
     private StudentController studentController;
 
+    @Mock
+    EmailService emailService;
+
     /**
      * Initializes mocks for the test class.
      */
@@ -164,6 +167,13 @@ class StudentControllerTest {
             // Assert
             assertNotNull(savedStudent);  // Verify that the student was saved successfully
             assertEquals(student.getStudentId(), savedStudent.getStudentId());  // Confirm specific values
+            verify(emailService).sendMail(
+                    eq(student.getEmail()),
+                    eq("Confirmation Email"),
+                    eq(student.getName()),
+                    eq(student.getSection()),
+                    eq(true)
+            );
         } catch (Exception e) {
             System.out.println(e.getMessage());
             fail("Exception thrown during test: " + e.getMessage());  // Fail test if exception occurs

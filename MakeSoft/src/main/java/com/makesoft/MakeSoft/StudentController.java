@@ -34,9 +34,10 @@ public class StudentController {
      * @param studentRepository the repository for managing students
      */
     @Autowired
-    public StudentController(StudentRepository studentRepository, InstructorService instructorService) {
+    public StudentController(StudentRepository studentRepository, InstructorService instructorService, EmailService emailService ) {
         this.studentRepository = studentRepository;
         this.instructorService = instructorService;
+        this.emailService = emailService;
     }
     /**
      * Endpoint for student signup.

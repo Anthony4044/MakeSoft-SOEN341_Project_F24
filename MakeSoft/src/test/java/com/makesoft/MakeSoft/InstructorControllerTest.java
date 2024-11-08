@@ -23,6 +23,8 @@ class InstructorControllerTest {
     @InjectMocks
     private InstructorController instructorController;
 
+    @Mock
+    EmailService emailService;
     /**
      * Initializes mocks for the test class.
      */
