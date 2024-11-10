@@ -258,7 +258,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
 
         {/* Teams List */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 outer-wr">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
+          {/* <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
             <button
               className="relative group/btn bg-zinc-800 text-white rounded-md h-10 font-medium px-4"
               onClick={() => handleSummarizedResults(instructor)}
@@ -266,7 +266,20 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
               Summarized Results
               <BottomGradient />
             </button>Teams:
-          </h2>
+          </h2> */}
+
+          
+          <div className='flex justify-start text-xl px-10'>
+                                    <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
+                                    onClick={() => handleSummarizedResults(instructor)}>
+                                        <span className=" absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                        <span className=" flex justify-start text-xlinline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                                        Summarized Results →
+                                        </span>
+                                        </button>
+                                </div>
+                                <br/>
+                                <div className='text-2xl sm:text-3xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4'>Teams:</div>
           <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
           {teams.length > 0 ? (
             <div className="space-y-6">
