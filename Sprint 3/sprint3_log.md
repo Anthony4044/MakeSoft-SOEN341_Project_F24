@@ -27,3 +27,61 @@
 - This view is now ready to modified to match the look of the rest of the site.
 
 ---
+### 2024-11-02
+**Team Member:** Mark Antoun
+**Student Id:** 40275666
+**GitHub Name:** Mark9494  
+**Time Spent:** 2 hours 
+
+**Worked On:** 
+-US14, Implemented API request to send all reviews to the frontend in order to be displayed.
+
+**Comments/Notes:**
+-  Still needed to Modify the reviews being sent to be filtered by the instructor's section
+
+---
+### 2024-11-02
+**Team Member:** Mark Antoun
+**Student Id:** 40275666
+**GitHub Name:** Mark9494  
+**Time Spent:** 30 minutes 
+
+**Worked On:** 
+- Made student sign up more robust by checking if email or studetn id already exists
+**Comments/Notes:**
+-
+---
+### 2024-11-04
+**Team Member:** Mark Antoun
+**Student Id:** 40275666
+**GitHub Name:** Mark9494  
+**Time Spent:** 30 minutes 
+
+**Worked On:** 
+- US14, filtered the reviews being sent to the fromtend by the instructor's section
+**Comments/Notes:**
+-
+
+---
+### 2024-11-07
+**Team Member:** Mark Antoun
+**Student Id:** 40275666
+**GitHub Name:** Mark9494  
+**Time Spent:** 2 hours 
+
+**Worked On:** 
+- US15, Added unit tests for sign up (backend)
+**Comments/Notes:**
+  -
+  ---
+### 2024-11-08
+**Team Member:** Mark Antoun
+**Student Id:** 40275666
+**GitHub Name:** Mark9494  
+**Time Spent:** 30 minutes 
+
+**Worked On:** 
+- US15, Adjusted unit testign accomodate sending email confirmations after sign up
+**Comments/Notes:**
+  -
+    ---
