@@ -85,3 +85,43 @@
 **Comments/Notes:**
   -
     ---
+
+### 2024-11-05
+**Team Member:** Danial Kouba
+**Student Id:** 40277789
+**GitHub Name:** DaniK1001
+**Time Spent:** 2 hour
+
+**Worked On:** 
+-Beginning unit testing in the backend
+-Added all necessary Javadoc for all java classes except for the unit testing ones
+
+**Comments/Notes:**
+unit testing still needs more time
+
+
+### 2024-11-08
+**Team Member:** Danial Kouba
+**Student Id:** 40277789
+**GitHub Name:** DaniK1001
+**Time Spent:** 4 hour
+
+**Worked On:** 
+-Added unit tests for all controller classes in java
+-Added all the Javadoc for all the unit testing classes
+
+**Comments/Notes:**
+Implemented the unit testing with as much scenarios as I could
+
+
+### 2024-11-09
+**Team Member:** Danial Kouba
+**Student Id:** 40277789
+**GitHub Name:** DaniK1001
+**Time Spent:** 3 hours
+
+**Worked On:** 
+- Implemented the sentiment analysis AI feature for the comment boxes that would prevent students from submitting their reviews if some comments are inappropriate
+
+**Comments/Notes:**
+the unique feature of our project. Used the sentiment.js and bad-words libraries, might cange later if something more accurate was found
