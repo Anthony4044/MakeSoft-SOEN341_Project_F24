@@ -36,7 +36,10 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		<!-- Spring Boot Starter Data JPA (for working with JPA and Hibernate) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Sentiment from 'sentiment';
 import { Vortex } from './components/ui/vortex';
 import { Label } from './components/ui/label';
 import { Input } from './components/ui/input';
@@ -31,21 +32,41 @@ const EvaluationForm = ({ student, evaluator }) => {
     commentsConceptual: '',
     commentsPractical: '',
     commentsWorkEthic: '',
-    
   });
 
-
   const [submitted, setSubmitted] = useState(false);
+  const sentiment = new Sentiment();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAnswers((prevAnswers) => ({ ...prevAnswers, [name]: value }));
   };
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Gather all comments
+    const comments = [
+      { field: 'Cooperation', text: answers.commentsCooperation },
+      { field: 'Conceptual Contribution', text: answers.commentsConceptual },
+      { field: 'Practical Contribution', text: answers.commentsPractical },
+      { field: 'Work Ethic', text: answers.commentsWorkEthic },
+    ];
+
+    // Check each comment for negativity
+    for (let comment of comments) {
+      if (comment.text) {
+        const result = sentiment.analyze(comment.text);
+        if (result.score < 0) {
+          alert(
+            `Your comment in "${comment.field}" seems inappropriate or negative. Please revise it before submitting.`
+          );
+          return; // Prevent submission
+        }
+      }
+    }
+
+    // Proceed with submission as normal
     const review = {
       reviewer: {
         email: evaluator.evaluatorEmail,
@@ -73,9 +94,6 @@ const EvaluationForm = ({ student, evaluator }) => {
     try {
       const response = await axios.post('http://localhost:8080/api/reviews', review);
       alert("Evaluation submitted successfully!");
-
-      // Optionally, you could call a callback or update state with response data
-      // if you need to trigger any further actions after submission
       setSubmitted(true);
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -86,19 +104,21 @@ const EvaluationForm = ({ student, evaluator }) => {
   if (submitted) {
     return (
       <div className="dark">
+        {/* Vortex Background */}
         <div className="fixed inset-0 z-0">
           <Vortex backgroundColor="black" className="w-full h-full" />
         </div>
+
+        {/* Main Content */}
         <div className="relative z-10 max-w-7xl w-full mx-auto p-6 pt-32">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 outer-wr">
             <h2 className="text-3xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
               Evaluation Submitted!
             </h2>
-            
             <p className="text-neutral-700 dark:text-neutral-300 mb-4">
               Thank you for evaluating {student.name}. Your responses have been recorded.
             </p>
-            <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+            <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
             <ul className="space-y-2 text-neutral-700 dark:text-neutral-300 mb-4">
               <li><strong>Cooperation:</strong> {answers.cooperation}</li>
               <li><strong>Conceptual Contribution:</strong> {answers.conceptualContribution}</li>
@@ -131,7 +151,7 @@ const EvaluationForm = ({ student, evaluator }) => {
             {/* Cooperation */}
             <LabelInputContainer>
               <Label htmlFor="cooperation" className="text-xl">Cooperation</Label>
-              <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+              <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="cooperation"
                 name="cooperation"
@@ -159,8 +179,10 @@ const EvaluationForm = ({ student, evaluator }) => {
 
             {/* Conceptual Contribution */}
             <LabelInputContainer>
-              <Label htmlFor="conceptualContribution " className="text-xl">Conceptual Contribution</Label>
-              <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+              <Label htmlFor="conceptualContribution" className="text-xl">
+                Conceptual Contribution
+              </Label>
+              <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="conceptualContribution"
                 name="conceptualContribution"
@@ -188,8 +210,10 @@ const EvaluationForm = ({ student, evaluator }) => {
 
             {/* Practical Contribution */}
             <LabelInputContainer>
-              <Label htmlFor="practicalContribution" className="text-xl">Practical Contribution</Label>
-              <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+              <Label htmlFor="practicalContribution" className="text-xl">
+                Practical Contribution
+              </Label>
+              <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="practicalContribution"
                 name="practicalContribution"
@@ -218,7 +242,7 @@ const EvaluationForm = ({ student, evaluator }) => {
             {/* Work Ethic */}
             <LabelInputContainer>
               <Label htmlFor="workEthic" className="text-xl">Work Ethic</Label>
-              <div className=" my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+              <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="workEthic"
                 name="workEthic"
@@ -245,12 +269,11 @@ const EvaluationForm = ({ student, evaluator }) => {
             </LabelInputContainer>
 
             {/* Submit Button */}
-            <div className=" bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+            <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
             <button
               type="submit"
               className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
             >
-              
               Submit Evaluation &rarr;
               <BottomGradient />
             </button>

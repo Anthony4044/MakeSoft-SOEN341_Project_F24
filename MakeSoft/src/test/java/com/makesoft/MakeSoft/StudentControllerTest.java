@@ -27,18 +27,26 @@ class StudentControllerTest {
     @InjectMocks
     private StudentController studentController;
 
+    @Mock
+    EmailService emailService;
+
+    @Mock
+    private TeamRepository teamRepository;
+
     /**
-     * Initializes mocks for the test class.
+     * Sets up the test environment before each test.
+     * Initializes mocks and injects them into the tested class.
      */
-
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);  // Initializes mocks and injects them
-        // Log or assert to verify that instructorService is initialized
-
+        assertNotNull(teamRepository, "teamRepository should be initialized");
     }
 
+    /**
+     * Tests the studentExists method when the student does not exist and the instructor exists.
+     * Expects the method to return false.
+     */
     @Test
     void studentExists_StudentDoesNotExistAndInstructorExists_ReturnsFalse() throws IOException {
         // Arrange
@@ -61,6 +69,10 @@ class StudentControllerTest {
         assertFalse(result, "Expected studentExists to return false when student does not exist and instructor exists");
     }
 
+    /**
+     * Tests the studentExists method when the student exists by ID.
+     * Expects the method to return true.
+     */
     @Test
     void studentExists_StudentByIdExists_ReturnsTrue() throws IOException {
         // Arrange
@@ -80,6 +92,10 @@ class StudentControllerTest {
         assertTrue(result, "Expected studentExists to return true when student with the same ID exists");
     }
 
+    /**
+     * Tests the studentExists method when the student exists by email.
+     * Expects the method to return true.
+     */
     @Test
     void studentExists_StudentByEmailExists_ReturnsTrue() throws IOException {
         // Arrange
@@ -102,6 +118,10 @@ class StudentControllerTest {
         assertTrue(result, "Expected studentExists to return true when student with the same email exists");
     }
 
+    /**
+     * Tests the studentExists method when the instructor does not exist.
+     * Expects the method to return true.
+     */
     @Test
     void studentExists_InstructorDoesNotExist_ReturnsTrue() throws IOException {
         // Arrange
@@ -121,6 +141,10 @@ class StudentControllerTest {
         assertTrue(result, "Expected studentExists to return true when no instructor for the section exists");
     }
 
+    /**
+     * Tests the studentExists method when an exception is thrown in the instructor service.
+     * Expects the method to return true.
+     */
     @Test
     void studentExists_ExceptionThrownInInstructorService_ReturnsTrue() throws IOException {
         // Arrange
@@ -142,6 +166,7 @@ class StudentControllerTest {
 
     /**
      * Tests the signUpStudent method for a successful signup.
+     * Expects the student to be saved successfully and a confirmation email to be sent.
      */
     @Test
     void signUpStudent_Success() throws IOException {
@@ -164,17 +189,22 @@ class StudentControllerTest {
             // Assert
             assertNotNull(savedStudent);  // Verify that the student was saved successfully
             assertEquals(student.getStudentId(), savedStudent.getStudentId());  // Confirm specific values
+            verify(emailService).sendMail(
+                    eq(student.getEmail()),
+                    eq("Confirmation Email"),
+                    eq(student.getName()),
+                    eq(student.getSection()),
+                    eq(true)
+            );
         } catch (Exception e) {
             System.out.println(e.getMessage());
             fail("Exception thrown during test: " + e.getMessage());  // Fail test if exception occurs
         }
     }
 
-
-
-
     /**
      * Tests the signUpStudent method for a conflict scenario.
+     * Expects the method to return null when a conflict occurs.
      */
     @Test
     void signUpStudent_Conflict() {
@@ -200,6 +230,7 @@ class StudentControllerTest {
 
     /**
      * Tests the signInStudent method for a successful signin.
+     * Expects the method to return the signed-in student.
      */
     @Test
     void signInStudent_Success() {
@@ -225,6 +256,7 @@ class StudentControllerTest {
 
     /**
      * Tests the signInStudent method for a conflict scenario.
+     * Expects the method to return null when a conflict occurs.
      */
     @Test
     void signInStudent_Conflict() {
@@ -243,5 +275,125 @@ class StudentControllerTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Tests the sendTeamMembers method when a valid student ID is provided.
+     * Expects the method to return the team members.
+     */
+    @Test
+    void sendTeamMembers_ValidStudentId_ReturnsTeamMembers() {
+        String studentId = "123";
+        Student student = new Student();
+        student.setStudentId(studentId);
+        Team team = new Team();
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+        teammates.add(student);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(studentRepository.findByTeam(team)).thenReturn(teammates);
+
+        ArrayList<Student> result = studentController.sendTeamMembers(studentId);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(studentId, result.get(0).getStudentId());
+    }
+
+    /**
+     * Tests the sendTeamMembers method when a student without a team is provided.
+     * Expects the method to return an empty list.
+     */
+    @Test
+    void sendTeamMembers_StudentWithoutTeam_ReturnsEmptyList() {
+        String studentId = "123";
+        Student student = new Student();
+        student.setStudentId(studentId);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+
+        ArrayList<Student> result = studentController.sendTeamMembers(studentId);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Tests the retrieveTeam method when a valid student ID is provided.
+     * Expects the method to return the team with members.
+     */
+    @Test
+    void retrieveTeam_ValidStudentId_ReturnsTeamWithMembers() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+        ArrayList<Student> teammates = new ArrayList<>();
+        teammates.add(student);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+        when(studentRepository.findByTeam(team)).thenReturn(teammates);
+
+        Team result = studentController.retrieveTeam(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
+        assertEquals(1, result.getStudentIds().size());
+        assertEquals(studentId, result.getStudentIds().get(0));
+    }
+
+    /**
+     * Tests the findTeamates method when a valid student ID is provided.
+     * Expects the method to return the team.
+     */
+    @Test
+    void findTeamates_ValidStudentId_ReturnsTeam() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+
+        Team result = studentController.findTeamates(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
+    }
+
+    /**
+     * Tests the findTeamates method when a student in a team without teammates is provided.
+     * Expects the method to return the team.
+     */
+    @Test
+    void findTeamates_StudentInTeamWithoutTeammates_ReturnsTeam() {
+        String studentId = "123";
+        Team team = new Team();
+        team.setTeamId(1L);
+        team.setTeamName("Team A");
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setTeam(team);
+
+        when(studentRepository.findByStudentId(studentId)).thenReturn(Optional.of(student));
+        when(teamRepository.findByTeamId(team.getTeamId())).thenReturn(Optional.of(team));
+        when(studentRepository.findByTeam(team)).thenReturn(new ArrayList<>());
+
+        Team result = studentController.findTeamates(studentId);
+
+        assertNotNull(result);
+        assertEquals("Team A", result.getTeamName());
+        assertEquals(1L, result.getTeamId());
     }
 }

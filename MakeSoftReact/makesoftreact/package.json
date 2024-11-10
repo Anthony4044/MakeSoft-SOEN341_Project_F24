@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
     "axios": "^1.7.7",
+    "bad-words": "^4.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.11",
     "path-browserify": "^1.0.1",
@@ -27,6 +28,7 @@
     "react-scripts": "5.0.1",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
+    "sentiment": "^5.0.2",
     "simplex-noise": "^4.0.3",
     "tailwind-merge": "^2.5.4",
     "web-vitals": "^2.1.4"
