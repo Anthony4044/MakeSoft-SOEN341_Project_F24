@@ -125,3 +125,29 @@ Implemented the unit testing with as much scenarios as I could
 
 **Comments/Notes:**
 the unique feature of our project. Used the sentiment.js and bad-words libraries, might cange later if something more accurate was found
+
+### 2024-11-02
+
+**Team Member:** Firas Al Haddad 
+**Student Id:** 402838180
+**GitHub Name:** Lemonada10  
+**Time Spent:** 7 hours 
+
+**Worked On:**
+- US.15 As a developer, I want to create unit tests for key components and functions 
+
+**Comments/Notes:**
+- Write unit tests for student and instructor sign in(front-end)
+
+---
+### 2024-11-04
+**Team Member:** Firas Al Haddad
+**Student Id:** 402838180
+**GitHub Name:** Lemonada10  
+**Time Spent:** 5 hours 
+
+**Worked On:** 
+-US.15 As a developer, I want to create unit tests for key components and functions 
+
+**Comments/Notes:**
+- Write unit tests for student and instructor sign up (front-end)
