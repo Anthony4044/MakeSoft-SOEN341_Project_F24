@@ -17,7 +17,11 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 
 # Project Documentation
 All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `Sprint#` directory in accordance to each sprint.
-## Sprint 2 **(Current)**
+## Sprint 3 **(Current)**
+- **[Meeting Minutes](./Sprint%203/meeting_minutes/)**: `./Sprint 3/meeting_minutes/`
+- **[Sprint Plans](./Sprint%203/Sprint_Plan.xls)**: `./Sprint 3/sprint_plan.md`
+- **[Team Activity Logs](./Sprint%203/activity_logs/)**: `./Sprint 3/activity_logs/`
+## Sprint 2 
 - **[Meeting Minutes](./Sprint%202/meeting_minutes/)**: `./Sprint 2/meeting_minutes/`
 - **[Sprint Plans](./Sprint%202/Sprint_Plan.xls)**: `./Sprint 2/sprint_plan.md`
 - **[Team Activity Logs](./Sprint%202/activity_logs/)**: `./Sprint 2/activity_logs/`
@@ -116,7 +120,13 @@ If not installed, download and install Node.js from [https://nodejs.org/](https:
 Run the following commands to install the necessary npm packages:
 
 ```
-npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise @react-stately/data
+npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise @react-stately/data sentiment
+```
+
+Or simply:
+
+```
+npm install 
 ```
 
 #### d. Start the Frontend Application
