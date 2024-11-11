@@ -13,6 +13,20 @@
 - Still needed to Modify the reviews being sent to be filtered by the instructor's section
 
 ---
+### 2024-11-02
+
+**Team Member:** Firas Al Haddad 
+**Student Id:** 402838180
+**GitHub Name:** Lemonada10  
+**Time Spent:** 7 hours 
+
+**Worked On:**
+- US.15 As a developer, I want to create unit tests for key components and functions 
+
+**Comments/Notes:**
+- Write unit tests for student and instructor sign in(front-end)
+
+---
 
 ### 2024-11-02
 **Team Member:** Mark Antoun
@@ -83,6 +97,19 @@
 - US14, filtered the reviews being sent to the fromtend by the instructor's section
 **Comments/Notes:**
 - N/A
+
+---
+### 2024-11-04
+**Team Member:** Firas Al Haddad
+**Student Id:** 402838180
+**GitHub Name:** Lemonada10  
+**Time Spent:** 5 hours 
+
+**Worked On:** 
+-US.15 As a developer, I want to create unit tests for key components and functions 
+
+**Comments/Notes:**
+- Write unit tests for student and instructor sign up (front-end)
 
 ---
 
@@ -183,3 +210,4 @@
 - N/A
 
 --- 
+
