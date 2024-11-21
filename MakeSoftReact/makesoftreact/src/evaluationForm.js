@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sentiment from 'sentiment';
+import { Filter } from 'bad-words';
 import { Vortex } from './components/ui/vortex';
 import { Label } from './components/ui/label';
 import { Input } from './components/ui/input';
 import { cn } from './utils/cn';
+import * as tf from '@tensorflow/tfjs';
+import * as toxicity from '@tensorflow-models/toxicity';
 import './studentPage.css';
 
-// Reusable BottomGradient Component (Declared Once)
+// Set a threshold for toxicity classification
+const threshold = 0.9;
+
+const customBadWords = [
+  'dumbass',
+  'idiot',
+  'stupid',
+  'jerk',
+  'fool',
+  'moron',
+  'loser',
+  'nitwit',
+  'blockhead',
+  'knucklehead',
+  'bonehead',
+  'jackass',
+  'dope',
+  'imbecile',
+  'twit',
+  'chump',
+];
+
+const filter = new Filter();
+filter.addWords(...customBadWords);
+
+// Reusable BottomGradient Component
 const BottomGradient = () => {
   return (
     <>
@@ -19,7 +46,7 @@ const BottomGradient = () => {
 
 // Reusable LabelInputContainer Component
 const LabelInputContainer = ({ children, className }) => {
-  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
+  return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>;
 };
 
 const EvaluationForm = ({ student, evaluator }) => {
@@ -35,7 +62,14 @@ const EvaluationForm = ({ student, evaluator }) => {
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const sentiment = new Sentiment();
+  const [toxicityModel, setToxicityModel] = useState(null);
+
+  // Load the toxicity model
+  useEffect(() => {
+    toxicity.load(threshold).then((model) => {
+      setToxicityModel(model);
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,15 +87,32 @@ const EvaluationForm = ({ student, evaluator }) => {
       { field: 'Work Ethic', text: answers.commentsWorkEthic },
     ];
 
-    // Check each comment for negativity
+    // Check each comment for profanity and toxicity
     for (let comment of comments) {
       if (comment.text) {
-        const result = sentiment.analyze(comment.text);
-        if (result.score < 0) {
+        // Check for inappropriate words
+        if (filter.isProfane(comment.text)) {
           alert(
-            `Your comment in "${comment.field}" seems inappropriate or negative. Please revise it before submitting.`
+            `Your comment in "${comment.field}" contains inappropriate language. Please revise it before submitting.`
           );
           return; // Prevent submission
+        }
+
+        // Check for toxicity using the loaded model
+        if (toxicityModel) {
+          const predictions = await toxicityModel.classify([comment.text]);
+
+          const isToxic = predictions.some(
+            (prediction) =>
+              prediction.results[0].match && prediction.probabilities[1] > threshold
+          );
+
+          if (isToxic) {
+            alert(
+              `Your comment in "${comment.field}" contains inappropriate content. Please revise it before submitting.`
+            );
+            return; // Prevent submission
+          }
         }
       }
     }
@@ -90,14 +141,14 @@ const EvaluationForm = ({ student, evaluator }) => {
       workEthic: parseInt(answers.workEthic),
       workEthicComment: answers.commentsWorkEthic,
     };
-    
+
     try {
-      const response = await axios.post('http://localhost:8080/api/reviews', review);
-      alert("Evaluation submitted successfully!");
+      await axios.post('http://localhost:8080/api/reviews', review);
+      alert('Evaluation submitted successfully!');
       setSubmitted(true);
     } catch (error) {
-      console.error("Error submitting review:", error);
-      alert("There was an issue submitting the evaluation. Please try again.");
+      console.error('Error submitting review:', error);
+      alert('There was an issue submitting the evaluation. Please try again.');
     }
   };
 
@@ -120,10 +171,18 @@ const EvaluationForm = ({ student, evaluator }) => {
             </p>
             <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
             <ul className="space-y-2 text-neutral-700 dark:text-neutral-300 mb-4">
-              <li><strong>Cooperation:</strong> {answers.cooperation}</li>
-              <li><strong>Conceptual Contribution:</strong> {answers.conceptualContribution}</li>
-              <li><strong>Practical Contribution:</strong> {answers.practicalContribution}</li>
-              <li><strong>Work Ethic:</strong> {answers.workEthic}</li>
+              <li>
+                <strong>Cooperation:</strong> {answers.cooperation}
+              </li>
+              <li>
+                <strong>Conceptual Contribution:</strong> {answers.conceptualContribution}
+              </li>
+              <li>
+                <strong>Practical Contribution:</strong> {answers.practicalContribution}
+              </li>
+              <li>
+                <strong>Work Ethic:</strong> {answers.workEthic}
+              </li>
             </ul>
           </div>
         </div>
@@ -150,7 +209,9 @@ const EvaluationForm = ({ student, evaluator }) => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Cooperation */}
             <LabelInputContainer>
-              <Label htmlFor="cooperation" className="text-xl">Cooperation</Label>
+              <Label htmlFor="cooperation" className="text-xl">
+                Cooperation
+              </Label>
               <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="cooperation"
@@ -172,7 +233,7 @@ const EvaluationForm = ({ student, evaluator }) => {
                 value={answers.commentsCooperation}
                 onChange={handleChange}
                 placeholder="Optional comments"
-                className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
+                className="relative w-full px-3 py-2 text-base border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-zinc-800 text-neutral-800 dark:text-neutral-300"
                 rows="2"
               />
             </LabelInputContainer>
@@ -203,7 +264,7 @@ const EvaluationForm = ({ student, evaluator }) => {
                 value={answers.commentsConceptual}
                 onChange={handleChange}
                 placeholder="Optional comments"
-                className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
+                className="relative w-full px-3 py-2 text-base border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-zinc-800 text-neutral-800 dark:text-neutral-300"
                 rows="2"
               />
             </LabelInputContainer>
@@ -234,14 +295,16 @@ const EvaluationForm = ({ student, evaluator }) => {
                 value={answers.commentsPractical}
                 onChange={handleChange}
                 placeholder="Optional comments"
-                className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
+                className="relative w-full px-3 py-2 text-base border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-zinc-800 text-neutral-800 dark:text-neutral-300"
                 rows="2"
               />
             </LabelInputContainer>
 
             {/* Work Ethic */}
             <LabelInputContainer>
-              <Label htmlFor="workEthic" className="text-xl">Work Ethic</Label>
+              <Label htmlFor="workEthic" className="text-xl">
+                Work Ethic
+              </Label>
               <div className="my-2 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
               <select
                 id="workEthic"
@@ -263,7 +326,7 @@ const EvaluationForm = ({ student, evaluator }) => {
                 value={answers.commentsWorkEthic}
                 onChange={handleChange}
                 placeholder="Optional comments"
-                className="relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium"
+                className="relative w-full px-3 py-2 text-base border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-zinc-800 text-neutral-800 dark:text-neutral-300"
                 rows="2"
               />
             </LabelInputContainer>
