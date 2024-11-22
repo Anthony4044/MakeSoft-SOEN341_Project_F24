@@ -46,4 +46,27 @@ public class EmailService {
                 "Best regards,\n" +
                 "The Peer Review Platform Team";
     }
+
+
+    public void sendStudentTeaminfo(String to, String subject, String name, String section, String teamName) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("peerreview.makesoft@gmail.com");
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(createTeamAssignmentEmailBody(name, section,teamName));
+
+        mailSender.send(message);
+    }
+
+    private String createTeamAssignmentEmailBody(String studentName, String section, String teamName) {
+        return "Dear " + studentName + ",\n\n" +
+                "You have been successfully added to a team in the Peer Review Platform.\n\n" +
+                "Here are your team details:\n" +
+                "Team Name: " + teamName + "\n" +
+                "Section: " + section + "\n\n" +
+                "Please log in to the platform to review your teammates and collaborate effectively. If you have any questions, feel free to contact your instructor.\n\n" +
+                "Best regards,\n" +
+                "The Peer Review Platform Team";
+    }
+
 }
