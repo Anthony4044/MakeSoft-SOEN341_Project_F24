@@ -22,6 +22,10 @@ public class InstructorService {
     private final ReviewRepository reviewRepository;
     private final MultipartConfigElement multipartConfigElement;
 
+
+    @Autowired
+    private EmailService emailService;
+
     /**
      * Constructor for InstructorService.
      *
@@ -181,6 +185,8 @@ public class InstructorService {
             return false;
         }
         Student student = studentOptional.get();
+        emailService.sendStudentTeaminfo(student.getEmail(), "Added to a new team!", student.getName(), student.getSection(), teamName);
+
         student.setTeam(team);
         studentRepository.save(student);
         return true;
