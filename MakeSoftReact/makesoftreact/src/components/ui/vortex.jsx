@@ -239,7 +239,7 @@ export const Vortex = (props) => {
             pointerEvents: "none",
           }}
       >
-        <source src={require("./test.mp4")} type="video/mp4" />
+        <source src={require("./Vortex_bg.mp4")} type="video/mp4" />
       </video>
       <div className={cn("relative z-10", props.className)}>
         {props.children}
