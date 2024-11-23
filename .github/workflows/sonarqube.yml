@@ -21,6 +21,10 @@ jobs:
       with:
          java-version: '17'
          distribution: 'zulu'
+
+    - name: Debug Environment Variables
+      run: echo $SONAR_TOKEN 
+      
     - name: Cache SonarQube scanner
       uses: actions/cache@v2
       with:
