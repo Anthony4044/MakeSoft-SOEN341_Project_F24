@@ -37,5 +37,6 @@ jobs:
           -Dsonar.projectVersion=1.0
           -Dsonar.sources=src
           -Dsonar.java.binaries=target/classes
-        token: ${{ secrets.SONAR_TOKEN }}
-        projectBaseDir: ./ 
+        projectBaseDir: ./  # Path to your project directory (where the source code is located)
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
