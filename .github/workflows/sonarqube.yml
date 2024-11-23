@@ -30,7 +30,12 @@ jobs:
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@v2
       with:
+        entryPoint: "/opt/sonar-scanner/bin/sonar-scanner"  # Use sonar-scanner
+        args: |
+          -Dsonar.projectKey=project
+          -Dsonar.projectName=project
+          -Dsonar.projectVersion=1.0
+          -Dsonar.sources=src
+          -Dsonar.java.binaries=target/classes
         token: ${{ secrets.SONAR_TOKEN }}
-        projectKey: project # Your SonarQube project key
-        projectName: project # Your project name
-        sonar.host.url: http://localhost:9000  # Local SonarQube URL
+        projectBaseDir: ./ 
