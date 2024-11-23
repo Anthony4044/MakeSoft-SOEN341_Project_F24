@@ -41,4 +41,4 @@ jobs:
           -Dsonar.sources=src
           -Dsonar.java.binaries=target/classes
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_TOKEN: sqp_1f282815b5e8246b3b4e000bc91136d305f317b5
