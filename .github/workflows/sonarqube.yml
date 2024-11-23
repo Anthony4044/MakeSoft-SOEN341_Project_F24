@@ -20,7 +20,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-
+          
+      - name: Install Sonar Scanner
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner.zip
+          mv sonar-scanner-* sonar-scanner
+          export PATH=$PATH:$PWD/sonar-scanner/bin
+          
+      - name: Verify Sonar Scanner Installation
+        run: sonar-scanner -h
+        
       - name: Run SonarQube Scanner
         run: |
           sonar-scanner \
