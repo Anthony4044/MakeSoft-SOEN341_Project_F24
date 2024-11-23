@@ -26,7 +26,9 @@ jobs:
           curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
           unzip sonar-scanner.zip
           mv sonar-scanner-* sonar-scanner
-          export PATH=$PATH:$PWD/sonar-scanner/bin
+          echo "Adding sonar-scanner to PATH"
+          echo "$PWD/sonar-scanner/bin" >> $GITHUB_PATH
+          echo "PATH updated with sonar-scanner"
           
       - name: Verify Sonar Scanner Installation
         run: sonar-scanner -h
