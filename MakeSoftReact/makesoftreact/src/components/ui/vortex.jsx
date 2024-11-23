@@ -211,7 +211,8 @@ export const Vortex = (props) => {
 
   return (
   <div className={cn("relative h-full w-full bg-cover xxxxxxxxx bg-center fixed top-0 left-0 h-screen w-screen bg-cover bg-center overflow-hidden", props.containerClassName)}
-    style={{ backgroundImage: `url(${staticVortexBg})` }}>
+    // style={{ backgroundImage: `url(${staticVortexBg})` }}
+    >
 
       {/* <motion.div
         initial={{ opacity: 0 }}
@@ -221,6 +222,25 @@ export const Vortex = (props) => {
       >
         <canvas ref={canvasRef}></canvas>
       </motion.div> */}
+
+        <video
+          autoPlay
+          loop
+          muted
+          id="video"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            objectFit: "cover",
+            zIndex: -1,
+            pointerEvents: "none",
+          }}
+      >
+        <source src={require("./Vortex_bg.mp4")} type="video/mp4" />
+      </video>
       <div className={cn("relative z-10", props.className)}>
         {props.children}
       </div>
