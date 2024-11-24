@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI Pipeline with SonarQube Analysis
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_sonar:
     runs-on: ubuntu-latest
 
     services:
@@ -28,21 +28,48 @@ jobs:
           --health-retries 5
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      # 1. Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'temurin'  # You can specify other distributions if needed
+      # 2. Set up JDK 17
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'  # You can change to 'zulu' if preferred
 
-    - name: Build with Maven
-      run: |
-        cd MakeSoft  # Change to the MakeSoft directory
-        mvn clean install  # Clean and install the project dependencies
+      # 3. Cache Maven dependencies to speed up builds
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/**/surefire-*.jar
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-    - name: Run tests
-      run: |
-        cd MakeSoft  # Change to the MakeSoft directory again
-        mvn test -X  # Execute the tests with full debug logging
+      # 4. Build the project to generate .class files
+      - name: Build Project
+        run: |
+          cd MakeSoft  # Navigate to the MakeSoft directory
+          mvn clean install --batch-mode --show-version
+
+      # 5. Run tests with full debug logging
+      - name: Run Tests
+        run: |
+          cd MakeSoft  # Navigate to the MakeSoft directory again
+          mvn test -X  # Execute the tests with full debug logging
+
+      # 6. SonarQube Scan
+      - name: SonarQube Scan
+        env:
+          SONAR_TOKEN: sqp_1f282815b5e8246b3b4e000bc91136d305f317b5
+        run: |
+          cd MakeSoft  # Navigate to the MakeSoft directory
+          mvn sonar:sonar \
+            -Dsonar.projectKey=project \
+            -Dsonar.host.url=https://da4b-69-158-46-54.ngrok-free.app \
+            -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 
+            
