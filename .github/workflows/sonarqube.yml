@@ -35,7 +35,7 @@ jobs:
   
       - name: Run SonarQube Scanner
         run: |
-          sonar-scanner -X \
+          sonar-scanner \
             -Dsonar.projectKey=project \
             -Dsonar.sources=MakeSoft/src,MakeSoftReact/makesoftreact/src \
             -Dsonar.host.url=https://4f36-69-158-46-54.ngrok-free.app   \
