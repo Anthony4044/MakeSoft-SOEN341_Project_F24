@@ -36,14 +36,13 @@ public class InstructorController {
      */
     @PostMapping("/signup")
     public ResponseEntity<?> signUpInstructor(@RequestBody Instructor instructor) {
-        //So having the system out println fixes the code. I have no idea why, 
-        //it doesn't make vey much sense but i found it funny so i let it be
+        
         Instructor savedInstructor = instructorService.addInstructor(instructor);
         if (savedInstructor != null) {
             emailService.sendMail(savedInstructor.getEmail(), "Confirmation Email", savedInstructor.getName(), savedInstructor.getSection(),false);
 
 
-        // System.out.println("IDK WHY THIS FIXES IT BUT IT DOES SO DO NOT REMOVE THIS MAGICAL COMMENTED OUT CODE.");
+        
             return ResponseEntity.ok(savedInstructor);
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Instructor already exists.");
