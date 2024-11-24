@@ -1,13 +1,13 @@
-package com.makesoft.MakeSoft.Service;
+package com.makesoft.MakeSoft.service;
 
-import com.makesoft.MakeSoft.Classes.Instructor;
-import com.makesoft.MakeSoft.Classes.Review;
-import com.makesoft.MakeSoft.Classes.Student;
-import com.makesoft.MakeSoft.Classes.Team;
-import com.makesoft.MakeSoft.Repository.InstructorRepository;
-import com.makesoft.MakeSoft.Repository.ReviewRepository;
-import com.makesoft.MakeSoft.Repository.StudentRepository;
-import com.makesoft.MakeSoft.Repository.TeamRepository;
+import com.makesoft.MakeSoft.classes.Instructor;
+import com.makesoft.MakeSoft.classes.Review;
+import com.makesoft.MakeSoft.classes.Student;
+import com.makesoft.MakeSoft.classes.Team;
+import com.makesoft.MakeSoft.repository.InstructorRepository;
+import com.makesoft.MakeSoft.repository.ReviewRepository;
+import com.makesoft.MakeSoft.repository.StudentRepository;
+import com.makesoft.MakeSoft.repository.TeamRepository;
 import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

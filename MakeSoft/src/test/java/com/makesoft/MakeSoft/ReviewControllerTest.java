@@ -3,10 +3,10 @@ package com.makesoft.MakeSoft;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.makesoft.MakeSoft.Classes.Review;
-import com.makesoft.MakeSoft.Classes.Student;
-import com.makesoft.MakeSoft.Controller.ReviewController;
-import com.makesoft.MakeSoft.Repository.ReviewRepository;
+import com.makesoft.MakeSoft.classes.Review;
+import com.makesoft.MakeSoft.classes.Student;
+import com.makesoft.MakeSoft.controller.ReviewController;
+import com.makesoft.MakeSoft.repository.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
