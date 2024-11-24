@@ -71,6 +71,5 @@ jobs:
           mvn sonar:sonar \
             -Dsonar.projectKey=project \
             -Dsonar.host.url=https://da4b-69-158-46-54.ngrok-free.app \
-            -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 \
-            -Dsonar.sources=src,../../MakeSoftReact/makesoftreact/src \
-            -Dsonar.java.binaries=target/classes,../../MakeSoftReact/makesoftreact/target/classes
+            -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 
+            
