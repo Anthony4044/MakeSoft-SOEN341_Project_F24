@@ -35,11 +35,10 @@ jobs:
   
       - name: Run SonarQube Scanner
         run: |
-          sonar-scanner \
+          sonar-scanner -X \
             -Dsonar.projectKey=project \
             -Dsonar.sources=MakeSoft/src,MakeSoftReact/makesoftreact/src \
             -Dsonar.host.url=https://4f36-69-158-46-54.ngrok-free.app   \
             -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 \
-            -Dsonar.exclusions="**/*.class" \
-            -Dsonar.java.binaries=""
+            -Dsonar.exclusions="**/*.class" 
     #    -Dsonar.java.binaries=target/classes \
