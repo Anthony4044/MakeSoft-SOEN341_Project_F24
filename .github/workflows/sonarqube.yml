@@ -30,8 +30,18 @@ jobs:
           echo "$PWD/sonar-scanner/bin" >> $GITHUB_PATH
           echo "PATH updated with sonar-scanner"
 
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/**/surefire-*.jar
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Build Project
-        run: mvn clean install
+        run: mvn clean install --batch-mode --show-version
         
       - name: Verify Sonar Scanner Installation
         run: sonar-scanner -h
@@ -42,5 +52,5 @@ jobs:
             -Dsonar.projectKey=project \
             -Dsonar.sources=MakeSoft/src,MakeSoftReact/makesoftreact/src \
             -Dsonar.host.url=https://38e8-69-158-46-54.ngrok-free.app  \
-            -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 
+            -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5 \
             -Dsonar.java.binaries=target/classes
