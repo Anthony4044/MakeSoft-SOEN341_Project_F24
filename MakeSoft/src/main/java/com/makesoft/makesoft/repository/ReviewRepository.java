@@ -1,6 +1,6 @@
-package com.makesoft.makeSoft.repository;
+package com.makesoft.makesoft.repository;
 
-import com.makesoft.makeSoft.classes.Review;
+import com.makesoft.makesoft.classes.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

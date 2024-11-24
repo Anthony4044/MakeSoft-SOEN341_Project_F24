@@ -1,7 +1,7 @@
-package com.makesoft.makeSoft.controller;
+package com.makesoft.makesoft.controller;
 
-import com.makesoft.makeSoft.classes.Review;
-import com.makesoft.makeSoft.repository.ReviewRepository;
+import com.makesoft.makesoft.classes.Review;
+import com.makesoft.makesoft.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

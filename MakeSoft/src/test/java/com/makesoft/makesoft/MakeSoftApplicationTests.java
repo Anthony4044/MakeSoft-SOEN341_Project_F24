@@ -1,4 +1,4 @@
-package com.makesoft.makeSoft;
+package com.makesoft.makesoft;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

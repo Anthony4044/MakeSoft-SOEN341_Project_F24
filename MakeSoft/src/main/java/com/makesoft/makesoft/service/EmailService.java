@@ -1,4 +1,4 @@
-package com.makesoft.makeSoft.service;
+package com.makesoft.makesoft.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

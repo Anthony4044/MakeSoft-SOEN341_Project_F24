@@ -1,4 +1,4 @@
-package com.makesoft.makeSoft.classes;
+package com.makesoft.makesoft.classes;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

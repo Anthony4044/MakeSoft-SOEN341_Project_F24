@@ -1,4 +1,4 @@
-package com.makesoft.makeSoft;
+package com.makesoft.makesoft;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
