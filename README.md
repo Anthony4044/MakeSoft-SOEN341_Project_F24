@@ -42,6 +42,7 @@ Follow these steps to set up and run the Makesoft application, which includes bo
 - **An IDE or text editor for JavaScript** (e.g., Visual Studio Code)
 - **Git** (for cloning the repository)
 
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
@@ -173,6 +174,71 @@ We are using the **GitHub Projects** board to manage tasks. You can view the pro
 - **To Do**: User stories and tasks yet to be started.
 - **In Progress**: Tasks currently being worked on.
 - **Done**: Completed tasks.
+# Coding Standards for Spring Boot and React Project
+
+## General Standards
+1. **Code Readability**:
+   - Use clear and meaningful variable, class, and method names.
+   - Add comments for complex logic and configurations.
+   - Avoid long methods; keep functions concise and focused.
+
+2. **Version Control**:
+   - Use feature branches for development (`feature/<feature-name>`).
+   - Commit often with descriptive messages.
+   - Merge changes only after code reviews.
+
+
+---
+
+## Back-End Standards (Spring Boot)
+
+### 1. Project Structure
+- Follow a layered architecture (e.g., `controller`, `service`, `repository`, `model`).
+
+### 2. Coding Practices
+- Use `@RestController` for RESTful APIs.
+- Apply `@Transactional` for methods that modify the database.
+- Validate inputs using `@Valid` and `@NotNull`.
+
+### 3. Error Handling
+- Return meaningful HTTP status codes (e.g., `400` for bad requests, `404` for not found).
+
+### 4. Database Interactions
+- Use JPA repositories for CRUD operations.
+
+### 5. Testing
+- Write unit tests using JUnit and Mockito.
+
+---
+
+## Front-End Standards (React)
+
+### 1. Project Structure
+- Separate logic into reusable hooks where appropriate.
+
+### 2. Coding Practices
+- Use functional components with React hooks.
+- Follow a consistent naming convention (e.g., `camelCase` for variables, `PascalCase` for components).
+
+
+### 3. Styling
+- Use CSS modules or styled-components for scoped styling.
+- Maintain a theme file for global styles (e.g., colors, fonts).
+
+
+### 5. Testing
+- Write unit tests using Jest and React Testing Library.
+- Ensure coverage for key user interactions and components.
+
+---
+
+## Code Review Process
+1. Submit a pull request for every feature or bug fix.
+2. At least one team member must review and approve the changes.
+3. Use a checklist for PRs:
+   - Code adheres to standards.
+   - No hardcoded values or secrets.
+   - Tests are included for new features.
 
 # License
 
