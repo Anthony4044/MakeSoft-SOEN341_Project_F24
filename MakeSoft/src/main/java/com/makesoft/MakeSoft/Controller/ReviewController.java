@@ -1,7 +1,8 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.MakeSoft.Controller;
 
+import com.makesoft.MakeSoft.Classes.Review;
+import com.makesoft.MakeSoft.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

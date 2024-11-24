@@ -3,6 +3,13 @@ package com.makesoft.MakeSoft;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.makesoft.MakeSoft.Classes.Instructor;
+import com.makesoft.MakeSoft.Classes.Review;
+import com.makesoft.MakeSoft.Classes.Student;
+import com.makesoft.MakeSoft.Classes.Team;
+import com.makesoft.MakeSoft.Controller.InstructorController;
+import com.makesoft.MakeSoft.Service.EmailService;
+import com.makesoft.MakeSoft.Service.InstructorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

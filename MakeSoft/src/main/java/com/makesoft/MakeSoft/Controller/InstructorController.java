@@ -1,5 +1,11 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.MakeSoft.Controller;
 
+import com.makesoft.MakeSoft.Classes.Instructor;
+import com.makesoft.MakeSoft.Classes.Review;
+import com.makesoft.MakeSoft.Service.EmailService;
+import com.makesoft.MakeSoft.Service.InstructorService;
+import com.makesoft.MakeSoft.Classes.Student;
+import com.makesoft.MakeSoft.Classes.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * REST controller for managing instructors.

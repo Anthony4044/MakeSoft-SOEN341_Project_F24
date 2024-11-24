@@ -1,11 +1,15 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.MakeSoft.Controller;
 
+import com.makesoft.MakeSoft.Classes.Instructor;
+import com.makesoft.MakeSoft.Classes.Student;
+import com.makesoft.MakeSoft.Classes.Team;
+import com.makesoft.MakeSoft.Repository.StudentRepository;
+import com.makesoft.MakeSoft.Repository.TeamRepository;
+import com.makesoft.MakeSoft.Service.EmailService;
+import com.makesoft.MakeSoft.Service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 

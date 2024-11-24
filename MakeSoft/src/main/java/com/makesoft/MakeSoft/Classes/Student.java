@@ -1,4 +1,4 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.MakeSoft.Classes;
 
 import jakarta.persistence.*;
 
