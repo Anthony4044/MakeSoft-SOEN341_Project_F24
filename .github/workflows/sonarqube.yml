@@ -32,11 +32,6 @@ jobs:
           
       - name: Verify Sonar Scanner Installation
         run: sonar-scanner -h
-      
-      - name: Build backend with Maven
-        run: |
-          cd MakeSoft
-          mvn clean install  # Builds the backend project (change if using Gradle or other)
           
       - name: Run SonarQube Scanner
         run: |
