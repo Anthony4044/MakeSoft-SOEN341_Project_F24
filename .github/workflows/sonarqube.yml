@@ -39,5 +39,5 @@ jobs:
             -Dsonar.projectKey=project \
             -Dsonar.sources=MakeSoft/src,MakeSoftReact/makesoftreact/src \
             -Dsonar.java.binaries=MakeSoft/target/classes \
-            -Dsonar.host.url=https://e43a-69-158-46-54.ngrok-free.app \
+            -Dsonar.host.url=https://5c76-69-158-46-54.ngrok-free.app  \
             -Dsonar.login=sqp_1f282815b5e8246b3b4e000bc91136d305f317b5
