@@ -1,15 +1,15 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.makeSoft;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.makesoft.MakeSoft.classes.Instructor;
-import com.makesoft.MakeSoft.classes.Review;
-import com.makesoft.MakeSoft.classes.Student;
-import com.makesoft.MakeSoft.classes.Team;
-import com.makesoft.MakeSoft.controller.InstructorController;
-import com.makesoft.MakeSoft.service.EmailService;
-import com.makesoft.MakeSoft.service.InstructorService;
+import com.makesoft.makeSoft.classes.Instructor;
+import com.makesoft.makeSoft.classes.Review;
+import com.makesoft.makeSoft.classes.Student;
+import com.makesoft.makeSoft.classes.Team;
+import com.makesoft.makeSoft.controller.InstructorController;
+import com.makesoft.makeSoft.service.EmailService;
+import com.makesoft.makeSoft.service.InstructorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

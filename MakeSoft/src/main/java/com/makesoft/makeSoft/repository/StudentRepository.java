@@ -1,7 +1,7 @@
-package com.makesoft.MakeSoft.repository;
+package com.makesoft.makeSoft.repository;
 
-import com.makesoft.MakeSoft.classes.Student;
-import com.makesoft.MakeSoft.classes.Team;
+import com.makesoft.makeSoft.classes.Student;
+import com.makesoft.makeSoft.classes.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;

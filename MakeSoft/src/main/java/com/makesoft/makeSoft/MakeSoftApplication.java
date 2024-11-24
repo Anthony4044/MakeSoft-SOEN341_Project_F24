@@ -1,6 +1,6 @@
-package com.makesoft.MakeSoft;
+package com.makesoft.makeSoft;
 
-import com.makesoft.MakeSoft.service.EmailService;
+import com.makesoft.makeSoft.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

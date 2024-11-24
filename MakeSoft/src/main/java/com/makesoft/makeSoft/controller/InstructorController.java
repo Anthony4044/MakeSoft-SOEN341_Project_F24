@@ -1,11 +1,11 @@
-package com.makesoft.MakeSoft.controller;
+package com.makesoft.makeSoft.controller;
 
-import com.makesoft.MakeSoft.classes.Instructor;
-import com.makesoft.MakeSoft.classes.Review;
-import com.makesoft.MakeSoft.service.EmailService;
-import com.makesoft.MakeSoft.service.InstructorService;
-import com.makesoft.MakeSoft.classes.Student;
-import com.makesoft.MakeSoft.classes.Team;
+import com.makesoft.makeSoft.classes.Instructor;
+import com.makesoft.makeSoft.classes.Review;
+import com.makesoft.makeSoft.service.EmailService;
+import com.makesoft.makeSoft.service.InstructorService;
+import com.makesoft.makeSoft.classes.Student;
+import com.makesoft.makeSoft.classes.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
