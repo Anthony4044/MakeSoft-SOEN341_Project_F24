@@ -29,7 +29,6 @@
 	<properties>
 		<java.version>17</java.version>
 		
-  		<sonar.token>sqp_1f282815b5e8246b3b4e000bc91136d305f317b5</sonar.token>
 		<sonar.projectKey>project</sonar.projectKey>
 
 
