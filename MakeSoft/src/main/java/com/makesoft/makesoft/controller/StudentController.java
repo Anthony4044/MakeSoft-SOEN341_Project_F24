@@ -8,6 +8,8 @@ import com.makesoft.makesoft.repository.TeamRepository;
 import com.makesoft.makesoft.service.EmailService;
 import com.makesoft.makesoft.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,16 +54,16 @@ public class StudentController {
      * @return the signed-up student or null if the student already exists
      */
     @PostMapping("/signup")
-    public Student signUpStudent(@RequestBody Student student) {
+    public ResponseEntity<?> signUpStudent(@RequestBody Student student) {
         boolean verifiedStudent = studentExists(student);
         System.out.println(verifiedStudent);
 
         if (!verifiedStudent) {
             studentRepository.save(student);
             emailService.sendMail(student.getEmail(), "Confirmation Email",student.getName(),student.getSection(),true );
-            return student;
+            return ResponseEntity.ok(student);
         } else {
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
 
