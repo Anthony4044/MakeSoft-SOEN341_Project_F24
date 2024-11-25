@@ -14,6 +14,7 @@ import com.makesoft.makesoft.service.InstructorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.springframework.http.ResponseEntity;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -192,7 +193,8 @@ class StudentControllerTest {
         // Act
         try {
             // Call signUpStudent directly, which will invoke studentExists with the above mocks
-            Student savedStudent = studentController.signUpStudent(student);
+            ResponseEntity<?> response = studentController.signUpStudent(student);
+            Student savedStudent = (Student) response.getBody();
 
             // Assert
             assertNotNull(savedStudent);  // Verify that the student was saved successfully
@@ -228,7 +230,7 @@ class StudentControllerTest {
             }});
             when(instructorService.findInstructorBySection(student.getSection())).thenReturn(new Instructor());
 
-            Student result = studentController.signUpStudent(student);
+            ResponseEntity<?> result = studentController.signUpStudent(student);
 
             assertNull(result);
         } catch (Exception e) {
