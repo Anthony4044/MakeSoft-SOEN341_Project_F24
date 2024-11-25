@@ -164,7 +164,8 @@ const StudentSignup = (props) => {
 
     } catch (error) {
       console.error(error);
-      alert('Failed to sign up.');
+      alert('Failed to sign up. ');
+      // Handle error
     }
   };
 
