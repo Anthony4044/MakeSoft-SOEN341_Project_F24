@@ -58,6 +58,16 @@ function App() {
   
 
 
+  // Handler to switch to Instructor Page
+  const goToInstructorPage = () => {
+    setCurrentComponent('instructor');
+  };
+
+  // Handler to switch to Results Page
+  const goToResultsPage = () => {
+    setCurrentComponent('resultsPage');
+  };
+
   // Function to handle button clicks and navigate to different components
   const handleButtonClick = (component) => {
     setCurrentComponent(component);
@@ -207,17 +217,24 @@ function App() {
 
 
       )}
-      {currentComponent === 'instructor' && <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults} />}
-      {currentComponent === 'signin' && <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults}/>}
+      {currentComponent === 'instructor' && 
+        <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults} />
+        }
+      {currentComponent === 'signin' && 
+        <InstructorPage instructor={instructorData} handleSummarizedResults={handleSummarizedResults}/>
+        }
       {currentComponent === 'studentSignin' && (
         <StudentPage student={studentData} handleEvaluationForm={handleEvaluationForm} />
       )}
       {currentComponent === 'evaluationForm' && (
-        <EvaluationForm student={studentData} evaluator={evaluatorData} />
+        <EvaluationForm student={studentData} evaluator={evaluatorData} navigate={setCurrentComponent}/>
       )}
       {currentComponent === 'resultsPage' && (
-        <ResultsPage instructor = {instructorData}/> )}
-      {currentComponent === 'infoPage' && <InfoPage />}
+        <ResultsPage instructor = {instructorData} navigate={setCurrentComponent}/> )
+        }
+      {currentComponent === 'infoPage' && 
+        <InfoPage />
+      }
     </div>
   );
 }

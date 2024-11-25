@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
 import "./resultPage.css";
@@ -8,11 +8,28 @@ import { useAsyncList } from "@react-stately/data";
 import { FiChevronDown } from 'react-icons/fi';
 import { color } from 'framer-motion';
 
-const ResultsPage = ({ instructor }) => {
+const ResultsPage = ({ instructor, navigate }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isDetailedView, setIsDetailedView] = useState(false);
     const [reviewMembers, setReviewMembers] = useState([]);
+    
+    useEffect(() => {
+      // Fetch reviews or other data here
+      fetchReviews();
+  }, []);
 
+  const fetchReviews = async () => {
+      try {
+
+          const response = await fetch('/api/reviews'); 
+          const data = await response.json();
+          processReviews(data);
+          setIsLoading(false);
+      } catch (error) {
+          console.error('Error fetching reviews:', error);
+          setIsLoading(false);
+      }
+  };
 
     function processReviews(reviews) {
         const reviewMap = new Map();
@@ -52,6 +69,7 @@ const ResultsPage = ({ instructor }) => {
                     parseFloat(avgWorkEthic)) /
                 4
             ).toFixed(2);
+
 
             return {
                 studentId: data.reviewee.studentId,
@@ -160,8 +178,12 @@ const ResultsPage = ({ instructor }) => {
     // Convert the grouped object to an array for rendering
     const groupedArray = Object.entries(groupedReviews);
 
-    return (
+    const handleBack = () => {
+      navigate('instructor'); // Navigate back to Instructor Page by setting currentComponent
+    };
 
+    return (
+                
                 <div className="dark">
                     <div className="fixed inset-0 z-0">
                         <Vortex backgroundColor="black" className="w-full h-full" />
@@ -172,15 +194,31 @@ const ResultsPage = ({ instructor }) => {
                             <div className="text-3xl sm:text-4xl font-bold text-neutral-800 dark:text-neutral-200 mb-4 ">
                                 {isDetailedView ? "Detailed Results" : "Summarized Results"} <br/><br/>
 
-                                <div className='flex justify-start text-xl px-10'>
-                                    <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
-                                    onClick={toggleDetailedResults}>
-                                        <span className=" absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                                        <span className=" flex justify-start text-xlinline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-                                        {isDetailedView ? "← Back to Summary" : "View Detailed Results →"}
-                                        </span>
-                                        </button>
-                                </div>
+                                <div className='flex justify-between items-center px-10'>
+                            {/* "Back to Instructor Page" Button */}
+                            {!isDetailedView && (
+                                <button
+                                    className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
+                                    onClick={handleBack}
+                                >
+                                    <span className="absolute inset-[-1000%] animate-spin bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                    <span className="flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                                        ← Back to Instructor Page
+                                    </span>
+                                </button>
+                            )}
+
+                            {/* "View Detailed Results" Button */}
+                            <button
+                                className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
+                                onClick={toggleDetailedResults}
+                            >
+                                <span className="absolute inset-[-1000%] animate-spin bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                <span className="flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                                    {isDetailedView ? "← Back to Summary" : "View Detailed Results →"}
+                                </span>
+                            </button>
+                        </div>
                                 {/* <button
                                     className="relative groupbtn bg-zinc-800 text-white rounded-md h-10 font-medium px-4 py-1 flex justify-start text-xl"
                                     onClick={toggleDetailedResults}
