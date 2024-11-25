@@ -2,8 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EvaluationForm from './evaluationForm';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import React from 'react';  // Add this import at the top
+
+jest.mock('badwords-list', () => ({
+  array: ['mock-bad-word'],
+}));
 
 describe('EvaluationForm', () => {
   it('should correctly construct the review object based on inputs', () => {
