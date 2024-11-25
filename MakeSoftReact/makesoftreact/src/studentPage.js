@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Vortex } from './components/ui/vortex';
 import { Label } from "./components/ui/label";
@@ -22,12 +22,14 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
   const [section, setSection] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
-
+  const hasAlerted = useRef(false);
   useEffect(() => {
     const fetchTeam = async () => {
       const team = { teamName, section };
+      
 
       try {
+        const hasAlerted = false;
         const response = await axios.get(
           `http://localhost:8080/api/students/${student.studentId}/addTeam`
         );
@@ -46,7 +48,10 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
         setStudentIds(response.data.studentIds || []);
       } catch (error) {
         console.error('Error fetching team', error);
-        alert('Error fetching team');
+        if (!hasAlerted.current) { // Check if alert has not been shown
+          alert('Error fetching team');
+          hasAlerted.current = true; // Set flag to prevent future alerts
+        }
       }
     };
 

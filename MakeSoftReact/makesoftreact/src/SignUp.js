@@ -155,15 +155,17 @@ const StudentSignup = (props) => {
       const response = await axios.post('http://localhost:8080/api/students/signup', student);
 
       // Check if the signup was successful (assuming the backend sends success message in response)
-      alert('Success!');
+      
+
       if (props.onStudentSignup) {
         props.onStudentSignup(response.data);
+        alert('Sucessfully signed up!');
       }
 
     } catch (error) {
       console.error(error);
-      alert(error);
-      alert('Failed to sign up.');
+      alert('Failed to sign up. ');
+      // Handle error
     }
   };
 
