@@ -147,24 +147,28 @@ const StudentSignup = (props) => {
   const [section, setSection] = useState('');
   const [isSignedUp, setIsSignedUp] = useState(false); // Make sure this is defined
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    const student = { studentId, name, email, password, section };
-    try {
-      // Send POST request to sign up student
-      const response = await axios.post('http://localhost:8080/api/students/signup', student);
+const handleSignup = async (e) => {
+  e.preventDefault();
+  const student = { studentId, name, email, password, section };
+  try {
+    // Send POST request to sign up student
+    const response = await axios.post('http://localhost:8080/api/students/signup', student);
 
-      // Check if the signup was successful (assuming the backend sends success message in response)
+    // Check if the signup was successful
+    if (response.data) {
       alert('Success!');
       if (props.onStudentSignup) {
         props.onStudentSignup(response.data);
       }
-
-    } catch (error) {
-      console.error(error);
+    } else {
+      // If response.data is null, signup failed
       alert('Failed to sign up.');
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('An error occurred during signup.');
+  }
+};
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
