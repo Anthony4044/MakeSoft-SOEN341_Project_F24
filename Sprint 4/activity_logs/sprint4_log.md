@@ -32,3 +32,18 @@ N/A
 
 **Comments/Notes:**
 - failed creating back button enhansements for student pages. Would require a lot more refactoring of logic than time permits
+
+---
+
+### 2024-11-22
+
+**Team Member:** Anthony Monaco  
+**Student Id:** 40281790  
+**GitHub Name:** Anthony4044  
+**Time Spent:** 3 hours 
+
+**Worked On:**
+- ENH 7 Refactor the existing CI/CD pipeline YAML file to separate the workflow into distinct steps: build, test, and deploy.
+
+**Comments/Notes:**
+- Debugging can be more easily understood by the different layers of tests
