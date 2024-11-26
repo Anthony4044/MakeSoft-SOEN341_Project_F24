@@ -13,21 +13,30 @@ The project is developed using Agile Scrum methodology over 4 sprints, using Git
 | 40277789   | Danial Kouba    | DaniK1001       |
 | 40283180   | Firas Al Haddad | Lemonada10      |
 | 40191431   | Oscar Mirontsuk | ren-cc          |
+
+# Former Teammates 
+
+| Student ID | Name            | GitHub Username |
+| ---------- | --------------- | --------------- | 
 | 40282971   | Marco Patulli   | MARC0CND        |
 
 # Project Documentation
 All important documents, such as meeting minutes, sprint plans, and team activity logs, are stored in the `Sprint#` directory in accordance to each sprint.
-## Sprint 3 **(Current)**
+## Sprint 4 **(Current)**
+- **[Meeting Minutes](./Sprint%204/meeting_minutes/)**: `./Sprint 4/meeting_minutes/`
+- **[Sprint Plans](./Sprint%204/Sprint_Plan.xlsx)**: `./Sprint 4/sprint_plan.xlsx`
+- **[Team Activity Logs](./Sprint%204/activity_logs/)**: `./Sprint 4/activity_logs/`
+## Sprint 3 
 - **[Meeting Minutes](./Sprint%203/meeting_minutes/)**: `./Sprint 3/meeting_minutes/`
-- **[Sprint Plans](./Sprint%203/Sprint_Plan.xls)**: `./Sprint 3/sprint_plan.md`
+- **[Sprint Plans](./Sprint%203/Sprint_Plan.xlsx)**: `./Sprint 3/sprint_plan.xlsx`
 - **[Team Activity Logs](./Sprint%203/activity_logs/)**: `./Sprint 3/activity_logs/`
 ## Sprint 2 
 - **[Meeting Minutes](./Sprint%202/meeting_minutes/)**: `./Sprint 2/meeting_minutes/`
-- **[Sprint Plans](./Sprint%202/Sprint_Plan.xls)**: `./Sprint 2/sprint_plan.md`
+- **[Sprint Plans](./Sprint%202/Sprint_Plan.xlsx)**: `./Sprint 2/sprint_plan.xlsx`
 - **[Team Activity Logs](./Sprint%202/activity_logs/)**: `./Sprint 2/activity_logs/`
 ## Sprint 1
 - **[Meeting Minutes](./Sprint%201/meeting_minutes/)**: `./Sprint 1/meeting_minutes/`
-- **[Sprint Plans](./Sprint%201/Sprint_Plan.xls)**: `./Sprint 1/sprint_plan.md`
+- **[Sprint Plans](./Sprint%201/Sprint_Plan.xlsx)**: `./Sprint 1/sprint_plan.xlsx`
 - **[Team Activity Logs](./Sprint%201/activity_logs/)**: `./Sprint 1/activity_logs/`
 
 # How to Run the Project
@@ -119,12 +128,6 @@ If not installed, download and install Node.js from [https://nodejs.org/](https:
 #### c. Install Required Packages
 
 Run the following commands to install the necessary npm packages:
-
-```
-npm install semantic-ui-css semantic-ui-react @nextui-org/theme @tabler/icons-react @nextui-org/react framer-motion @radix-ui/react-label tailwind-merge simplex-noise @react-stately/data sentiment
-```
-
-Or simply:
 
 ```
 npm install 
