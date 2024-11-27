@@ -38,10 +38,11 @@ N/A
 **Team Member:** Oscar Mirontsuk  
 **Student Id:** 40191431  
 **GitHub Name:** ren-cc  
-**Time Spent:** 3 hours 
+**Time Spent:** 5 hours 
 
 **Worked On:**
 - Added buttons to student page 
+- Created demo video
 
 ---
 
