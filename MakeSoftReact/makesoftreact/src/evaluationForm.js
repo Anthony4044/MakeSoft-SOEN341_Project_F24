@@ -49,7 +49,10 @@ const LabelInputContainer = ({ children, className }) => {
   return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>;
 };
 
-const EvaluationForm = ({ student, evaluator }) => {
+const EvaluationForm = ({ student, evaluator , navigate}) => {
+  const handleBack = () => {
+    navigate('studentSignin'); // Navigate back
+  };
   const [answers, setAnswers] = useState({
     cooperation: '',
     conceptualContribution: '',
@@ -86,7 +89,7 @@ const EvaluationForm = ({ student, evaluator }) => {
       { field: 'Practical Contribution', text: answers.commentsPractical },
       { field: 'Work Ethic', text: answers.commentsWorkEthic },
     ];
-
+    
     // Check each comment for profanity and toxicity
     for (let comment of comments) {
       if (comment.text) {
@@ -120,17 +123,17 @@ const EvaluationForm = ({ student, evaluator }) => {
     // Proceed with submission as normal
     const review = {
       reviewer: {
-        email: evaluator.evaluatorEmail,
-        name: evaluator.evaluatorName,
-        section: evaluator.evaluatorSection,
-        studentId: evaluator.evaluatorStudentId,
+        email: evaluator.email,
+        name: evaluator.name,
+        section: evaluator.section,
+        studentId: evaluator.studentId,
+        password: evaluator.password,
       },
       reviewee: {
-        email: student.email,
-        name: student.name,
-        section: student.section,
-        studentId: student.studentId,
-        password: student.password,
+        email: student.evaluatedEmail,
+        name: student.evaluatedName,
+        section: student.evaluatedSection,
+        studentId: student.evaluatedStudentId,
       },
       cooperation: parseInt(answers.cooperation),
       cooperationComment: answers.commentsCooperation,
@@ -141,7 +144,7 @@ const EvaluationForm = ({ student, evaluator }) => {
       workEthic: parseInt(answers.workEthic),
       workEthicComment: answers.commentsWorkEthic,
     };
-
+    console.log('Submitting review:', review);
     try {
       await axios.post('http://localhost:8080/api/reviews', review);
       alert('Evaluation submitted successfully!');
@@ -185,6 +188,15 @@ const EvaluationForm = ({ student, evaluator }) => {
               </li>
             </ul>
           </div>
+          <button
+            className="relative inline-flex h-12 overflow-hidden rounded-full p-[3px]"
+            onClick={handleBack}
+          >
+            <span className="absolute inset-[-1000%] animate-spin bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <span className="flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                ← Back to Student Page
+            </span>
+          </button>
         </div>
       </div>
     );

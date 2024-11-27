@@ -48,25 +48,14 @@ function App() {
   const teamData = { teamName, Tsection, teamMembers };
 
   // States to hold evaluator data
-  const [evaluatorEmail, setEmail2] = useState('');
-  const [evaluatorPassword, setPassword2] = useState('');
-  const [evaluatorName, setName2] = useState('');
-  const [evaluatorSection, setSection2] = useState('');
-  const [evaluatorStudentId, setStudentId2] = useState('');
-  const evaluatorData = { evaluatorEmail, evaluatorPassword, evaluatorName, evaluatorSection, evaluatorStudentId };
-
-  
+  const [evaluatedEmail, setEmail2] = useState('');
+  const [evaluatedPassword, setPassword2] = useState('');
+  const [evaluatedName, setName2] = useState('');
+  const [evaluatedSection, setSection2] = useState('');
+  const [evaluatedStudentId, setStudentId2] = useState('');
+  const evaluatedData = { evaluatedEmail, evaluatedPassword, evaluatedName, evaluatedSection, evaluatedStudentId };
 
 
-  // Handler to switch to Instructor Page
-  const goToInstructorPage = () => {
-    setCurrentComponent('instructor');
-  };
-
-  // Handler to switch to Results Page
-  const goToResultsPage = () => {
-    setCurrentComponent('resultsPage');
-  };
 
   // Function to handle button clicks and navigate to different components
   const handleButtonClick = (component) => {
@@ -108,18 +97,18 @@ function App() {
   };
 
   // Function to handle evaluation form
-  const handleEvaluationForm = (student, evaluator) => {
-    setEmail(student.email);
-    setName(student.name);
-    setSection(student.section);
-    setStudentId(student.studentId);
-    setPassword(student.password);
+  const handleEvaluationForm = (evaluated, evaluator) => {
+    setEmail(evaluator.email);
+    setName(evaluator.name);
+    setSection(evaluator.section);
+    setStudentId(evaluator.studentId);
+    setPassword(evaluator.password);
 
-    setEmail2(evaluator.email);
-    setName2(evaluator.name);
-    setSection2(evaluator.section);
-    setStudentId2(evaluator.studentId);
-    setPassword2(evaluator.password);
+    setEmail2(evaluated.email);
+    setName2(evaluated.name);
+    setSection2(evaluated.section);
+    setStudentId2(evaluated.studentId);
+    setPassword2(evaluated.password);
     setCurrentComponent('evaluationForm'); // Navigate to evaluation form
   };
 
@@ -227,7 +216,7 @@ function App() {
         <StudentPage student={studentData} handleEvaluationForm={handleEvaluationForm} />
       )}
       {currentComponent === 'evaluationForm' && (
-        <EvaluationForm student={studentData} evaluator={evaluatorData} navigate={setCurrentComponent}/>
+        <EvaluationForm student={evaluatedData} evaluator={studentData} navigate={setCurrentComponent}/>
       )}
       {currentComponent === 'resultsPage' && (
         <ResultsPage instructor = {instructorData} navigate={setCurrentComponent}/> )
