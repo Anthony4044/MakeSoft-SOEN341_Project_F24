@@ -47,3 +47,17 @@ N/A
 
 **Comments/Notes:**
 - Debugging can be more easily understood by the different layers of tests
+
+
+### 2024-11-26
+
+**Team Member:** Oscar Mirontsuk  
+**Student Id:** 40191431  
+**GitHub Name:** ren-cc  
+**Time Spent:** 3 hours 
+
+**Worked On:**
+- Added buttons to student page 
+
+**Comments/Notes:**
+N/A
