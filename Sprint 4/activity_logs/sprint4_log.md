@@ -101,7 +101,18 @@ N/A
 **Comments/Notes:**
 - None
 
+### 2024-11-26
 
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** mark9494 
+**Time Spent:** 2 hours 
+
+**Worked On:**
+- fixed reviews of removed students from team not being deleted from database
+
+**Comments/Notes:**
+- None
 ---
 
 
