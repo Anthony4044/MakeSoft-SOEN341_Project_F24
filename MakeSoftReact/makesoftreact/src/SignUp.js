@@ -91,6 +91,7 @@ const InstructorSignup = (props) => {
             <button
               className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
+              onClick={() => alert('Sorry! We have not implemented this feature yet.')}
             >
               <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
               <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -101,6 +102,7 @@ const InstructorSignup = (props) => {
             <button
               className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
+              onClick={() => alert('Sorry! We have not implemented this feature yet.')}
             >
               <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
               <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -111,6 +113,7 @@ const InstructorSignup = (props) => {
             <button
               className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
+              onClick={() => alert('Naughty naughty! 😳')}
             >
               <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
               <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -167,6 +170,7 @@ const StudentSignup = (props) => {
     } catch (error) {
       console.error(error);
       alert('An error occurred during signup.');
+
     }
   };
 
@@ -264,7 +268,7 @@ const StudentSignup = (props) => {
           <button
             className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
-            onClick={() => props.onStudentSignup('github')} // Example handler
+            onClick={() => alert('Sorry! We have not implemented this feature yet.')}
           >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -275,7 +279,7 @@ const StudentSignup = (props) => {
           <button
             className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
-            onClick={() => props.onStudentSignup('google')} // Example handler
+            onClick={() => alert('Sorry! We have not implemented this feature yet.')}
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -286,7 +290,7 @@ const StudentSignup = (props) => {
           <button
             className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
-            onClick={() => props.onStudentSignup('onlyfans')} // Example handler
+            onClick={() => alert('Naughty naughty! 😳')}
           >
             <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
