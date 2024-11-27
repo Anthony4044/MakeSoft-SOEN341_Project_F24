@@ -87,7 +87,35 @@ N/A
 - None
 
 
+### 2024-11-22
 
+**Team Member:** Firas Al Haddad 
+**Student Id:** 40283180   
+**GitHub Name:** Lemonada10  
+**Time Spent:** 3 hours 
+
+**Worked On:**
+- US.17 As a developer, I want to integrate SonarQube so that I can have code analysis reports.
 
 **Comments/Notes:**
-N/A
+- Create sonar-project.properties file
+
+### 2024-11-23
+
+**Team Member:** Firas Al Haddad 
+**Student Id:** 40283180   
+**GitHub Name:** Lemonada10  
+**Time Spent:** 4 hours 
+
+**Worked On:**
+- US.17 As a developer, I want to integrate SonarQube so that I can have code analysis reports.
+
+**Comments/Notes:**
+- Create a new GitHub Actions workflow YAML file (.github/workflows/sonar.yml)
+
+### 2024-11-23
+
+**Team Member:** Firas Al Haddad 
+**Student Id:** 40283180   
+**GitHub Name:** Lemonada10  
+**Time Spent:** 2 hours 
