@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from "react";
 import { cn } from "../../utils/cn"; // Adjust the relative path
 import { createNoise3D } from "simplex-noise";
 import { motion } from "framer-motion";
-import staticVortexBg from '../../static_Vortex_bg.png'; // Adjust the relative path
 
 export const Vortex = (props) => {
   const canvasRef = useRef(null);

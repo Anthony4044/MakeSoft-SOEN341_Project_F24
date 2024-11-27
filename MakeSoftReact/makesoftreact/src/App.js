@@ -5,14 +5,10 @@ import Signin from './SignIn';
 import InstructorPage from './instructorPage'; // Import InstructorPage
 import StudentPage from './studentPage';
 import EvaluationForm from './evaluationForm';
-import InfoPage from './about'; 
+import InfoPage from './about';
 import ResultsPage from './resultsPage';
-
-
 // import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
 // import { Menu, MenuItem, Button, MenuMenu, ButtonGroup, ButtonOr } from 'semantic-ui-react';
-
-
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./components/ui/navbar-menu";
 import './components/ui/light_border'; // Import the CSS file
 import { cn } from "./utils/cn";
@@ -114,7 +110,7 @@ function App() {
 
   const handleSummarizedResults = (instructor) => {
     setInstructorData(instructor);
-    setCurrentComponent('resultsPage'); 
+    setCurrentComponent('resultsPage');
   };
 
 
@@ -135,30 +131,30 @@ function App() {
             setActive={setActive}
             item="Home"
             onClick={() => handleButtonClick('home')}
-            style={{ padding: '110px!important'}}
+            style={{ padding: '110px!important' }}
           >
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="About">
-          <HoveredLink onClick={() => handleButtonClick('infoPage')}>                <button
+            <HoveredLink onClick={() => handleButtonClick('infoPage')}>                <button
               className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
-                About
+              About
               <BottomGradient />
-              </button></HoveredLink>
+            </button></HoveredLink>
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="Account">
-            <div className="flex flex-col space-y-4 text-sm " style={{ fontSize: '20px', padding:'10px'}}>
+            <div className="flex flex-col space-y-4 text-sm " style={{ fontSize: '20px', padding: '10px' }}>
               <HoveredLink onClick={() => handleButtonClick('signin')}>                <button
-              className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
+                className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
                 Sign In
-              <BottomGradient />
+                <BottomGradient />
               </button></HoveredLink>
               <HoveredLink onClick={() => handleButtonClick('signup')} >
                 <button
-              className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
-                Sign Up
-              <BottomGradient />
-              </button>
-            </HoveredLink>
+                  className="px-2 relative group/btn bg-gradient-to-br from-black to-neutral-600 dark:from-zinc-900 dark:to-zinc-900 w-full text-white rounded-md h-10 font-medium">
+                  Sign Up
+                  <BottomGradient />
+                </button>
+              </HoveredLink>
             </div>
           </MenuItem>
         </Menu>
@@ -196,7 +192,7 @@ function App() {
             backgroundColor="black"
             className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full">
             <h2 className="text-white text-7xl font-bold text-center">
-            Peer Evaluation
+              Peer Evaluation
             </h2>
             <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center ">
               By MakeSoft

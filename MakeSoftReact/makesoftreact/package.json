@@ -13,9 +13,6 @@
     "@tabler/icons-react": "^3.21.0",
     "@tensorflow-models/toxicity": "^1.2.2",
     "@tensorflow/tfjs": "^1.7.4",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
     "axios": "^1.7.7",
     "bad-words": "^4.0.0",
@@ -38,7 +35,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -60,21 +57,34 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "autoprefixer": "^10.4.20",
+    "babel-jest": "^29.7.0",
     "canvas": "^2.11.2",
     "cypress": "^13.16.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14"
   },
   "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less|scss)$": "<rootDir>/src/styleMock.js"
-    },
-    "testEnvironment": "jsdom"
-  }
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js",
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  },
+  "transform": {
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+  },
+  "testEnvironment": "jsdom",
+  "transformIgnorePatterns": [
+    "/node_modules/(?!bad-words|badwords-list)"
+  ]
+}
+
 }
