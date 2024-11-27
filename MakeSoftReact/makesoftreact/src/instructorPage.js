@@ -24,12 +24,13 @@ const LabelInputContainer = ({ children, className }) => {
 
 // Instructor Page Component
 const InstructorPage = ({ instructor, handleSummarizedResults }) => {
-  const [students, setStudents] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [teamName, setTeamName] = useState('');
-  const [message, setMessage] = useState('');
-  const [teamColors, setTeamColors] = useState({});
+  const [students, setStudents] = useState([]); // List of students
+  const [teams, setTeams] = useState([]); // List of teams
+  const [teamName, setTeamName] = useState('');  // New team name input
+  const [message, setMessage] = useState(''); // Feedback message
+  const [teamColors, setTeamColors] = useState({}); // Colors assigned to each team
 
+  // Fetch students and teams when the instructor data is available
   useEffect(() => {
     if (instructor) {
       fetchStudents();
@@ -38,6 +39,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instructor]);
 
+  // Fetch list of students from API
   const fetchStudents = async () => {
     try {
       const response = await axios.get(
@@ -50,12 +52,14 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
     }
   };
 
+  // Fetch list of teams from API
   const fetchTeams = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/instructors/${instructor.section}/teams`
       );
 
+      // Assign random colors to teams for display
       const teamsWithColor = (response.data || []).map((team) => {
         if (!teamColors[team.teamName]) {
           teamColors[team.teamName] = getRandomDarkColor();
@@ -63,13 +67,14 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
         return { ...team, color: teamColors[team.teamName] };
       });
 
-      setTeams(teamsWithColor);
+      setTeams(teamsWithColor); // Update team state
     } catch (error) {
       console.error('Error fetching teams:', error);
       setMessage('Error fetching teams.');
     }
   };
 
+  // Generate random dark color for team display
   const getRandomDarkColor = () => {
     const colors = [
       '#2980b9', // Medium blue
@@ -80,6 +85,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  // Handle team creation form submission
   const handleCreateTeam = async (e) => {
     e.preventDefault();
     if (!teamName) {
@@ -93,7 +99,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
       section: instructor.section,
       studentIds: [],
       teamMembers: [], // Start with an empty team
-      color: getRandomDarkColor(),
+      color: getRandomDarkColor(), // Assign random color
     };
 
     try {
@@ -102,14 +108,15 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
         team
       );
       setMessage(`${team.teamName} has been created successfully!`);
-      setTeamName('');
-      fetchTeams();
+      setTeamName(''); // Reset input field
+      fetchTeams(); // Refresh teams list
     } catch (error) {
       console.error('Error creating team:', error);
       setMessage('Failed to create team.');
     }
   };
 
+  // Handle assigning a student to a team
   const handleAssignStudent = async (studentId, teamName) => {
     try {
       await axios.post(
@@ -126,7 +133,7 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
   };
 
 
-
+  // Handle removing a student from a team
   const handleRemoveStudent = async (studentId, teamName) => {
     try {
       await axios.post(
@@ -142,16 +149,19 @@ const InstructorPage = ({ instructor, handleSummarizedResults }) => {
     }
   };
 
+  // Filter out students who are not assigned to any team
   const unassignedStudents = students.filter(
     (student) => !teams.some((team) => team.studentIds.includes(student.studentId))
   );
 
+  // Generate options for assigning students to teams
   const teamOptions = teams.map((team) => ({
     key: team.teamName,
     text: team.teamName,
     value: team.teamName,
   }));
 
+  // If instructor data is not available, show a message
   if (!instructor) {
     return (
       <div className="w-full flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
