@@ -59,5 +59,35 @@ N/A
 **Worked On:**
 - Added buttons to student page 
 
+
+### 2024-11-22
+
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** mark9494 
+**Time Spent:** 4 hours 
+
+**Worked On:**
+- ENH.06 Implemented email sending for students added to a new team.
+
+**Comments/Notes:**
+- None
+
+  ### 2024-11-23
+
+**Team Member:** Mark Antoun  
+**Student Id:** 40275666  
+**GitHub Name:** mark9494 
+**Time Spent:** 2 hours 
+
+**Worked On:**
+- US.17 helped Firas implement SonarQube.
+
+**Comments/Notes:**
+- None
+
+
+
+
 **Comments/Notes:**
 N/A
