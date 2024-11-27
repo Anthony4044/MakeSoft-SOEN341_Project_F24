@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './SignIn.css'
-// import { FormField, Button, ButtonContent, Icon, Checkbox, Form, FormInput, FormGroup } from 'semantic-ui-react'
-// import {
-//   Radio, Segment, Label, Message
-// } from 'semantic-ui-react'
-// import conco_library from './Conco-library.jpg';
 
 import { Boxes } from './components/ui/background-boxes';
 import { Label } from "./components/ui/label";
@@ -28,20 +23,26 @@ const InstructorSignin = (props) => {
 
   //Backend TODO
   const handleSignin = async (e) => {
-    e.preventDefault();
-    const instructor = { email, password, name, section };
+    e.preventDefault(); // Prevent the form from refreshing the page
+    const instructor = { email, password, name, section }; // Prepare instructor object
     try {
+      // Send POST request to backend API for instructor sign-in
       const response = await axios.post('http://localhost:8080/api/instructors/signin', instructor);
       if (response.data) {
+        // Update instructor object with response data and show success alert
         instructor.id = response.data.id;
         instructor.email = response.data.email;
         instructor.name = response.data.name;
         instructor.section = response.data.section;
         alert(response.data.name + ' signed in successfully!');
+
+        // Call the callback function passed via props if provided
         if (props.onInstructorSignin) {
           props.onInstructorSignin(instructor);
         }
-      } else {
+      } 
+      // Display an alert if sign-in fails
+        else {
         alert('Failed to sign in. Instructor not found.');
       }
     } catch (error) {
@@ -128,6 +129,7 @@ const InstructorSignin = (props) => {
   );
 };
 
+// Bottom gradient effect for buttons (used for hover effect)
 const BottomGradient = () => {
   return (
     <>
@@ -137,6 +139,7 @@ const BottomGradient = () => {
   );
 };
 
+// Helper component for the label and input container
 const LabelInputContainer = ({ children, className }) => {
   return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
 };
