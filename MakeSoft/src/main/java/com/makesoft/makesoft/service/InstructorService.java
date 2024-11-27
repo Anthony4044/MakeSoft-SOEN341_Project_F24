@@ -9,6 +9,7 @@ import com.makesoft.makesoft.repository.ReviewRepository;
 import com.makesoft.makesoft.repository.StudentRepository;
 import com.makesoft.makesoft.repository.TeamRepository;
 import jakarta.servlet.MultipartConfigElement;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -225,6 +226,7 @@ public class InstructorService {
      * @param studentId the ID of the student to remove
      * @return true if the student was removed successfully, false otherwise
      */
+    @Transactional
     public boolean removeStudentFromTeam(String section, String teamName, String studentId) {
         Optional<Team> teamOptional = teamRepository.findByTeamName(teamName);
         if (!teamOptional.isPresent()) {
@@ -237,6 +239,7 @@ public class InstructorService {
         }
         Student student = studentOptional.get();
         student.setTeam(null);
+        reviewRepository.deleteByReviewer(student);
         studentRepository.save(student);
         return true;
     }
