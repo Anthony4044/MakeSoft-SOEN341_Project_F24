@@ -40,7 +40,7 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
           setTeamMembers(response2.data || []);
         } catch (e) {
           console.error('Error fetching team members', e);
-          alert('Error finding team members');
+         
         }
         setTeamName(response.data.teamName);
         setSection(response.data.section);
@@ -48,7 +48,7 @@ const StudentPage = ({ student, handleEvaluationForm }) => {
       } catch (error) {
         console.error('Error fetching team', error);
         if (!hasAlerted.current) {
-          alert('Error fetching team');
+          
           hasAlerted.current = true;
         }
       }

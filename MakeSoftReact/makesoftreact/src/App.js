@@ -15,6 +15,7 @@ import { cn } from "./utils/cn";
 import './App.css';
 import { Vortex } from './components/ui/vortex';
 
+// Component for displaying a gradient effect at the bottom of buttons
 const BottomGradient = () => {
   return (
     <>
@@ -84,11 +85,11 @@ function App() {
   // Function to handle student signin
   const handleStudentSignin = (student) => {
     console.log('Student data received in App:', student);
-    setEmail(student.email);
-    setName(student.name);
-    setSection(student.section);
-    setStudentId(student.studentId);
-    setPassword(student.password);
+    setEmail(student.email); // Save student email in state
+    setName(student.name); // Save student name in state
+    setSection(student.section);    // Save student section in state
+    setStudentId(student.studentId);  // Save student ID in state
+    setPassword(student.password);    // Save student password in state
     setCurrentComponent('studentSignin'); // Navigate to student page after sign-in
   };
 
@@ -176,16 +177,7 @@ function App() {
         <Signin onInstructorSignin={handleInstructorSignin} onStudentSignin={handleStudentSignin} />
       )}
       {currentComponent === 'home' && (
-        // <div>
-        //   <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg bg-wrapper">
-        //     <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
-        //     <Boxes />
-        //     <h1 className={cn("md:text-7xl text-xl text-white relative z-20")}>Peer Evaluation</h1>
-        //     <p className="text-center md:text-3xl mt-2 text-neutral-300 relative z-20">by MakeSoft</p>
-        //   </div>
-        // </div>
-
-
+        
         <div
           className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden bg-wrapper ">
           <Vortex
@@ -224,4 +216,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Export the App component

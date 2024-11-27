@@ -12,6 +12,7 @@ import './studentPage.css';
 // Set a threshold for toxicity classification
 const threshold = 0.9;
 
+// Custom list of bad words for additional profanity filtering
 const customBadWords = [
   'dumbass',
   'idiot',
@@ -31,6 +32,7 @@ const customBadWords = [
   'chump',
 ];
 
+// Initialize a profanity filter and add custom bad words
 const filter = new Filter();
 filter.addWords(...customBadWords);
 
@@ -49,7 +51,9 @@ const LabelInputContainer = ({ children, className }) => {
   return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>;
 };
 
+// Initialize a profanity filter and add custom bad words
 const EvaluationForm = ({ student, evaluator , navigate}) => {
+  // State to hold evaluation form data
   const handleBack = () => {
     navigate('studentSignin'); // Navigate back
   };
@@ -64,7 +68,10 @@ const EvaluationForm = ({ student, evaluator , navigate}) => {
     commentsWorkEthic: '',
   });
 
+  // State to track if the form has been submitted
   const [submitted, setSubmitted] = useState(false);
+
+  // State to hold the loaded toxicity model
   const [toxicityModel, setToxicityModel] = useState(null);
 
   // Load the toxicity model
@@ -74,11 +81,13 @@ const EvaluationForm = ({ student, evaluator , navigate}) => {
     });
   }, []);
 
+   // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAnswers((prevAnswers) => ({ ...prevAnswers, [name]: value }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -155,6 +164,7 @@ const EvaluationForm = ({ student, evaluator , navigate}) => {
     }
   };
 
+  // If the form is submitted, display a confirmation message
   if (submitted) {
     return (
       <div className="dark">
